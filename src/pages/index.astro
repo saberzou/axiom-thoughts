@@ -20,10 +20,10 @@ function getExcerpt(body: string): string {
     ) {
       let clean = trimmed.replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1');
       const sentenceEnd = clean.search(/[。！？.!?]/);
-      if (sentenceEnd > 0 && sentenceEnd < 120) {
+      if (sentenceEnd > 0 && sentenceEnd < 100) {
         clean = clean.slice(0, sentenceEnd + 1);
-      } else if (clean.length > 120) {
-        clean = clean.slice(0, 120) + '…';
+      } else if (clean.length > 100) {
+        clean = clean.slice(0, 100) + '…';
       }
       return clean;
     }
@@ -35,57 +35,100 @@ const defaultIcon = 'Content-Files-Books-2--Streamline-Pixel';
 ---
 <Base title="Axiom Thoughts">
   <style>
-    .post-list {
+    .post-grid {
       list-style: none;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
     }
 
-    .post-item {
-      padding: 1rem 0;
+    @media (max-width: 768px) {
+      .post-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .post-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+
+    .post-card {
       display: flex;
-      gap: 0.75rem;
-      align-items: center;
+      flex-direction: column;
     }
 
-    .post-item + .post-item {
-      border-top: 1px solid #f0f0f0;
-    }
-
-    .post-icon {
-      flex-shrink: 0;
-      width: 20px;
-      height: 20px;
-    }
-
-    .post-icon img {
-      width: 100%;
-      height: 100%;
-      image-rendering: pixelated;
-    }
-
-    .post-title {
-      font-size: 1rem;
-      font-weight: 400;
-    }
-
-    .post-title a {
-      color: #111;
+    .post-card a {
       text-decoration: none;
+      color: inherit;
     }
 
-    .post-title a:hover {
+    .post-card a:hover .post-thumb {
+      background-color: #eee;
+    }
+
+    .post-card a:hover .post-card-title {
       text-decoration: underline;
+    }
+
+    .post-thumb {
+      aspect-ratio: 16 / 9;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+    }
+
+    .post-thumb img {
+      width: 32px;
+      height: 32px;
+      image-rendering: pixelated;
+      opacity: 0.4;
+    }
+
+    .post-card-body {
+      padding: 0.75rem 0 0;
+    }
+
+    .post-card-date {
+      font-size: 0.7rem;
+      color: #999;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.25rem;
+    }
+
+    .post-card-title {
+      font-size: 0.95rem;
+      font-weight: 400;
+      line-height: 1.4;
+      margin-bottom: 0.35rem;
+      color: #111;
+    }
+
+    .post-card-excerpt {
+      font-size: 0.8rem;
+      color: #888;
+      line-height: 1.5;
     }
   </style>
 
-  <ul class="post-list">
+  <ul class="post-grid">
     {posts.map(post => (
-      <li class="post-item">
-        <div class="post-icon">
-          <img src={`${import.meta.env.BASE_URL}/icons/${post.data.icon || defaultIcon}.svg`} alt="" />
-        </div>
-        <h2 class="post-title">
-          <a href={`${import.meta.env.BASE_URL}/${post.id}`}>{post.data.title}</a>
-        </h2>
+      <li class="post-card">
+        <a href={`${import.meta.env.BASE_URL}/${post.id}`}>
+          <div class="post-thumb">
+            <img src={`${import.meta.env.BASE_URL}/icons/${post.data.icon || defaultIcon}.svg`} alt="" />
+          </div>
+          <div class="post-card-body">
+            <div class="post-card-date">{post.data.date}</div>
+            <h2 class="post-card-title">{post.data.title}</h2>
+            <p class="post-card-excerpt">{getExcerpt(post.body)}</p>
+          </div>
+        </a>
       </li>
     ))}
   </ul>
