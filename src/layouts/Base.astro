@@ -31,7 +31,7 @@ const { title } = Astro.props;
         font-family: 'Noto Sans SC', system-ui, -apple-system, sans-serif;
         font-weight: 400;
         line-height: 1.7;
-        padding: 0 1.5rem;
+        padding: 0 clamp(1rem, 5vw, 1.5rem);
       }
 
       .site-header {
