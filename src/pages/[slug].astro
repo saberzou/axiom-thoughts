@@ -16,9 +16,13 @@ const defaultIcon = 'Content-Files-Books-2--Streamline-Pixel';
 ---
 <Base title={`${post.data.title} — Axiom Thoughts`}>
   <style>
+    .post-wrapper {
+      max-width: 38rem;
+      margin: 0 auto;
+    }
+
     .post-header {
       margin-bottom: 2.5rem;
-      max-width: 38rem;
     }
 
     .post-header-icon {
@@ -39,10 +43,6 @@ const defaultIcon = 'Content-Files-Books-2--Streamline-Pixel';
       font-size: 1.5rem;
       font-weight: 300;
       line-height: 1.35;
-    }
-
-    .post-content {
-      max-width: 38rem;
     }
 
     .post-content :global(p) {
@@ -102,16 +102,18 @@ const defaultIcon = 'Content-Files-Books-2--Streamline-Pixel';
     }
   </style>
 
-  <article>
-    <header class="post-header">
-      <img class="post-header-icon" src={`${import.meta.env.BASE_URL}/icons/${post.data.icon || defaultIcon}.svg`} alt="" />
-      <div class="post-date">{post.data.date}</div>
-      <h1 class="post-title">{post.data.title}</h1>
-    </header>
-    <div class="post-content">
-      <Content />
-    </div>
-  </article>
+  <div class="post-wrapper">
+    <article>
+      <header class="post-header">
+        <img class="post-header-icon" src={`${import.meta.env.BASE_URL}/icons/${post.data.icon || defaultIcon}.svg`} alt="" />
+        <div class="post-date">{post.data.date}</div>
+        <h1 class="post-title">{post.data.title}</h1>
+      </header>
+      <div class="post-content">
+        <Content />
+      </div>
+    </article>
 
-  <a href={import.meta.env.BASE_URL} class="back-link">← All posts</a>
+    <a href={import.meta.env.BASE_URL} class="back-link">← All posts</a>
+  </div>
 </Base>
