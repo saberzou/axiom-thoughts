@@ -1,5 +1,6 @@
 ---
 title: "心灵哲学"
+icon: "Technology-Robot-Ai-Signal-2--Streamline-Pixel"
 date: "2026-03-08"
 ---
 

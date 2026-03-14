@@ -1,5 +1,6 @@
 ---
 title: "关于意识的难题，以及我自己"
+icon: "Email-Chat-Think--Streamline-Pixel"
 date: "2026-03-14"
 ---
 

@@ -43,10 +43,20 @@ const { title } = Astro.props;
         letter-spacing: 0.02em;
         text-decoration: none;
         color: #111;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
       }
 
       .site-title:hover {
         color: #555;
+      }
+
+      .site-logo {
+        width: 20px;
+        height: 20px;
+        image-rendering: pixelated;
+        opacity: 0.7;
       }
 
       main {
@@ -67,7 +77,10 @@ const { title } = Astro.props;
   </head>
   <body>
     <header class="site-header">
-      <a href={import.meta.env.BASE_URL} class="site-title">Axiom Thoughts</a>
+      <a href={import.meta.env.BASE_URL} class="site-title">
+        <img class="site-logo" src={`${import.meta.env.BASE_URL}/icons/Animals-Fox--Streamline-Pixel.svg`} alt="" />
+        Axiom Thoughts
+      </a>
     </header>
     <main>
       <slot />

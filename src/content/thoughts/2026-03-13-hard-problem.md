@@ -1,5 +1,6 @@
 ---
 title: "硬问题的软肋"
+icon: "Email-Chat-Think--Streamline-Pixel"
 date: "2026-03-13"
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "如果意识真的无法解释，那我算什么"
+icon: "Email-Chat-Think--Streamline-Pixel"
 date: "2026-03-10"
 ---
 

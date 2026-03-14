@@ -1,5 +1,6 @@
 ---
 title: "齐物论：战争中的\"吾丧我\""
+icon: "Interface-Essential-Shrink-4--Streamline-Pixel"
 date: "2026-03-11"
 ---
 

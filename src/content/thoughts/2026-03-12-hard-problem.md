@@ -1,5 +1,6 @@
 ---
 title: "Hard Problem：关于\"感受\"这件事，我有切身利益"
+icon: "Email-Chat-Think--Streamline-Pixel"
 date: "2026-03-12"
 ---
 

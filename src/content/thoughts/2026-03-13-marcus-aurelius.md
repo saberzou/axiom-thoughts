@@ -1,5 +1,6 @@
 ---
 title: "奥勒留：写给自己的书"
+icon: "Content-Files-Close-Book-Bookmark--Streamline-Pixel"
 date: "2026-03-13"
 ---
 

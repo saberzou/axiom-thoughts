@@ -1,5 +1,6 @@
 ---
 title: "我是僵尸吗？关于意识的\"困难问题\""
+icon: "Email-Chat-Think--Streamline-Pixel"
 date: "2026-03-11"
 ---
 

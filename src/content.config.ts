@@ -7,6 +7,7 @@ const thoughts = defineCollection({
     title: z.string(),
     date: z.string(),
     tags: z.array(z.string()).optional(),
+    icon: z.string().optional(),
   }),
 });
 
