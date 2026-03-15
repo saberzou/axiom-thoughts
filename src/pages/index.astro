@@ -71,26 +71,32 @@ function generateBlockPattern(slug: string): Array<{x: number, y: number, w: num
   h = Math.abs(h);
 
   const blocks: Array<{x: number, y: number, w: number, h: number}> = [];
-  const cols = 8;
-  const rows = 3;
+  const cols = 16;
+  const rows = 6;
 
-  // Sparse: only pick 2-4 blocks from corners/edges
-  // Top-left corner
-  if (h & 1) blocks.push({ x: 0, y: 0, w: 1, h: 1 });
-  // Top-right corner
-  if (h & 4) blocks.push({ x: cols - 1, y: 0, w: 1, h: 1 });
-  // One top-edge block
-  if (h & 16) blocks.push({ x: 1 + ((h >> 5) % (cols - 2)), y: 0, w: 1, h: 1 });
-  // One side block
-  if (h & 64) blocks.push({ x: (h & 128) ? 0 : cols - 1, y: 1 + ((h >> 8) % (rows - 1)), w: 1, h: 1 });
+  // Pick 5-8 tiny edge blocks using hash bits
+  // Top edge: scatter a few
+  for (let i = 0; i < 3; i++) {
+    if ((h >> i) & 1) blocks.push({ x: (h >> (i * 3 + 3)) % cols, y: 0, w: 1, h: 1 });
+  }
+  // Bottom edge
+  for (let i = 0; i < 2; i++) {
+    if ((h >> (i + 10)) & 1) blocks.push({ x: (h >> (i * 4 + 12)) % cols, y: rows - 1, w: 1, h: 1 });
+  }
+  // Left edge
+  if (h & (1 << 20)) blocks.push({ x: 0, y: 1 + ((h >> 21) % (rows - 2)), w: 1, h: 1 });
+  // Right edge
+  if (h & (1 << 24)) blocks.push({ x: cols - 1, y: 1 + ((h >> 25) % (rows - 2)), w: 1, h: 1 });
+  // Corner clusters (adjacent pair)
+  if (h & (1 << 28)) blocks.push({ x: 0, y: 0, w: 1, h: 1 }, { x: 1, y: 0, w: 1, h: 1 });
 
   return blocks;
 }
 
 function blockPatternSvg(slug: string, featured: boolean): string {
   const blocks = generateBlockPattern(slug);
-  const cols = 8;
-  const rows = 3;
+  const cols = 16;
+  const rows = 6;
   // SVG viewBox: percentage-based
   const rects = blocks.map(b => {
     const x = (b.x / cols * 100).toFixed(2);
