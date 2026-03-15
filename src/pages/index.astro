@@ -141,6 +141,7 @@ function getPainting(slug: string) {
       color: #999;
       letter-spacing: 0.04em;
       margin-bottom: 0.25rem;
+      font-family: 'Google Sans', system-ui, sans-serif;
     }
 
     .post-card-title {
@@ -170,7 +171,11 @@ function getPainting(slug: string) {
             </div>
             <div class="post-card-body">
               <div class="post-card-date">{post.data.date}</div>
-              <h2 class="post-card-title">{post.data.title}</h2>
+              <h2 class="post-card-title"
+                data-zh={post.data.title}
+                data-en={post.data.title_en || post.data.title}>
+                {post.data.title}
+              </h2>
               <p class="post-card-excerpt">{getExcerpt(post.body)}</p>
             </div>
           </a>
