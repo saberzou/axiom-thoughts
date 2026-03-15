@@ -34,16 +34,31 @@ function getExcerpt(body: string): string {
 // Impressionist landscape paintings from Art Institute of Chicago (open access)
 const AIC_IIIF = 'https://www.artic.edu/iiif/2';
 const paintings = [
+  // Monet
   { imageId: '3c27b499-af56-f0d5-93b5-a7f2f1ad5813', title: 'Water Lilies', artist: 'Claude Monet' },
   { imageId: 'a38e2828-ec6f-ece1-a30f-70243449197b', title: 'Stacks of Wheat (End of Summer)', artist: 'Claude Monet' },
   { imageId: '95be2572-b53d-8e7b-abc9-10eb48d4fa5d', title: 'The Beach at Sainte-Adresse', artist: 'Claude Monet' },
-  { imageId: '0f1cc0e0-e42e-be16-3f71-2022da38cb93', title: 'Arrival of the Normandy Train', artist: 'Claude Monet' },
-  { imageId: '8534685d-1102-e1e3-e194-94f6e925e8b0', title: 'Water Lily Pond', artist: 'Claude Monet' },
-  { imageId: 'f8fd76e9-c396-5678-36ed-6a348c904d27', title: 'Paris Street; Rainy Day', artist: 'Gustave Caillebotte' },
-  { imageId: '2d484387-2509-5e8e-2c43-22f9981972eb', title: 'A Sunday on La Grande Jatte', artist: 'Georges Seurat' },
+  { imageId: 'b0effb1c-ff23-bbaa-f809-9fd94e31c1a0', title: 'Cliff Walk at Pourville', artist: 'Claude Monet' },
+  { imageId: '4d1b3ad0-14db-0d21-ad9f-17abb8bdfbb5', title: 'Bordighera', artist: 'Claude Monet' },
+  { imageId: '4c364c64-2108-4e19-5fc5-1ab26ba924a7', title: 'Stacks of Wheat (End of Day, Autumn)', artist: 'Claude Monet' },
+  // Sisley
+  { imageId: '0f076222-52b2-9bb4-4409-72fdf485d895', title: 'A Turn in the Road', artist: 'Alfred Sisley' },
+  { imageId: 'c4425cb6-d8b5-6390-603d-7f802406d05d', title: 'The Seine at Port-Marly', artist: 'Alfred Sisley' },
+  { imageId: 'bcc9c3a7-f5b0-41af-210a-bd17797d77d9', title: 'The Loire', artist: 'Alfred Sisley' },
+  { imageId: 'ed7aa098-e5c9-04dd-b09c-3416d1c56854', title: 'Watering Place at Marly', artist: 'Alfred Sisley' },
+  // Pissarro
+  { imageId: '053f9be8-3617-c4ef-36cd-1deb5e13b288', title: 'Rabbit Warren at Pontoise, Snow', artist: 'Camille Pissarro' },
+  { imageId: '3d950ecc-73f4-c28a-f216-0940b23fa5e8', title: 'The Banks of the Marne in Winter', artist: 'Camille Pissarro' },
+  { imageId: 'b84a9755-ca8d-8bd5-5a59-e910b20e3ba5', title: 'Haymaking at Éragny', artist: 'Camille Pissarro' },
+  { imageId: '4eb368b5-3b66-ae2c-bd4a-2643015e05fc', title: 'The Crystal Palace', artist: 'Camille Pissarro' },
+  // Cézanne
   { imageId: 'd4ca6321-8656-3d3f-a362-2ee297b2b813', title: 'The Bay of Marseille', artist: 'Paul Cézanne' },
-  { imageId: '3a608f55-d76e-fa96-d0b1-0789fbc48f1e', title: 'Two Sisters (On the Terrace)', artist: 'Pierre-Auguste Renoir' },
-  { imageId: '47c5bcb8-62ef-e5d7-55e7-f5121f409a30', title: 'Self-Portrait', artist: 'Vincent van Gogh' },
+  { imageId: '90bc0cec-0d4e-9af5-3912-52a082a428e5', title: 'Auvers, Panoramic View', artist: 'Paul Cézanne' },
+  // Van Gogh
+  { imageId: 'd4bc1723-7cbc-d36d-a9cb-f84553f2a6f6', title: 'The Poet\'s Garden', artist: 'Vincent van Gogh' },
+  { imageId: '5512cee9-6d00-d01b-b0be-ac7843cc8f76', title: 'Fishing in Spring, Pont de Clichy', artist: 'Vincent van Gogh' },
+  { imageId: '6cb22407-be79-bf0a-1a63-fdf2b99e035b', title: 'Terrace at the Moulin de la Galette', artist: 'Vincent van Gogh' },
+  { imageId: '25c31d8d-21a4-9ea1-1d73-6a2eca4dda7e', title: 'The Bedroom', artist: 'Vincent van Gogh' },
 ];
 
 function slugHash(slug: string): number {
