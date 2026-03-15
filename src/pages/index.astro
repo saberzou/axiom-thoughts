@@ -93,6 +93,30 @@ function getPainting(slug: string) {
       flex-direction: column;
     }
 
+    .post-card.featured {
+      grid-column: span 2;
+    }
+
+    .post-card.featured .post-thumb {
+      aspect-ratio: 16 / 7;
+    }
+
+    .post-card.featured .post-card-title {
+      font-size: 1.25rem;
+    }
+
+    @media (max-width: 480px) {
+      .post-card.featured {
+        grid-column: span 1;
+      }
+      .post-card.featured .post-thumb {
+        aspect-ratio: 16 / 6;
+      }
+      .post-card.featured .post-card-title {
+        font-size: 0.95rem;
+      }
+    }
+
     .post-card a {
       text-decoration: none;
       color: inherit;
@@ -150,17 +174,18 @@ function getPainting(slug: string) {
   </style>
 
   <ul class="post-grid">
-    {zhPosts.map(post => {
+    {zhPosts.map((post, i) => {
       const enPost = enMap.get(post.id);
       const fb = post.data.painting_id ? null : getFallbackPainting(post.id);
       const pId = post.data.painting_id || fb!.imageId;
       const pTitle = post.data.painting_title || fb?.title || '';
       const pArtist = post.data.painting_artist || fb?.artist || '';
-      const imgUrl = `${AIC_IIIF}/${pId}/full/400,/0/default.jpg`;
+      const isFeatured = i === 0;
+      const imgUrl = `${AIC_IIIF}/${pId}/full/${isFeatured ? '800' : '400'},/0/default.jpg`;
       const zhExcerpt = getExcerpt(post.body ?? '');
       const enExcerpt = enPost ? getExcerpt(enPost.body ?? '') : zhExcerpt;
       return (
-        <li class="post-card">
+        <li class={`post-card${isFeatured ? ' featured' : ''}`}>
           <a href={`${import.meta.env.BASE_URL}/${post.id}`}>
             <div class="post-thumb">
               <img src={imgUrl} alt={`${pTitle} — ${pArtist}`} />
