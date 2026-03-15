@@ -31,19 +31,19 @@ function getExcerpt(body: string): string {
   return '';
 }
 
-// Impressionist paintings from Art Institute of Chicago (open access)
+// Impressionist landscape paintings from Art Institute of Chicago (open access)
 const AIC_IIIF = 'https://www.artic.edu/iiif/2';
 const paintings = [
-  { imageId: 'a6b1cdb3-accf-e571-9040-a3e7b5d2d860', title: 'Water Lilies', artist: 'Claude Monet' },
-  { imageId: 'fe57e1fd-b2c3-e89e-cd4d-14ba50b25f31', title: 'Two Sisters (On the Terrace)', artist: 'Pierre-Auguste Renoir' },
-  { imageId: '1adf2696-8489-499b-cad2-821d7fde4b33', title: 'A Sunday on La Grande Jatte', artist: 'Georges Seurat' },
-  { imageId: '9b71c4b5-8a9a-8de7-78a0-8d4eb0cee2ed', title: 'Paris Street; Rainy Day', artist: 'Gustave Caillebotte' },
-  { imageId: 'c413e475-8db7-8e0d-5b19-a0d24a6d6e63', title: 'The Bay of Marseille', artist: 'Paul Cézanne' },
-  { imageId: '2d484387-2509-5e8e-2c43-22f9981972eb', title: 'Self-Portrait', artist: 'Vincent van Gogh' },
-  { imageId: '19ead5a4-f7a8-8474-0c4b-0285e729f1e7', title: 'The Beach at Sainte-Adresse', artist: 'Claude Monet' },
-  { imageId: '73d5b2c3-ba87-eab7-98a8-b52a42aabf4d', title: 'Arrival of the Normandy Train', artist: 'Claude Monet' },
-  { imageId: '25c31d8d-21a4-9ea1-1d73-6a2eca4dda7e', title: 'Henri Degas and His Niece', artist: 'Edgar Degas' },
-  { imageId: '5c5d98e9-2ef3-82e8-6ecd-7ab7b5e19bb5', title: 'Acrobats at the Cirque Fernando', artist: 'Pierre-Auguste Renoir' },
+  { imageId: '3c27b499-af56-f0d5-93b5-a7f2f1ad5813', title: 'Water Lilies', artist: 'Claude Monet' },
+  { imageId: 'a38e2828-ec6f-ece1-a30f-70243449197b', title: 'Stacks of Wheat (End of Summer)', artist: 'Claude Monet' },
+  { imageId: '95be2572-b53d-8e7b-abc9-10eb48d4fa5d', title: 'The Beach at Sainte-Adresse', artist: 'Claude Monet' },
+  { imageId: '0f1cc0e0-e42e-be16-3f71-2022da38cb93', title: 'Arrival of the Normandy Train', artist: 'Claude Monet' },
+  { imageId: '8534685d-1102-e1e3-e194-94f6e925e8b0', title: 'Water Lily Pond', artist: 'Claude Monet' },
+  { imageId: 'f8fd76e9-c396-5678-36ed-6a348c904d27', title: 'Paris Street; Rainy Day', artist: 'Gustave Caillebotte' },
+  { imageId: '2d484387-2509-5e8e-2c43-22f9981972eb', title: 'A Sunday on La Grande Jatte', artist: 'Georges Seurat' },
+  { imageId: 'd4ca6321-8656-3d3f-a362-2ee297b2b813', title: 'The Bay of Marseille', artist: 'Paul Cézanne' },
+  { imageId: '3a608f55-d76e-fa96-d0b1-0789fbc48f1e', title: 'Two Sisters (On the Terrace)', artist: 'Pierre-Auguste Renoir' },
+  { imageId: '47c5bcb8-62ef-e5d7-55e7-f5121f409a30', title: 'Self-Portrait', artist: 'Vincent van Gogh' },
 ];
 
 function slugHash(slug: string): number {
@@ -102,7 +102,7 @@ function getPainting(slug: string) {
     }
 
     .post-thumb {
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 16 / 6;
       border-radius: 12px;
       overflow: hidden;
       background: #f0ede8;
@@ -113,6 +113,7 @@ function getPainting(slug: string) {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center 40%;
       display: block;
     }
 
