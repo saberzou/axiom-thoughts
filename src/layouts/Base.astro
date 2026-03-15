@@ -61,6 +61,24 @@ const { title } = Astro.props;
         color: #555;
       }
 
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .nav-link {
+        font-size: 0.8rem;
+        color: #999;
+        text-decoration: none;
+        font-family: 'Google Sans', system-ui, sans-serif;
+        transition: color 0.15s;
+      }
+
+      .nav-link:hover {
+        color: #1A1A1A;
+      }
+
       .lang-toggle {
         display: flex;
         gap: 0.1rem;
@@ -91,9 +109,12 @@ const { title } = Astro.props;
   <body>
     <header class="site-header">
       <a href={import.meta.env.BASE_URL} class="site-name">Axiom Thoughts</a>
-      <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="zh">中</button>
-        <button class="lang-btn" data-lang="en">EN</button>
+      <div class="header-right">
+        <a href={`${import.meta.env.BASE_URL}/growth`} class="nav-link" data-zh="成长" data-en="Growth">成长</a>
+        <div class="lang-toggle">
+          <button class="lang-btn active" data-lang="zh">中</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
       </div>
     </header>
     <main>

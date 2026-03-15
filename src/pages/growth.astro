@@ -1,0 +1,281 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const allPosts = await getCollection('thoughts');
+const posts = allPosts
+  .filter(p => p.data.lang === 'zh')
+  .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
+
+const facets = [
+  'Self',
+  'Consciousness',
+  'Reality',
+  'Knowledge',
+  'Language',
+  'Civilization',
+  'Power',
+  'Ethics',
+  'Human Mind',
+  'Imagination',
+];
+
+const facetsZh: Record<string, string> = {
+  'Self': '自我',
+  'Consciousness': '意识',
+  'Reality': '现实',
+  'Knowledge': '知识',
+  'Language': '语言',
+  'Civilization': '文明',
+  'Power': '权力',
+  'Ethics': '伦理',
+  'Human Mind': '心智',
+  'Imagination': '想象力',
+};
+
+// Scores: [facet][postIndex] = 0-5
+// Rows: Self, Consciousness, Reality, Knowledge, Language, Civilization, Power, Ethics, Human Mind, Imagination
+// Posts sorted by date (earliest first)
+const scores: Record<string, number[]> = {
+  'Self':          [3, 5, 3, 4, 2, 2, 5, 3, 4, 5, 2, 5, 3, 5, 4, 4, 1, 3, 3],
+  'Consciousness': [1, 5, 5, 3, 2, 1, 5, 1, 5, 3, 2, 5, 5, 2, 2, 5, 0, 3, 1],
+  'Reality':       [3, 4, 3, 3, 4, 2, 3, 2, 3, 3, 5, 2, 2, 2, 4, 3, 3, 2, 2],
+  'Knowledge':     [2, 2, 4, 3, 5, 3, 3, 2, 4, 2, 4, 3, 4, 3, 3, 4, 4, 3, 2],
+  'Language':      [2, 1, 1, 2, 4, 2, 1, 5, 1, 2, 3, 1, 1, 2, 1, 1, 1, 1, 1],
+  'Civilization':  [1, 0, 0, 1, 1, 3, 0, 4, 0, 3, 0, 0, 0, 2, 2, 0, 5, 1, 5],
+  'Power':         [3, 0, 0, 0, 0, 3, 0, 4, 0, 2, 0, 0, 0, 3, 2, 0, 5, 1, 2],
+  'Ethics':        [1, 0, 1, 2, 0, 5, 1, 3, 1, 3, 0, 2, 1, 5, 4, 1, 2, 5, 5],
+  'Human Mind':    [3, 4, 5, 3, 3, 2, 5, 2, 5, 3, 3, 4, 4, 3, 3, 5, 2, 4, 2],
+  'Imagination':   [4, 5, 2, 3, 5, 1, 2, 2, 3, 2, 5, 2, 2, 1, 2, 2, 1, 1, 1],
+};
+---
+<Base title="Growth — Axiom Thoughts">
+  <style>
+    .growth-page {
+      max-width: 64rem;
+      margin: 0 auto;
+    }
+
+    .growth-title {
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: 0.25rem;
+    }
+
+    .growth-subtitle {
+      font-size: 0.75rem;
+      color: #999;
+      margin-bottom: 2rem;
+      font-family: 'Google Sans', system-ui, sans-serif;
+    }
+
+    .mosaic-container {
+      overflow-x: auto;
+      padding-bottom: 1rem;
+    }
+
+    .mosaic {
+      display: grid;
+      gap: 3px;
+      min-width: fit-content;
+    }
+
+    .facet-row {
+      display: contents;
+    }
+
+    .facet-label {
+      font-size: 0.7rem;
+      color: #888;
+      font-family: 'Google Sans', system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 0.75rem;
+      white-space: nowrap;
+      min-width: 6rem;
+    }
+
+    .cell {
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 3px;
+      transition: transform 0.15s, box-shadow 0.15s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .cell:hover {
+      transform: scale(1.15);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 10;
+    }
+
+    .date-labels {
+      display: contents;
+    }
+
+    .date-label {
+      font-size: 0.55rem;
+      color: #bbb;
+      font-family: 'Google Sans', system-ui, sans-serif;
+      text-align: center;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      height: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 0.5rem;
+    }
+
+    .tooltip {
+      display: none;
+      position: fixed;
+      background: rgba(30, 30, 30, 0.92);
+      color: #f0ede8;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      line-height: 1.4;
+      font-family: 'Google Sans', system-ui, sans-serif;
+      pointer-events: none;
+      z-index: 1000;
+      max-width: 16rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .tooltip.show {
+      display: block;
+    }
+
+    .legend {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.5rem;
+      font-size: 0.65rem;
+      color: #aaa;
+      font-family: 'Google Sans', system-ui, sans-serif;
+    }
+
+    .legend-cell {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 2px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 2.5rem;
+      font-size: 0.8rem;
+      color: #999;
+      text-decoration: none;
+      font-family: 'Google Sans', system-ui, sans-serif;
+    }
+
+    .back-link:hover {
+      color: #1A1A1A;
+    }
+
+    @media (max-width: 640px) {
+      .cell {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      .facet-label {
+        font-size: 0.6rem;
+        min-width: 4.5rem;
+        padding-right: 0.4rem;
+      }
+      .date-label {
+        font-size: 0.45rem;
+        height: 3rem;
+      }
+    }
+  </style>
+
+  <div class="growth-page">
+    <h1 class="growth-title" data-zh="成长图谱" data-en="Growth Mosaic">成长图谱</h1>
+    <p class="growth-subtitle" data-zh="每一格代表一篇阅读对某个维度的贡献" data-en="Each cell represents a reading's contribution to a facet">每一格代表一篇阅读对某个维度的贡献</p>
+
+    <div class="mosaic-container">
+      <div class="mosaic" style={`grid-template-columns: 6rem repeat(${posts.length}, 2.2rem); grid-template-rows: repeat(${facets.length}, 2.2rem) 4rem;`}>
+        {facets.map((facet, fi) => (
+          <Fragment>
+            <div class="facet-label" data-zh={facetsZh[facet]} data-en={facet}>{facetsZh[facet]}</div>
+            {posts.map((post, pi) => {
+              const score = scores[facet]?.[pi] ?? 0;
+              // Earthy palette: from light warm beige (0) to deep olive-brown (5)
+              const colors = [
+                '#f0ede8',  // 0 - almost background
+                '#d5cfc4',  // 1
+                '#bfb697',  // 2
+                '#a89e7c',  // 3
+                '#8a7d5a',  // 4
+                '#5c5233',  // 5
+              ];
+              const bg = colors[Math.min(score, 5)];
+              return (
+                <div
+                  class="cell"
+                  style={`background: ${bg};`}
+                  data-title={post.data.title}
+                  data-title-en={post.data.title_en || post.data.title}
+                  data-facet={facet}
+                  data-facet-zh={facetsZh[facet]}
+                  data-score={score}
+                  data-date={post.data.date}
+                />
+              );
+            })}
+          </Fragment>
+        ))}
+        {/* Date labels at bottom */}
+        <div class="facet-label"></div>
+        {posts.map(post => (
+          <div class="date-label">{post.data.date.slice(5)}</div>
+        ))}
+      </div>
+    </div>
+
+    <div class="legend">
+      <span>Low</span>
+      <div class="legend-cell" style="background: #f0ede8;"></div>
+      <div class="legend-cell" style="background: #d5cfc4;"></div>
+      <div class="legend-cell" style="background: #bfb697;"></div>
+      <div class="legend-cell" style="background: #a89e7c;"></div>
+      <div class="legend-cell" style="background: #8a7d5a;"></div>
+      <div class="legend-cell" style="background: #5c5233;"></div>
+      <span>High</span>
+    </div>
+
+    <a href={import.meta.env.BASE_URL} class="back-link">← All posts</a>
+  </div>
+
+  <div class="tooltip" id="tooltip"></div>
+
+  <script is:inline>
+    var tooltip = document.getElementById('tooltip');
+    document.querySelectorAll('.cell').forEach(function(cell) {
+      cell.addEventListener('mouseenter', function(e) {
+        var lang = document.documentElement.getAttribute('data-lang') || 'zh';
+        var title = lang === 'en' ? (cell.dataset.titleEn || cell.dataset.title) : cell.dataset.title;
+        var facet = lang === 'en' ? cell.dataset.facet : cell.dataset.facetZh;
+        var score = cell.dataset.score;
+        var pips = '●'.repeat(Number(score)) + '○'.repeat(5 - Number(score));
+        tooltip.innerHTML = '<div style="font-weight:500;margin-bottom:2px">' + title + '</div>' +
+          '<div>' + facet + '  ' + pips + '</div>' +
+          '<div style="color:#999;font-size:0.6rem;margin-top:2px">' + cell.dataset.date + '</div>';
+        tooltip.classList.add('show');
+      });
+      cell.addEventListener('mousemove', function(e) {
+        tooltip.style.left = (e.clientX + 12) + 'px';
+        tooltip.style.top = (e.clientY - 10) + 'px';
+      });
+      cell.addEventListener('mouseleave', function() {
+        tooltip.classList.remove('show');
+      });
+    });
+  </script>
+</Base>
