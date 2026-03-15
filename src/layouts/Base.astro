@@ -109,8 +109,8 @@ const { title } = Astro.props;
     <header class="site-header">
       <a href={import.meta.env.BASE_URL} class="site-name">Axiom Thoughts</a>
       <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="zh" onclick="setLang('zh')">中</button>
-        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn active" data-lang="zh">中</button>
+        <button class="lang-btn" data-lang="en">EN</button>
       </div>
     </header>
     <main>
@@ -122,18 +122,24 @@ const { title } = Astro.props;
     <script is:inline>
       function setLang(lang) {
         document.documentElement.setAttribute('data-lang', lang);
-        document.querySelectorAll('.lang-btn').forEach(btn => {
+        document.querySelectorAll('.lang-btn').forEach(function(btn) {
           btn.classList.toggle('active', btn.dataset.lang === lang);
         });
-        document.querySelectorAll('[data-zh]').forEach(el => {
-          el.textContent = lang === 'en' ? el.dataset.en || el.dataset.zh : el.dataset.zh;
+        document.querySelectorAll('[data-zh]').forEach(function(el) {
+          el.textContent = lang === 'en' ? (el.dataset.en || el.dataset.zh) : el.dataset.zh;
         });
         localStorage.setItem('axiom-lang', lang);
       }
 
-      // Restore saved preference
-      const saved = localStorage.getItem('axiom-lang');
-      if (saved && saved !== 'zh') setLang(saved);
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.lang-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            setLang(btn.dataset.lang);
+          });
+        });
+        var saved = localStorage.getItem('axiom-lang');
+        if (saved && saved !== 'zh') setLang(saved);
+      });
     </script>
   </body>
 </html>
