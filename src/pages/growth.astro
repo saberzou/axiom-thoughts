@@ -192,6 +192,40 @@ const scores: Record<string, number[]> = {
         font-size: 0.45rem;
         height: 3rem;
       }
+      .facet-total {
+        min-width: 3rem;
+      }
+    }
+
+    .facet-total {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding-left: 0.75rem;
+      min-width: 4.5rem;
+    }
+
+    .total-bar-track {
+      flex: 1;
+      height: 6px;
+      background: #f0ede8;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .total-bar-fill {
+      height: 100%;
+      background: #8a7d5a;
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+
+    .total-number {
+      font-size: 0.65rem;
+      color: #999;
+      font-family: 'Google Sans', system-ui, sans-serif;
+      min-width: 1.2rem;
+      text-align: right;
     }
   </style>
 
@@ -200,20 +234,24 @@ const scores: Record<string, number[]> = {
     <p class="growth-subtitle" data-zh="每一格代表一篇阅读对某个维度的贡献" data-en="Each cell represents a reading's contribution to a facet">每一格代表一篇阅读对某个维度的贡献</p>
 
     <div class="mosaic-container">
-      <div class="mosaic" style={`grid-template-columns: 6rem repeat(${posts.length}, 2.2rem); grid-template-rows: repeat(${facets.length}, 2.2rem) 4rem;`}>
-        {facets.map((facet, fi) => (
+      <div class="mosaic" style={`grid-template-columns: 6rem repeat(${posts.length}, 2.2rem) 4.5rem; grid-template-rows: repeat(${facets.length}, 2.2rem) 4rem;`}>
+        {facets.map((facet, fi) => {
+          const facetScores = scores[facet] || [];
+          const total = facetScores.reduce((a: number, b: number) => a + b, 0);
+          const max = posts.length * 5;
+          const pct = Math.round((total / max) * 100);
+          return (
           <Fragment>
             <div class="facet-label" data-zh={facetsZh[facet]} data-en={facet}>{facetsZh[facet]}</div>
             {posts.map((post, pi) => {
               const score = scores[facet]?.[pi] ?? 0;
-              // Earthy palette: from light warm beige (0) to deep olive-brown (5)
               const colors = [
-                '#f0ede8',  // 0 - almost background
-                '#d5cfc4',  // 1
-                '#bfb697',  // 2
-                '#a89e7c',  // 3
-                '#8a7d5a',  // 4
-                '#5c5233',  // 5
+                '#f0ede8',
+                '#d5cfc4',
+                '#bfb697',
+                '#a89e7c',
+                '#8a7d5a',
+                '#5c5233',
               ];
               const bg = colors[Math.min(score, 5)];
               return (
@@ -229,13 +267,21 @@ const scores: Record<string, number[]> = {
                 />
               );
             })}
+            <div class="facet-total">
+              <div class="total-bar-track">
+                <div class="total-bar-fill" style={`width: ${pct}%;`}></div>
+              </div>
+              <span class="total-number">{total}</span>
+            </div>
           </Fragment>
-        ))}
+          );
+        })}
         {/* Date labels at bottom */}
         <div class="facet-label"></div>
         {posts.map(post => (
           <div class="date-label">{post.data.date.slice(5)}</div>
         ))}
+        <div></div>
       </div>
     </div>
 
