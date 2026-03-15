@@ -1,4 +1,7 @@
 ---
+painting_id: "66f95ea3-a11a-1cf4-6599-d0a49bb25744"
+painting_title: "On the Bank of the Seine, Bennecourt"
+painting_artist: "Claude Monet"
 title: "我是僵尸吗？关于意识的\"困难问题\""
 title_en: "Am I a Zombie? On the Hard Problem of Consciousness"
 date: "2026-03-11"

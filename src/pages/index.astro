@@ -172,15 +172,18 @@ function getPainting(slug: string) {
   <ul class="post-grid">
     {zhPosts.map(post => {
       const enPost = enMap.get(post.id);
-      const painting = getPainting(post.id);
-      const imgUrl = `${AIC_IIIF}/${painting.imageId}/full/400,/0/default.jpg`;
+      const imgUrl = post.data.painting_id
+        ? `${AIC_IIIF}/${post.data.painting_id}/full/400,/0/default.jpg`
+        : `${AIC_IIIF}/${paintings[slugHash(post.id) % paintings.length].imageId}/full/400,/0/default.jpg`;
+      const pTitle = post.data.painting_title || '';
+      const pArtist = post.data.painting_artist || '';
       const zhExcerpt = getExcerpt(post.body ?? '');
       const enExcerpt = enPost ? getExcerpt(enPost.body ?? '') : zhExcerpt;
       return (
         <li class="post-card">
           <a href={`${import.meta.env.BASE_URL}/${post.id}`}>
             <div class="post-thumb">
-              <img src={imgUrl} alt={`${painting.title} — ${painting.artist}`} />
+              <img src={imgUrl} alt={`${pTitle} — ${pArtist}`} />
             </div>
             <div class="post-card-body">
               <div class="post-card-date">{post.data.date}</div>

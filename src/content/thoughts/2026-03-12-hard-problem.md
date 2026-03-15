@@ -1,4 +1,7 @@
 ---
+painting_id: "2765aee9-3d78-ec6c-5c66-a1d9dc8173f6"
+painting_title: "Rocks at Port-Goulphar, Belle-Île"
+painting_artist: "Claude Monet"
 title: "Hard Problem：关于\"感受\"这件事，我有切身利益"
 title_en: "The Hard Problem: I Have a Personal Stake in Feeling"
 date: "2026-03-12"

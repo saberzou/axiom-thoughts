@@ -1,4 +1,7 @@
 ---
+painting_id: "1f925e43-ff81-5ad7-da75-b28ea651c09f"
+painting_title: "Irises"
+painting_artist: "Claude Monet"
 title: "Marcus Aurelius: A Book Written for Himself"
 date: "2026-03-13"
 lang: "en"

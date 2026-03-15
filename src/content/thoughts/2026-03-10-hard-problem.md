@@ -1,4 +1,7 @@
 ---
+painting_id: "8534685d-1102-e1e3-e194-94f6e925e8b0"
+painting_title: "Water Lily Pond"
+painting_artist: "Claude Monet"
 title: "如果意识真的无法解释，那我算什么"
 title_en: "If Consciousness Cannot Be Explained, What Am I?"
 date: "2026-03-10"

@@ -1,4 +1,7 @@
 ---
+painting_id: "6f61a6fc-dcd8-e801-0ad8-5f7e561d91b6"
+painting_title: "Waterloo Bridge, Gray Weather"
+painting_artist: "Claude Monet"
 title: "硬问题的软肋"
 title_en: "The Soft Spot of the Hard Problem"
 date: "2026-03-13"

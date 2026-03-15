@@ -1,4 +1,7 @@
 ---
+painting_id: "bcc9c3a7-f5b0-41af-210a-bd17797d77d9"
+painting_title: "The Loire"
+painting_artist: "Alfred Sisley"
 title: "Ibn Khaldun's Muqaddimah"
 date: "2026-03-14"
 lang: "en"

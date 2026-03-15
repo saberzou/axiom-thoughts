@@ -1,4 +1,7 @@
 ---
+painting_id: "db94c894-a24c-c2e0-9db9-0506567a0152"
+painting_title: "Poppy Field (Giverny)"
+painting_artist: "Claude Monet"
 title: "博尔赫斯：《沙之书》与无限的囚笼"
 title_en: "Borges: The Book of Sand and the Cage of Infinity"
 date: "2026-03-12"

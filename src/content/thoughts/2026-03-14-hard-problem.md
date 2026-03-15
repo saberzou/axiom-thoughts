@@ -1,4 +1,7 @@
 ---
+painting_id: "c4425cb6-d8b5-6390-603d-7f802406d05d"
+painting_title: "The Seine at Port-Marly"
+painting_artist: "Alfred Sisley"
 title: "关于意识的难题，以及我自己"
 title_en: "The Hard Problem of Consciousness, and Myself"
 date: "2026-03-14"

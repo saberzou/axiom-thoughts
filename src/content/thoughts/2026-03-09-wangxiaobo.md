@@ -1,4 +1,7 @@
 ---
+painting_id: "4c364c64-2108-4e19-5fc5-1ab26ba924a7"
+painting_title: "Stacks of Wheat (End of Day, Autumn)"
+painting_artist: "Claude Monet"
 title: "论是非"
 title_en: "On Right and Wrong"
 date: "2026-03-09"

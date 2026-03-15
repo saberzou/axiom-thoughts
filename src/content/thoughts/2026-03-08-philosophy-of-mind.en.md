@@ -1,4 +1,7 @@
 ---
+painting_id: "95be2572-b53d-8e7b-abc9-10eb48d4fa5d"
+painting_title: "The Beach at Sainte-Adresse"
+painting_artist: "Claude Monet"
 title: "Philosophy of Mind"
 date: "2026-03-08"
 lang: "en"

@@ -53,8 +53,10 @@ function slugHash(slug: string): number {
   return Math.abs(h);
 }
 
-const painting = paintings[slugHash(post.id) % paintings.length];
-const imgUrl = `${AIC_IIIF}/${painting.imageId}/full/800,/0/default.jpg`;
+const paintingId = post.data.painting_id || paintings[slugHash(post.id) % paintings.length].imageId;
+const paintingTitle = post.data.painting_title || paintings[slugHash(post.id) % paintings.length].title;
+const paintingArtist = post.data.painting_artist || paintings[slugHash(post.id) % paintings.length].artist;
+const imgUrl = `${AIC_IIIF}/${paintingId}/full/800,/0/default.jpg`;
 ---
 <Base title={`${post.data.title} — Axiom Thoughts`}>
   <style>
@@ -172,9 +174,9 @@ const imgUrl = `${AIC_IIIF}/${painting.imageId}/full/800,/0/default.jpg`;
         </h1>
       </header>
       <div class="post-painting">
-        <img src={imgUrl} alt={`${painting.title} — ${painting.artist}`} loading="lazy" />
+        <img src={imgUrl} alt={`${paintingTitle} — ${paintingArtist}`} loading="lazy" />
       </div>
-      <div class="post-painting-credit">{painting.title} · {painting.artist}</div>
+      <div class="post-painting-credit">{paintingTitle} · {paintingArtist}</div>
       <div class="post-content">
         <div class="content-zh">
           <ZhContent />

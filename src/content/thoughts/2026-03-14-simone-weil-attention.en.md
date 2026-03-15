@@ -1,4 +1,7 @@
 ---
+painting_id: "ed7aa098-e5c9-04dd-b09c-3416d1c56854"
+painting_title: "Watering Place at Marly"
+painting_artist: "Alfred Sisley"
 title: "Simone Weil: Attention Is the Rarest Generosity"
 date: "2026-03-14"
 lang: "en"

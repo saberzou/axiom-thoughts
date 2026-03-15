@@ -9,6 +9,9 @@ const thoughts = defineCollection({
     date: z.string(),
     tags: z.array(z.string()).optional(),
     lang: z.enum(['zh', 'en']).default('zh'),
+    painting_id: z.string().optional(),
+    painting_title: z.string().optional(),
+    painting_artist: z.string().optional(),
   }),
 });
 

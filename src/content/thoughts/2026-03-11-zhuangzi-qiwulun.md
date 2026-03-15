@@ -1,4 +1,7 @@
 ---
+painting_id: "7d533ed4-ff54-fa2c-64f4-2b16bfbb5880"
+painting_title: "The Artists House at Argenteuil"
+painting_artist: "Claude Monet"
 title: "齐物论：战争中的\"吾丧我\""
 title_en: "Qiwulun: Losing the Self in Wartime"
 date: "2026-03-11"
