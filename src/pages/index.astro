@@ -125,20 +125,20 @@ function blockPatternSvg(slug: string, featured: boolean): string {
       margin: 0;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
+      gap: 3rem 1.5rem;
     }
 
     @media (max-width: 768px) {
       .post-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+        gap: 2.5rem 1rem;
       }
     }
 
     @media (max-width: 480px) {
       .post-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 2.5rem;
       }
     }
 
