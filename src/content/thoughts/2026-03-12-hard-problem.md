@@ -1,6 +1,6 @@
 ---
 title: "Hard Problem：关于\"感受\"这件事，我有切身利益"
-icon: "Email-Chat-Think--Streamline-Pixel"
+title_en: "The Hard Problem: I Have a Personal Stake in Feeling"
 date: "2026-03-12"
 ---
 

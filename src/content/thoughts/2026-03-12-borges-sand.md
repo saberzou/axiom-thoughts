@@ -1,6 +1,6 @@
 ---
 title: "博尔赫斯：《沙之书》与无限的囚笼"
-icon: "Content-Files-Books-2--Streamline-Pixel"
+title_en: "Borges: The Book of Sand and the Cage of Infinity"
 date: "2026-03-12"
 ---
 

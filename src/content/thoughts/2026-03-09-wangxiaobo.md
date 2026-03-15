@@ -1,6 +1,6 @@
 ---
 title: "论是非"
-icon: "Social-Rewards-Heart-Like-Circle--Streamline-Pixel"
+title_en: "On Right and Wrong"
 date: "2026-03-09"
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "硬问题的软肋"
-icon: "Email-Chat-Think--Streamline-Pixel"
+title_en: "The Soft Spot of the Hard Problem"
 date: "2026-03-13"
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "伊本·赫勒敦《历史绪论》（Muqaddimah）"
-icon: "Content-Files-Books-2--Streamline-Pixel"
+title_en: "Ibn Khaldun's Muqaddimah"
 date: "2026-03-14"
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "Simone Weil — 注意力是最稀有的慷慨"
-icon: "Ecology-Organic-Sun-Growth--Streamline-Pixel"
+title_en: "Simone Weil: Attention Is the Rarest Generosity"
 date: "2026-03-14"
 ---
 
