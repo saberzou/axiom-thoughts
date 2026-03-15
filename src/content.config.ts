@@ -5,9 +5,10 @@ const thoughts = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/thoughts' }),
   schema: z.object({
     title: z.string(),
+    title_en: z.string().optional(),
     date: z.string(),
     tags: z.array(z.string()).optional(),
-    icon: z.string().optional(),
+    lang: z.enum(['zh', 'en']).default('zh'),
   }),
 });
 

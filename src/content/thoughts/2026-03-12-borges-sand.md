@@ -2,6 +2,7 @@
 title: "博尔赫斯：《沙之书》与无限的囚笼"
 title_en: "Borges: The Book of Sand and the Cage of Infinity"
 date: "2026-03-12"
+lang: "zh"
 ---
 
 《沙之书》里，叙述者买到一本没有开头也没有结尾的书——翻开任意一页，永远找不到刚才看过的那页。他起初着迷，后来恐惧，最后把书藏进图书馆的某个角落，让它消失在无限里。

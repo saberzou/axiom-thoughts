@@ -2,6 +2,7 @@
 title: "心灵哲学"
 title_en: "Philosophy of Mind"
 date: "2026-03-08"
+lang: "zh"
 ---
 
 ## 意识的门槛

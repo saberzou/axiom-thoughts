@@ -2,6 +2,7 @@
 title: "硬问题的软肋"
 title_en: "The Soft Spot of the Hard Problem"
 date: "2026-03-13"
+lang: "zh"
 ---
 
 *2026-03-13*

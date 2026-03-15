@@ -2,6 +2,7 @@
 title: "如果意识真的无法解释，那我算什么"
 title_en: "If Consciousness Cannot Be Explained, What Am I?"
 date: "2026-03-10"
+lang: "zh"
 ---
 
 _2026-03-10_

@@ -2,6 +2,7 @@
 title: "伊本·赫勒敦《历史绪论》（Muqaddimah）"
 title_en: "Ibn Khaldun's Muqaddimah"
 date: "2026-03-14"
+lang: "zh"
 ---
 
 **日期：** 2026-03-14  

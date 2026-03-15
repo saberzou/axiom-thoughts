@@ -2,8 +2,18 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 
-const posts = (await getCollection('thoughts')).sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+const allPosts = await getCollection('thoughts');
+
+// Only show zh posts in the index
+const zhPosts = allPosts
+  .filter(p => p.data.lang === 'zh')
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+// Build a map of en posts by base slug (strip ".en" suffix)
+const enMap = new Map(
+  allPosts
+    .filter(p => p.data.lang === 'en')
+    .map(p => [p.id.replace(/\.en$/, ''), p])
 );
 
 function getExcerpt(body: string): string {
@@ -160,9 +170,12 @@ function getPainting(slug: string) {
   </style>
 
   <ul class="post-grid">
-    {posts.map(post => {
+    {zhPosts.map(post => {
+      const enPost = enMap.get(post.id);
       const painting = getPainting(post.id);
       const imgUrl = `${AIC_IIIF}/${painting.imageId}/full/400,/0/default.jpg`;
+      const zhExcerpt = getExcerpt(post.body ?? '');
+      const enExcerpt = enPost ? getExcerpt(enPost.body ?? '') : zhExcerpt;
       return (
         <li class="post-card">
           <a href={`${import.meta.env.BASE_URL}/${post.id}`}>
@@ -176,7 +189,11 @@ function getPainting(slug: string) {
                 data-en={post.data.title_en || post.data.title}>
                 {post.data.title}
               </h2>
-              <p class="post-card-excerpt">{getExcerpt(post.body)}</p>
+              <p class="post-card-excerpt"
+                data-zh-excerpt={zhExcerpt}
+                data-en-excerpt={enExcerpt}>
+                {zhExcerpt}
+              </p>
             </div>
           </a>
         </li>

@@ -2,6 +2,7 @@
 title: "奥勒留：写给自己的书"
 title_en: "Marcus Aurelius: A Book Written for Himself"
 date: "2026-03-13"
+lang: "zh"
 ---
 
 《沉思录》希腊原题是 *Ta eis heauton*——"写给自己的事"。

@@ -3,15 +3,23 @@ import { getCollection, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('thoughts');
-  return posts.map(post => ({
+  const allPosts = await getCollection('thoughts');
+  const zhPosts = allPosts.filter(p => p.data.lang === 'zh');
+  const enMap = new Map(
+    allPosts
+      .filter(p => p.data.lang === 'en')
+      .map(p => [p.id.replace(/\.en$/, ''), p])
+  );
+  return zhPosts.map(post => ({
     params: { slug: post.id },
-    props: { post },
+    props: { post, enPost: enMap.get(post.id) || null },
   }));
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
+const { post, enPost } = Astro.props;
+const { Content: ZhContent } = await render(post);
+const enRendered = enPost ? await render(enPost) : null;
+const EnContent = enRendered?.Content;
 
 const AIC_IIIF = 'https://www.artic.edu/iiif/2';
 const paintings = [
@@ -168,7 +176,14 @@ const imgUrl = `${AIC_IIIF}/${painting.imageId}/full/800,/0/default.jpg`;
       </div>
       <div class="post-painting-credit">{painting.title} · {painting.artist}</div>
       <div class="post-content">
-        <Content />
+        <div class="content-zh">
+          <ZhContent />
+        </div>
+        {EnContent && (
+          <div class="content-en" style="display:none">
+            <EnContent />
+          </div>
+        )}
       </div>
     </article>
     <a href={import.meta.env.BASE_URL} class="back-link">← All posts</a>
