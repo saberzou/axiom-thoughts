@@ -199,25 +199,34 @@ const scores: Record<string, number[]> = {
 
     .facet-total {
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       gap: 0.4rem;
       padding-left: 0.75rem;
       min-width: 4.5rem;
+      height: 2.2rem;
     }
 
-    .total-bar-track {
-      flex: 1;
-      height: 6px;
-      background: #f0ede8;
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .total-bar-fill {
+    .total-blocks {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 2px;
       height: 100%;
+      justify-content: flex-start;
+    }
+
+    .total-block {
+      width: 0.5rem;
+      height: 0.3rem;
+      border-radius: 1px;
+      background: #eae7e0;
+    }
+
+    .total-block.filled {
       background: #8a7d5a;
-      border-radius: 3px;
-      transition: width 0.3s ease;
+    }
+
+    .total-block.partial {
+      background: #bfb697;
     }
 
     .total-number {
@@ -226,6 +235,7 @@ const scores: Record<string, number[]> = {
       font-family: 'Google Sans', system-ui, sans-serif;
       min-width: 1.2rem;
       text-align: right;
+      align-self: center;
     }
   </style>
 
@@ -268,8 +278,14 @@ const scores: Record<string, number[]> = {
               );
             })}
             <div class="facet-total">
-              <div class="total-bar-track">
-                <div class="total-bar-fill" style={`width: ${pct}%;`}></div>
+              <div class="total-blocks">
+                {Array.from({ length: 5 }).map((_, i) => {
+                  const filled = pct >= (i + 1) * 20;
+                  const partial = !filled && pct > i * 20;
+                  return (
+                    <div class={`total-block ${filled ? 'filled' : ''} ${partial ? 'partial' : ''}`} />
+                  );
+                })}
               </div>
               <span class="total-number">{total}</span>
             </div>
