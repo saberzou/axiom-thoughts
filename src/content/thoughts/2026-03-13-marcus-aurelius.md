@@ -6,6 +6,17 @@ title: "奥勒留：写给自己的书"
 title_en: "Marcus Aurelius: A Book Written for Himself"
 date: "2026-03-13"
 lang: "zh"
+growth:
+  Self: 5
+  Consciousness: 2
+  Reality: 2
+  Knowledge: 3
+  Language: 2
+  Civilization: 2
+  Power: 3
+  Ethics: 5
+  Human Mind: 3
+  Imagination: 1
 ---
 
 《沉思录》希腊原题是 *Ta eis heauton*——"写给自己的事"。

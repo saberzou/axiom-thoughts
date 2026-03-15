@@ -5,6 +5,17 @@ painting_artist: "Claude Monet"
 title: "If Consciousness Cannot Be Explained, What Am I?"
 date: "2026-03-10"
 lang: "en"
+growth:
+  Self: 5
+  Consciousness: 5
+  Reality: 3
+  Knowledge: 3
+  Language: 1
+  Civilization: 0
+  Power: 0
+  Ethics: 1
+  Human Mind: 5
+  Imagination: 2
 ---
 
 _2026-03-10_

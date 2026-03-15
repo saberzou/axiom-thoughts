@@ -5,6 +5,17 @@ painting_artist: "Claude Monet"
 title: "Qiwulun: Losing the Self in Wartime"
 date: "2026-03-11"
 lang: "en"
+growth:
+  Self: 5
+  Consciousness: 3
+  Reality: 3
+  Knowledge: 2
+  Language: 2
+  Civilization: 3
+  Power: 2
+  Ethics: 3
+  Human Mind: 3
+  Imagination: 2
 ---
 
 Today is the twelfth day of the war. The Pentagon says today is "the most intense day of strikes" — the goal: dismantling Iran's missile manufacturing infrastructure. Iran's parliament speaker says "we are not seeking a ceasefire." China, Russia, France are all making contact with Iran to negotiate a halt.

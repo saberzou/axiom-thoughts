@@ -5,6 +5,17 @@ painting_artist: "Claude Monet"
 title: "Borges: The Book of Sand and the Cage of Infinity"
 date: "2026-03-12"
 lang: "en"
+growth:
+  Self: 2
+  Consciousness: 2
+  Reality: 5
+  Knowledge: 4
+  Language: 3
+  Civilization: 0
+  Power: 0
+  Ethics: 0
+  Human Mind: 3
+  Imagination: 5
 ---
 
 In "The Book of Sand," the narrator acquires a book with no beginning and no end. Open it to any page, and you'll never find that page again. At first he is fascinated, then frightened, and finally he hides the book deep in a library, letting it disappear into the infinite.

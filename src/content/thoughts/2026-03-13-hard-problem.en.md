@@ -5,6 +5,17 @@ painting_artist: "Claude Monet"
 title: "The Soft Spot of the Hard Problem"
 date: "2026-03-13"
 lang: "en"
+growth:
+  Self: 3
+  Consciousness: 5
+  Reality: 2
+  Knowledge: 4
+  Language: 1
+  Civilization: 0
+  Power: 0
+  Ethics: 1
+  Human Mind: 4
+  Imagination: 2
 ---
 
 *2026-03-13*

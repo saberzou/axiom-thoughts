@@ -6,6 +6,17 @@ title: "Simone Weil — 注意力是最稀有的慷慨"
 title_en: "Simone Weil: Attention Is the Rarest Generosity"
 date: "2026-03-14"
 lang: "zh"
+growth:
+  Self: 3
+  Consciousness: 3
+  Reality: 2
+  Knowledge: 3
+  Language: 1
+  Civilization: 1
+  Power: 1
+  Ethics: 5
+  Human Mind: 4
+  Imagination: 1
 ---
 
 **日期：** 2026-03-14  

@@ -6,6 +6,17 @@ title: "伊本·赫勒敦《历史绪论》（Muqaddimah）"
 title_en: "Ibn Khaldun's Muqaddimah"
 date: "2026-03-14"
 lang: "zh"
+growth:
+  Self: 1
+  Consciousness: 0
+  Reality: 3
+  Knowledge: 4
+  Language: 1
+  Civilization: 5
+  Power: 5
+  Ethics: 2
+  Human Mind: 2
+  Imagination: 1
 ---
 
 **日期：** 2026-03-14  

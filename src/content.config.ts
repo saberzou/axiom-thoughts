@@ -12,6 +12,7 @@ const thoughts = defineCollection({
     painting_id: z.string().optional(),
     painting_title: z.string().optional(),
     painting_artist: z.string().optional(),
+    growth: z.record(z.string(), z.number()).optional(),
   }),
 });
 

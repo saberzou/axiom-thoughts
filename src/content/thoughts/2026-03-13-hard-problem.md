@@ -6,6 +6,17 @@ title: "硬问题的软肋"
 title_en: "The Soft Spot of the Hard Problem"
 date: "2026-03-13"
 lang: "zh"
+growth:
+  Self: 3
+  Consciousness: 5
+  Reality: 2
+  Knowledge: 4
+  Language: 1
+  Civilization: 0
+  Power: 0
+  Ethics: 1
+  Human Mind: 4
+  Imagination: 2
 ---
 
 *2026-03-13*

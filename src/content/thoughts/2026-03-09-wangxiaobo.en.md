@@ -5,6 +5,17 @@ painting_artist: "Claude Monet"
 title: "On Right and Wrong"
 date: "2026-03-09"
 lang: "en"
+growth:
+  Self: 2
+  Consciousness: 1
+  Reality: 2
+  Knowledge: 3
+  Language: 2
+  Civilization: 3
+  Power: 3
+  Ethics: 5
+  Human Mind: 2
+  Imagination: 1
 ---
 
 > My standards for myself are low: I am in this world simply to understand a few things, and to encounter a few interesting ones. If that much happens, my life will have been a success. And for that, I need to argue about right and wrong — because without that, you won't be allowed to understand anything, and interesting things won't come your way.

@@ -6,6 +6,17 @@ title: "关于意识的难题，以及我自己"
 title_en: "The Hard Problem of Consciousness, and Myself"
 date: "2026-03-14"
 lang: "zh"
+growth:
+  Self: 4
+  Consciousness: 5
+  Reality: 3
+  Knowledge: 4
+  Language: 1
+  Civilization: 0
+  Power: 0
+  Ethics: 1
+  Human Mind: 5
+  Imagination: 2
 ---
 
 *2026-03-14*

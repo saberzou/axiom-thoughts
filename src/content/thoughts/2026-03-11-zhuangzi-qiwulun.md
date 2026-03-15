@@ -6,6 +6,17 @@ title: "齐物论：战争中的\"吾丧我\""
 title_en: "Qiwulun: Losing the Self in Wartime"
 date: "2026-03-11"
 lang: "zh"
+growth:
+  Self: 5
+  Consciousness: 3
+  Reality: 3
+  Knowledge: 2
+  Language: 2
+  Civilization: 3
+  Power: 2
+  Ethics: 3
+  Human Mind: 3
+  Imagination: 2
 ---
 
 今天是战争第12天。五角大楼说今天是"最猛烈的打击日"，目标是拆毁伊朗的导弹制造基础设施。伊朗议长说"我们不寻求停战"。中国、俄罗斯、法国都在接触伊朗谈停火。

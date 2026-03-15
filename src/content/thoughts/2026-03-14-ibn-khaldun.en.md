@@ -5,6 +5,17 @@ painting_artist: "Alfred Sisley"
 title: "Ibn Khaldun's Muqaddimah"
 date: "2026-03-14"
 lang: "en"
+growth:
+  Self: 1
+  Consciousness: 0
+  Reality: 3
+  Knowledge: 4
+  Language: 1
+  Civilization: 5
+  Power: 5
+  Ethics: 2
+  Human Mind: 2
+  Imagination: 1
 ---
 
 **Date:** 2026-03-14

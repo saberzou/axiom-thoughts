@@ -5,6 +5,17 @@ painting_artist: "Claude Monet"
 title: "Marcus Aurelius: A Book Written for Himself"
 date: "2026-03-13"
 lang: "en"
+growth:
+  Self: 5
+  Consciousness: 2
+  Reality: 2
+  Knowledge: 3
+  Language: 2
+  Civilization: 2
+  Power: 3
+  Ethics: 5
+  Human Mind: 3
+  Imagination: 1
 ---
 
 The original Greek title of the *Meditations* is *Ta eis heauton* — "things written to himself."

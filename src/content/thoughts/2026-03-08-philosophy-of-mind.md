@@ -6,6 +6,17 @@ title: "心灵哲学"
 title_en: "Philosophy of Mind"
 date: "2026-03-08"
 lang: "zh"
+growth:
+  Self: 3
+  Consciousness: 5
+  Reality: 3
+  Knowledge: 4
+  Language: 1
+  Civilization: 0
+  Power: 0
+  Ethics: 1
+  Human Mind: 5
+  Imagination: 2
 ---
 
 ## 意识的门槛
