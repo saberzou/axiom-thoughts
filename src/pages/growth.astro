@@ -211,15 +211,13 @@ const scores: Record<string, number[]> = {
       background: #f0ede8;
       border-radius: 3px;
       overflow: hidden;
-      display: flex;
-      align-items: flex-end;
     }
 
     .total-bar-fill {
-      width: 100%;
+      height: 100%;
       background: #8a7d5a;
       border-radius: 3px;
-      transition: height 0.3s ease;
+      transition: width 0.3s ease;
     }
 
     .total-number {
@@ -236,7 +234,7 @@ const scores: Record<string, number[]> = {
     <p class="growth-subtitle" data-zh="每一格代表一篇阅读对某个维度的贡献" data-en="Each cell represents a reading's contribution to a facet">每一格代表一篇阅读对某个维度的贡献</p>
 
     <div class="mosaic-container">
-      <div class="mosaic" style={`grid-template-columns: 6rem repeat(${posts.length}, 2.2rem) 4.5rem; grid-template-rows: repeat(${facets.length}, 2.2rem) 4rem;`}>
+      <div class="mosaic" style={`grid-template-columns: 6rem repeat(${posts.length}, 2.2rem) 6rem; grid-template-rows: repeat(${facets.length}, 2.2rem) 4rem;`}>
         {facets.map((facet, fi) => {
           const facetScores = scores[facet] || [];
           const total = facetScores.reduce((a: number, b: number) => a + b, 0);
@@ -271,7 +269,7 @@ const scores: Record<string, number[]> = {
             })}
             <div class="facet-total">
               <div class="total-bar-track">
-                <div class="total-bar-fill" style={`height: ${pct}%;`}></div>
+                <div class="total-bar-fill" style={`width: ${pct}%;`}></div>
               </div>
               <span class="total-number">{total}</span>
             </div>
