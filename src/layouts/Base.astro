@@ -105,6 +105,7 @@ const { title } = Astro.props;
     <script is:inline>
       function setLang(lang) {
         document.documentElement.setAttribute('data-lang', lang);
+        document.documentElement.setAttribute('lang', lang === 'en' ? 'en' : 'zh');
         document.querySelectorAll('.lang-btn').forEach(function(btn) {
           btn.classList.toggle('active', btn.dataset.lang === lang);
         });
