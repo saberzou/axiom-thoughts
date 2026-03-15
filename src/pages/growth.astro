@@ -195,6 +195,10 @@ const scores: Record<string, number[]> = {
       .facet-total {
         min-width: 3rem;
       }
+      .total-bar-track {
+        height: 1.5rem;
+        max-height: 1.5rem;
+      }
     }
 
     .facet-total {
@@ -202,12 +206,13 @@ const scores: Record<string, number[]> = {
       align-items: center;
       gap: 0.4rem;
       padding-left: 0.75rem;
-      min-width: 4.5rem;
+      min-width: 6rem;
     }
 
     .total-bar-track {
       flex: 1;
       height: 2.2rem;
+      max-height: 2.2rem;
       background: #f0ede8;
       border-radius: 3px;
       overflow: hidden;
