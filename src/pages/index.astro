@@ -167,7 +167,7 @@ function getPainting(slug: string) {
         <li class="post-card">
           <a href={`${import.meta.env.BASE_URL}/${post.id}`}>
             <div class="post-thumb">
-              <img src={imgUrl} alt={`${painting.title} — ${painting.artist}`} loading="lazy" />
+              <img src={imgUrl} alt={`${painting.title} — ${painting.artist}`} />
             </div>
             <div class="post-card-body">
               <div class="post-card-date">{post.data.date}</div>
