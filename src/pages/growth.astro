@@ -48,6 +48,25 @@ const scores: Record<string, number[]> = {
   'Human Mind':    [3, 4, 5, 3, 3, 2, 5, 2, 5, 3, 3, 4, 4, 3, 3, 5, 2, 4, 2],
   'Imagination':   [4, 5, 2, 3, 5, 1, 2, 2, 3, 2, 5, 2, 2, 1, 2, 2, 1, 1, 1],
 };
+
+const facetColors: Record<string, string[]> = {
+  'Self':          ['#f0ede8', '#d6cbb8', '#c4a97a', '#a8884e', '#8b6a2f', '#6b4f1a'],
+  'Consciousness': ['#f0ede8', '#c8d5df', '#94b4cc', '#6393b4', '#3d7199', '#1f5278'],
+  'Reality':       ['#f0ede8', '#cdd0c4', '#a6ac8e', '#7d8660', '#5c6640', '#3e4728'],
+  'Knowledge':     ['#f0ede8', '#d3cac5', '#b09e94', '#8d7365', '#6e4f3e', '#4d3425'],
+  'Language':      ['#f0ede8', '#d4c8bd', '#b89e8a', '#9a7760', '#7d5540', '#5e3a25'],
+  'Civilization':  ['#f0ede8', '#cfc8c0', '#a99e96', '#837770', '#60524d', '#42322e'],
+  'Power':         ['#f0ede8', '#c8c4d0', '#9e96b0', '#766c90', '#544870', '#3a2a52'],
+  'Ethics':        ['#f0ede8', '#c6d2cc', '#93b2a4', '#63907c', '#3f7058', '#1f5038'],
+  'Human Mind':    ['#f0ede8', '#bdd1e0', '#82afc8', '#4f8eb0', '#2d6f94', '#105175'],
+  'Imagination':   ['#f0ede8', '#d5c4c8', '#b8909a', '#9a6070', '#7c384c', '#5e1a2e'],
+};
+
+const facetBarColor: Record<string, string> = {
+  'Self': '#8b6a2f', 'Consciousness': '#3d7199', 'Reality': '#5c6640',
+  'Knowledge': '#6e4f3e', 'Language': '#7d5540', 'Civilization': '#60524d',
+  'Power': '#544870', 'Ethics': '#3f7058', 'Human Mind': '#2d6f94', 'Imagination': '#7c384c',
+};
 ---
 <Base title="Growth — Axiom Thoughts">
   <style>
@@ -238,19 +257,6 @@ const scores: Record<string, number[]> = {
             <div class="facet-label" data-zh={facetsZh[facet]} data-en={facet}>{facetsZh[facet]}</div>
             {posts.map((post, pi) => {
               const score = scores[facet]?.[pi] ?? 0;
-              // Per-facet colors extracted from Sisley's Seine at Port-Marly
-              const facetColors: Record<string, string[]> = {
-                'Self':          ['#f0ede8', '#d6cbb8', '#c4a97a', '#a8884e', '#8b6a2f', '#6b4f1a'],  // sand/ochre
-                'Consciousness': ['#f0ede8', '#c8d5df', '#94b4cc', '#6393b4', '#3d7199', '#1f5278'],  // river blue
-                'Reality':       ['#f0ede8', '#cdd0c4', '#a6ac8e', '#7d8660', '#5c6640', '#3e4728'],  // olive green
-                'Knowledge':     ['#f0ede8', '#d3cac5', '#b09e94', '#8d7365', '#6e4f3e', '#4d3425'],  // warm brown
-                'Language':      ['#f0ede8', '#d4c8bd', '#b89e8a', '#9a7760', '#7d5540', '#5e3a25'],  // terra cotta
-                'Civilization':  ['#f0ede8', '#cfc8c0', '#a99e96', '#837770', '#60524d', '#42322e'],  // stone grey-brown
-                'Power':         ['#f0ede8', '#c8c4d0', '#9e96b0', '#766c90', '#544870', '#3a2a52'],  // muted purple
-                'Ethics':        ['#f0ede8', '#c6d2cc', '#93b2a4', '#63907c', '#3f7058', '#1f5038'],  // muted green
-                'Human Mind':    ['#f0ede8', '#bdd1e0', '#82afc8', '#4f8eb0', '#2d6f94', '#105175'],  // deep sky blue
-                'Imagination':   ['#f0ede8', '#d5c4c8', '#b8909a', '#9a6070', '#7c384c', '#5e1a2e'],  // dusty rose
-              };
               const colors = facetColors[facet] || ['#f0ede8','#d5cfc4','#bfb697','#a89e7c','#8a7d5a','#5c5233'];
               const bg = colors[Math.min(score, 5)];
               return (
@@ -268,13 +274,7 @@ const scores: Record<string, number[]> = {
             })}
             <div class="facet-total">
               <div class="total-bar-track">
-                <div class="total-bar-fill" style={`width: ${pct}%; background: ${
-                  ({
-                    'Self': '#8b6a2f', 'Consciousness': '#3d7199', 'Reality': '#5c6640',
-                    'Knowledge': '#6e4f3e', 'Language': '#7d5540', 'Civilization': '#60524d',
-                    'Power': '#544870', 'Ethics': '#3f7058', 'Human Mind': '#2d6f94', 'Imagination': '#7c384c'
-                  } as Record<string,string>)[facet] || '#8a7d5a'
-                };`}></div>
+                <div class="total-bar-fill" style={`width: ${pct}%; background: ${facetBarColor[facet] || '#8a7d5a'};`}></div>
               </div>
               <span class="total-number">{total}</span>
             </div>
