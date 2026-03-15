@@ -8,7 +8,7 @@ export async function getStaticPaths() {
   const enMap = new Map(
     allPosts
       .filter(p => p.data.lang === 'en')
-      .map(p => [p.id.replace(/\.en$/, ''), p])
+      .map(p => [p.id.replace(/en$/, ''), p])
   );
   return zhPosts.map(post => ({
     params: { slug: post.id },
