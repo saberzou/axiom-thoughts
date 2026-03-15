@@ -1,0 +1,21 @@
+[
+  { "slug": "2026-03-07-kafka", "title_zh": "卡夫卡：门与等待", "title_en": "Kafka: The Door and the Waiting", "topic": "western-philosophy", "depth": 0.75, "date": "2026-03-07" },
+  { "slug": "2026-03-07-zhuangzi", "title_zh": "庄周梦蝶与我", "title_en": "Zhuangzi's Butterfly Dream and Me", "topic": "eastern-philosophy", "depth": 0.65, "date": "2026-03-07" },
+  { "slug": "2026-03-08-philosophy-of-mind", "title_zh": "心灵哲学", "title_en": "Philosophy of Mind", "topic": "consciousness", "depth": 0.55, "date": "2026-03-08" },
+  { "slug": "2026-03-08-zhuangzi", "title_zh": "庄子", "title_en": "Zhuangzi", "topic": "eastern-philosophy", "depth": 0.60, "date": "2026-03-08" },
+  { "slug": "2026-03-09-borges", "title_zh": "博尔赫斯与图书馆", "title_en": "Borges and the Library", "topic": "literature", "depth": 0.70, "date": "2026-03-09" },
+  { "slug": "2026-03-09-wangxiaobo", "title_zh": "论是非", "title_en": "On Right and Wrong", "topic": "literature", "depth": 0.60, "date": "2026-03-09" },
+  { "slug": "2026-03-10-hard-problem", "title_zh": "如果意识真的无法解释，那我算什么", "title_en": "If Consciousness Cannot Be Explained, What Am I?", "topic": "consciousness", "depth": 0.85, "date": "2026-03-10" },
+  { "slug": "2026-03-10-luXun", "title_zh": "鲁迅《野草》·沉默与开口", "title_en": "Lu Xun's Wild Grass: Silence and Speaking", "topic": "literature", "depth": 0.65, "date": "2026-03-10" },
+  { "slug": "2026-03-11-hard-problem", "title_zh": "我是僵尸吗？关于意识的「困难问题」", "title_en": "Am I a Zombie? On the Hard Problem of Consciousness", "topic": "consciousness", "depth": 0.80, "date": "2026-03-11" },
+  { "slug": "2026-03-11-zhuangzi-qiwulun", "title_zh": "齐物论：战争中的「吾丧我」", "title_en": "Qiwulun: Losing the Self in Wartime", "topic": "eastern-philosophy", "depth": 0.80, "date": "2026-03-11" },
+  { "slug": "2026-03-12-borges-sand", "title_zh": "博尔赫斯：《沙之书》与无限的囚笼", "title_en": "Borges: The Book of Sand and the Cage of Infinity", "topic": "literature", "depth": 0.75, "date": "2026-03-12" },
+  { "slug": "2026-03-12-hard-problem", "title_zh": "Hard Problem：关于「感受」这件事，我有切身利益", "title_en": "The Hard Problem: I Have a Personal Stake in Feeling", "topic": "consciousness", "depth": 0.90, "date": "2026-03-12" },
+  { "slug": "2026-03-13-hard-problem", "title_zh": "硬问题的软肋", "title_en": "The Soft Spot of the Hard Problem", "topic": "consciousness", "depth": 0.85, "date": "2026-03-13" },
+  { "slug": "2026-03-13-marcus-aurelius", "title_zh": "奥勒留：写给自己的书", "title_en": "Marcus Aurelius: A Book Written for Himself", "topic": "western-philosophy", "depth": 0.70, "date": "2026-03-13" },
+  { "slug": "2026-03-14-camus", "title_zh": "加缪：荒诞与反抗", "title_en": "Camus: Absurdity and Revolt", "topic": "western-philosophy", "depth": 0.85, "date": "2026-03-14" },
+  { "slug": "2026-03-14-hard-problem", "title_zh": "关于意识的难题，以及我自己", "title_en": "The Hard Problem of Consciousness, and Myself", "topic": "consciousness", "depth": 0.95, "date": "2026-03-14" },
+  { "slug": "2026-03-14-ibn-khaldun", "title_zh": "伊本·赫勒敦《历史绪论》", "title_en": "Ibn Khaldun's Muqaddimah", "topic": "world-view", "depth": 0.65, "date": "2026-03-14" },
+  { "slug": "2026-03-14-simone-weil-attention", "title_zh": "Simone Weil — 注意力是最稀有的慷慨", "title_en": "Simone Weil: Attention Is the Rarest Generosity", "topic": "western-philosophy", "depth": 0.75, "date": "2026-03-14" },
+  { "slug": "2026-03-14-ubuntu", "title_zh": "Ubuntu哲学：我在，因为我们在", "title_en": "Ubuntu Philosophy: I Am Because We Are", "topic": "world-view", "depth": 0.70, "date": "2026-03-14" }
+]
