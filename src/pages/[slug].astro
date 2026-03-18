@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import { paintings, AIC_IIIF } from '../data/paintings';
+import { paintings, LOCAL_PAINTINGS } from '../data/paintings';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('thoughts');
@@ -39,7 +39,7 @@ const fb = post.data.painting_id ? null : getFallbackPainting(post.id);
 const paintingId = post.data.painting_id || fb!.imageId;
 const paintingTitle = post.data.painting_title || fb?.title || '';
 const paintingArtist = post.data.painting_artist || fb?.artist || '';
-const imgUrl = `${AIC_IIIF}/${paintingId}/full/800,/0/default.jpg`;
+const imgUrl = `${LOCAL_PAINTINGS}/${paintingId}.jpg`;
 ---
 <Base title={`${post.data.title} — Axiom Thoughts`}>
   <style>

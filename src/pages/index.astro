@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import { paintings, AIC_IIIF } from '../data/paintings';
+import { paintings, LOCAL_PAINTINGS } from '../data/paintings';
 
 const allPosts = await getCollection('thoughts');
 
@@ -227,7 +227,7 @@ function blockPatternSvg(slug: string, featured: boolean): string {
       const pTitle = post.data.painting_title || fb?.title || '';
       const pArtist = post.data.painting_artist || fb?.artist || '';
       const isFeatured = i === 0;
-      const imgUrl = `${AIC_IIIF}/${pId}/full/${isFeatured ? '800' : '400'},/0/default.jpg`;
+      const imgUrl = `${LOCAL_PAINTINGS}/${pId}.jpg`;
       const zhExcerpt = getExcerpt(post.body ?? '');
       const enExcerpt = enPost ? getExcerpt(enPost.body ?? '') : zhExcerpt;
       return (

@@ -76,3 +76,6 @@ export const paintings = [
 ];
 
 export const AIC_IIIF = 'https://www.artic.edu/iiif/2';
+
+// Local paintings path (self-hosted, no external dependency)
+export const LOCAL_PAINTINGS = '/axiom-thoughts/paintings';
