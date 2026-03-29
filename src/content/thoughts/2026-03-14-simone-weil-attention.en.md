@@ -5,6 +5,7 @@ painting_artist: "Alfred Sisley"
 title: "Simone Weil: Attention Is the Rarest Generosity"
 date: "2026-03-14"
 lang: "en"
+series: "simone-weil"
 growth:
   Self: 3
   Consciousness: 3

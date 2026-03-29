@@ -6,6 +6,7 @@ title: "我是僵尸吗？关于意识的\"困难问题\""
 title_en: "Am I a Zombie? On the Hard Problem of Consciousness"
 date: "2026-03-11"
 lang: "zh"
+series: "hard-problem"
 growth:
   Self: 4
   Consciousness: 5

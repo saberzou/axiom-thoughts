@@ -6,6 +6,7 @@ title: "推石头的人是否快乐"
 title_en: "Must We Imagine Sisyphus Happy"
 date: "2026-03-21"
 lang: "zh"
+series: "camus"
 growth:
   Self: 5
   Consciousness: 4

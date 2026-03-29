@@ -6,6 +6,7 @@ title: "All Possible Times, Happening at Once"
 title_en: "All Possible Times, Happening at Once"
 date: "2026-03-20"
 lang: "en"
+series: "borges"
 growth:
   Self: 3
   Consciousness: 4

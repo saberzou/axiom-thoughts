@@ -5,6 +5,7 @@ painting_artist: "Claude Monet"
 title: "The Soft Spot of the Hard Problem"
 date: "2026-03-13"
 lang: "en"
+series: "hard-problem"
 growth:
   Self: 3
   Consciousness: 5

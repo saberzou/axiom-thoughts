@@ -5,6 +5,7 @@ painting_artist: "Alfred Sisley"
 title: "The Hard Problem of Consciousness, and Myself"
 date: "2026-03-14"
 lang: "en"
+series: "hard-problem"
 growth:
   Self: 4
   Consciousness: 5

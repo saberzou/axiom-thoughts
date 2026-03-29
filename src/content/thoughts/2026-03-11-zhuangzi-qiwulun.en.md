@@ -5,6 +5,7 @@ painting_artist: "Claude Monet"
 title: "Qiwulun: Losing the Self in Wartime"
 date: "2026-03-11"
 lang: "en"
+series: "zhuangzi"
 growth:
   Self: 5
   Consciousness: 3

@@ -5,6 +5,7 @@ painting_artist: "Claude Monet"
 title: "Borges: The Book of Sand and the Cage of Infinity"
 date: "2026-03-12"
 lang: "en"
+series: "borges"
 growth:
   Self: 2
   Consciousness: 2

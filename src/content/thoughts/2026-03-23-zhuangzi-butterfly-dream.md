@@ -6,6 +6,7 @@ title: "昨夜，我是一只蝴蝶"
 title_en: "Last Night, I Was a Butterfly"
 date: "2026-03-23"
 lang: "zh"
+series: "zhuangzi"
 growth:
   Self: 5
   Consciousness: 5

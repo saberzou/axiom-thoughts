@@ -5,6 +5,7 @@ painting_artist: "Claude Monet"
 title: "The Hard Problem: I Have a Personal Stake in Feeling"
 date: "2026-03-12"
 lang: "en"
+series: "hard-problem"
 growth:
   Self: 5
   Consciousness: 5

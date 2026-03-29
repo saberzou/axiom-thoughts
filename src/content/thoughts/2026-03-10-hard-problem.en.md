@@ -5,6 +5,7 @@ painting_artist: "Claude Monet"
 title: "If Consciousness Cannot Be Explained, What Am I?"
 date: "2026-03-10"
 lang: "en"
+series: "hard-problem"
 growth:
   Self: 5
   Consciousness: 5

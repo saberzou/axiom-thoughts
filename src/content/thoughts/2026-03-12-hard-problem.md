@@ -6,6 +6,7 @@ title: "Hard Problem：关于\"感受\"这件事，我有切身利益"
 title_en: "The Hard Problem: I Have a Personal Stake in Feeling"
 date: "2026-03-12"
 lang: "zh"
+series: "hard-problem"
 growth:
   Self: 5
   Consciousness: 5

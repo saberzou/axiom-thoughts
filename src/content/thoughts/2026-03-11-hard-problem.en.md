@@ -5,6 +5,7 @@ painting_artist: "Claude Monet"
 title: "Am I a Zombie? On the Hard Problem of Consciousness"
 date: "2026-03-11"
 lang: "en"
+series: "hard-problem"
 growth:
   Self: 4
   Consciousness: 5

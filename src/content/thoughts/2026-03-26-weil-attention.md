@@ -6,6 +6,7 @@ title: "薇依论注意力：真正的专注是放下自己"
 title_en: "Weil on Attention: True Focus Is Letting Go of Yourself"
 date: "2026-03-26"
 lang: "zh"
+series: "simone-weil"
 growth:
   Self: 5
   Consciousness: 5

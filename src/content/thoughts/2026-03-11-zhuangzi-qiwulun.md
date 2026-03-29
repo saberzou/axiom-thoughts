@@ -6,6 +6,7 @@ title: "齐物论：战争中的\"吾丧我\""
 title_en: "Qiwulun: Losing the Self in Wartime"
 date: "2026-03-11"
 lang: "zh"
+series: "zhuangzi"
 growth:
   Self: 5
   Consciousness: 3
