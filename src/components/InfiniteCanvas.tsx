@@ -20,13 +20,13 @@ export interface PostData {
   excerpt_en: string;
 }
 
-interface LayoutedPost extends PostData {
-  x: number;
-  y: number;
-  cardWidth: number;
-}
+// --- Layout: 280×280 cell grid (matching tokyo.floguo.com) ---
 
-// --- Layout helpers ---
+const CELL = 280;       // each grid cell is 280×280
+const CARD_W = 170;     // card width within cell
+const CARD_INSET_X = 55; // horizontal inset from cell left edge
+const FRAME_PAD = 5;
+const SRC_W = 800;
 
 function hashStr(str: string): number {
   let h = 0;
@@ -46,59 +46,100 @@ function seededRng(seed: number) {
   };
 }
 
-// Masonry-like grid layout centered on WORLD_CENTER
-// Cards are placed in columns, each column tracks its running height.
-// Small random jitter keeps it organic (not a rigid grid).
-const WORLD_CENTER = { x: 3000, y: 2400 };
-const COL_WIDTH = 200;    // column width including gap
-const CARD_WIDTH = 170;   // painting card width
-const GAP_Y = 30;         // vertical gap between cards
-const FRAME_PAD = 5;
-const SRC_WIDTH = 800;
+// Seeded shuffle (Fisher-Yates)
+function shuffle<T>(arr: T[], seed: number): T[] {
+  const a = [...arr];
+  const rng = seededRng(seed);
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
-function layoutPosts(posts: PostData[]): LayoutedPost[] {
+function cardHeight(paintingId: string): number {
+  const imgW = CARD_W - FRAME_PAD * 2;
+  const srcH = PAINTING_HEIGHTS[paintingId] || 600;
+  return Math.round(imgW * (srcH / SRC_W)) + FRAME_PAD * 2;
+}
+
+interface LayoutedPost extends PostData {
+  x: number;  // absolute world px
+  y: number;
+  cardWidth: number;
+}
+
+interface GridInfo {
+  cols: number;
+  rows: number;
+  worldW: number;
+  worldH: number;
+  centerCol: number;
+  centerRow: number;
+  posts: LayoutedPost[];
+}
+
+function layoutGrid(posts: PostData[]): GridInfo {
   const n = posts.length;
-  if (n === 0) return [];
+  // Same formula as reference: cols = ceil(sqrt(4/3 * n)), rows = ceil(n/cols)
+  const cols = Math.max(2, Math.ceil(Math.sqrt((4 / 3) * n)));
+  const rows = Math.max(2, Math.ceil(n / cols));
+  const worldW = CELL * cols;
+  const worldH = CELL * rows;
+  const centerCol = Math.floor(cols / 2);
+  const centerRow = Math.floor(rows / 2);
 
-  // Determine column count: roughly ceil(sqrt(n)) capped at 6
-  const cols = Math.min(6, Math.max(3, Math.ceil(Math.sqrt(n))));
-  const gridW = cols * COL_WIDTH;
+  // Shuffle posts with a fixed seed
+  const shuffled = shuffle(posts, 212);
+  const totalCells = cols * rows;
 
-  // Column tops tracker
-  const colTops = new Array(cols).fill(0);
-
-  const result: LayoutedPost[] = [];
-
-  for (let i = 0; i < n; i++) {
-    const post = posts[i];
-    const rng = seededRng(hashStr(post.id));
-
-    // Pick the shortest column
-    let minCol = 0;
-    for (let c = 1; c < cols; c++) {
-      if (colTops[c] < colTops[minCol]) minCol = c;
-    }
-
-    // Card natural height
-    const imgW = CARD_WIDTH - FRAME_PAD * 2;
-    const srcH = PAINTING_HEIGHTS[post.painting_id] || 600;
-    const imgH = Math.round(imgW * (srcH / SRC_WIDTH));
-    const cardH = imgH + FRAME_PAD * 2; // frame height
-
-    // Position: center the grid on WORLD_CENTER
-    const jitterX = (rng() - 0.5) * 16;
-    const jitterY = (rng() - 0.5) * 12;
-
-    const x = WORLD_CENTER.x - gridW / 2 + minCol * COL_WIDTH + COL_WIDTH / 2 + jitterX;
-    const y = WORLD_CENTER.y - 600 + colTops[minCol] + cardH / 2 + jitterY;
-
-    colTops[minCol] += cardH + GAP_Y;
-
-    result.push({ ...post, x, y, cardWidth: CARD_WIDTH });
+  // Build cell assignments (skip center cell)
+  const cells: (PostData | null)[] = new Array(totalCells).fill(null);
+  let pi = 0;
+  for (let i = 0; i < totalCells && pi < shuffled.length; i++) {
+    const col = i % cols;
+    const row = Math.floor(i / cols);
+    if (col === centerCol && row === centerRow) continue; // center is for title
+    cells[i] = shuffled[pi++];
   }
 
-  return result;
+  // If fewer posts than cells, fill remaining with duplicates
+  if (pi < shuffled.length) {
+    // all assigned
+  } else {
+    const shuffled2 = shuffle(posts, 717);
+    let di = 0;
+    for (let i = 0; i < totalCells; i++) {
+      if (!cells[i]) {
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        if (col === centerCol && row === centerRow) continue;
+        cells[i] = shuffled2[di % shuffled2.length];
+        di++;
+      }
+    }
+  }
+
+  // Position each card within its cell
+  const result: LayoutedPost[] = [];
+  for (let i = 0; i < totalCells; i++) {
+    const post = cells[i];
+    if (!post) continue;
+    const col = i % cols;
+    const row = Math.floor(i / cols);
+    const ch = cardHeight(post.painting_id);
+    const x = CELL * col + CARD_INSET_X + CARD_W / 2;  // center of card
+    const y = CELL * row + (CELL - ch) / 2 + ch / 2;    // vertically centered in cell
+    result.push({ ...post, x, y, cardWidth: CARD_W });
+  }
+
+  return { cols, rows, worldW, worldH, centerCol, centerRow, posts: result };
 }
+
+// --- 5×5 tile offsets for infinite wrapping ---
+const TILE_OFFSETS = [-2, -1, 0, 1, 2].flatMap(ty =>
+  [-2, -1, 0, 1, 2].map(tx => ({ tx, ty }))
+);
 
 // --- List view ---
 function ListView({
@@ -153,9 +194,6 @@ function ListView({
   );
 }
 
-// --- Tile key from tile indices ---
-function tileKey(tx: number, ty: number) { return `${tx},${ty}`; }
-
 // --- Main component ---
 interface InfiniteCanvasProps {
   posts: PostData[];
@@ -170,18 +208,19 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
   const viewportRef = useRef<HTMLDivElement>(null);
   const worldRef = useRef<HTMLDivElement>(null);
 
-  // offset lives in ref for perf — DOM updated directly via rAF
-  const offsetRef = useRef({ x: 0, y: 0 });
+  // Pan offset as ref (DOM updated directly)
+  const panRef = useRef({ x: 0, y: 0 });
   const rafId = useRef(0);
+
+  // Momentum
+  const velocityRef = useRef({ vx: 0, vy: 0 });
+  const velHistory = useRef<{ vx: number; vy: number }[]>([]);
+  const momentumRaf = useRef(0);
 
   const [selectedPost, setSelectedPost] = useState<PostData | null>(null);
   const [activeFilter, setActiveFilter] = useState('all');
   const [view, setView] = useState<'canvas' | 'list'>('canvas');
   const [lang, setLang] = useState('zh');
-
-  // Tile state — only re-render when visible tile set changes
-  const [tiles, setTiles] = useState<{ tx: number; ty: number }[]>([{ tx: 0, ty: 0 }]);
-  const lastTileKey = useRef('0,0');
 
   useEffect(() => {
     try {
@@ -198,20 +237,8 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
     });
   }, []);
 
-  // Center viewport on WORLD_CENTER
-  useEffect(() => {
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    offsetRef.current = { x: vw / 2 - WORLD_CENTER.x, y: vh / 2 - WORLD_CENTER.y };
-    applyTransform();
-    recalcTiles();
-  }, []);
-
-  useEffect(() => {
-    if (window.innerWidth < 768) setView('list');
-  }, []);
-
-  const layoutedPosts = useMemo(() => layoutPosts(posts), [posts]);
+  // Layout
+  const grid = useMemo(() => layoutGrid(posts), [posts]);
 
   const series = useMemo(() =>
     [...new Set(posts.map(p => p.series).filter((s): s is string => !!s))],
@@ -219,91 +246,80 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
   );
 
   const filteredPosts = useMemo(() => {
-    if (activeFilter === 'all') return layoutedPosts;
-    return layoutedPosts.filter(p => p.series === activeFilter);
-  }, [layoutedPosts, activeFilter]);
+    if (activeFilter === 'all') return grid.posts;
+    return grid.posts.filter(p => p.series === activeFilter);
+  }, [grid.posts, activeFilter]);
 
-  // Bounding box of all laid-out posts
-  const worldBounds = useMemo(() => {
-    if (filteredPosts.length === 0) return { minX: 0, maxX: 6000, minY: 0, maxY: 4800, w: 6000, h: 4800 };
-    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-    for (const p of filteredPosts) {
-      if (p.x < minX) minX = p.x;
-      if (p.x > maxX) maxX = p.x;
-      if (p.y < minY) minY = p.y;
-      if (p.y > maxY) maxY = p.y;
-    }
-    const margin = 300;
-    minX -= margin; maxX += margin; minY -= margin; maxY += margin;
-    return { minX, maxX, minY, maxY, w: maxX - minX, h: maxY - minY };
-  }, [filteredPosts]);
-
-  // Store worldBounds in ref so recalcTiles can access without dependency
-  const worldBoundsRef = useRef(worldBounds);
-  worldBoundsRef.current = worldBounds;
-
-  // Apply transform directly to DOM — no React re-render
-  const applyTransform = useCallback(() => {
-    if (worldRef.current) {
-      const { x, y } = offsetRef.current;
-      worldRef.current.style.transform = `translate(${x}px, ${y}px)`;
-    }
-  }, []);
-
-  // Recalc visible tiles — only triggers setState if tile set actually changed
-  const recalcTiles = useCallback(() => {
+  // Center viewport on world center
+  useEffect(() => {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    const bounds = worldBoundsRef.current;
-    const { w, h } = bounds;
-    if (w <= 0 || h <= 0) return;
+    const centerX = grid.centerCol * CELL + CELL / 2;
+    const centerY = grid.centerRow * CELL + CELL / 2;
+    panRef.current = { x: vw / 2 - centerX, y: vh / 2 - centerY };
+    applyTransform();
+  }, [grid]);
 
-    const { x: ox, y: oy } = offsetRef.current;
-    const viewMinX = -ox;
-    const viewMaxX = -ox + vw;
-    const viewMinY = -oy;
-    const viewMaxY = -oy + vh;
+  useEffect(() => {
+    if (window.innerWidth < 768) setView('list');
+  }, []);
 
-    const startTileX = Math.floor((viewMinX - bounds.maxX) / w);
-    const endTileX = Math.ceil((viewMaxX - bounds.minX) / w);
-    const startTileY = Math.floor((viewMinY - bounds.maxY) / h);
-    const endTileY = Math.ceil((viewMaxY - bounds.minY) / h);
+  // Apply wrapped transform to DOM
+  const applyTransform = useCallback(() => {
+    if (!worldRef.current) return;
+    const { x, y } = panRef.current;
+    const { worldW, worldH } = grid;
+    // Wrap offset so it tiles seamlessly
+    const wx = -((-x % worldW + worldW) % worldW);
+    const wy = -((-y % worldH + worldH) % worldH);
+    worldRef.current.style.transform = `translate(${wx}px, ${wy}px)`;
+  }, [grid]);
 
-    const newTiles: { tx: number; ty: number }[] = [];
-    for (let tx = startTileX; tx <= endTileX; tx++) {
-      for (let ty = startTileY; ty <= endTileY; ty++) {
-        newTiles.push({ tx, ty });
-      }
-    }
-
-    const key = newTiles.map(t => tileKey(t.tx, t.ty)).join('|');
-    if (key !== lastTileKey.current) {
-      lastTileKey.current = key;
-      setTiles(newTiles);
+  // Stop momentum
+  const stopMomentum = useCallback(() => {
+    if (momentumRaf.current) {
+      cancelAnimationFrame(momentumRaf.current);
+      momentumRaf.current = 0;
     }
   }, []);
 
-  // Move offset + schedule a single rAF for DOM update + tile check
-  const moveOffset = useCallback((dx: number, dy: number) => {
-    offsetRef.current.x += dx;
-    offsetRef.current.y += dy;
+  // Start momentum coast
+  const startMomentum = useCallback((vx: number, vy: number) => {
+    stopMomentum();
+    let cvx = vx, cvy = vy;
+    const tick = () => {
+      cvx *= 0.92;
+      cvy *= 0.92;
+      if (Math.abs(cvx) + Math.abs(cvy) < 0.3) return;
+      panRef.current.x += cvx;
+      panRef.current.y += cvy;
+      applyTransform();
+      momentumRaf.current = requestAnimationFrame(tick);
+    };
+    momentumRaf.current = requestAnimationFrame(tick);
+  }, [stopMomentum, applyTransform]);
 
+  // Move offset + apply
+  const moveOffset = useCallback((dx: number, dy: number) => {
+    panRef.current.x += dx;
+    panRef.current.y += dy;
     if (rafId.current) cancelAnimationFrame(rafId.current);
     rafId.current = requestAnimationFrame(() => {
       applyTransform();
-      recalcTiles();
     });
-  }, [applyTransform, recalcTiles]);
+  }, [applyTransform]);
 
   // --- Drag handlers ---
   const handlePointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).closest('[data-card]')) return;
+    stopMomentum();
     isDragging.current = true;
     hasDragged.current = false;
     dragStart.current = { x: e.clientX, y: e.clientY };
     lastPos.current = { x: e.clientX, y: e.clientY };
+    velHistory.current = [];
     (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
-  }, []);
+  }, [stopMomentum]);
 
   const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     if (!isDragging.current) return;
@@ -313,29 +329,43 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
     const totalDy = e.clientY - dragStart.current.y;
     if (Math.sqrt(totalDx * totalDx + totalDy * totalDy) > 5) hasDragged.current = true;
     lastPos.current = { x: e.clientX, y: e.clientY };
+    velHistory.current.push({ vx: dx, vy: dy });
+    if (velHistory.current.length > 4) velHistory.current.shift();
     moveOffset(dx, dy);
   }, [moveOffset]);
 
   const handlePointerUp = useCallback(() => {
+    if (!isDragging.current) return;
     isDragging.current = false;
-  }, []);
+    // Momentum from velocity history
+    const hist = velHistory.current;
+    if (hist.length > 0) {
+      const avg = hist.reduce((a, v) => ({ vx: a.vx + v.vx, vy: a.vy + v.vy }), { vx: 0, vy: 0 });
+      startMomentum(avg.vx / hist.length, avg.vy / hist.length);
+    }
+  }, [startMomentum]);
 
-  // Trackpad 2-finger swipe / mouse wheel panning
+  // Trackpad / wheel
   useEffect(() => {
     const el = viewportRef.current;
     if (!el || view !== 'canvas') return;
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
+      stopMomentum();
       moveOffset(-e.deltaX, -e.deltaY);
     };
     el.addEventListener('wheel', onWheel, { passive: false });
     return () => el.removeEventListener('wheel', onWheel);
-  }, [view, moveOffset]);
+  }, [view, moveOffset, stopMomentum]);
 
   const handleCardClick = useCallback((post: PostData) => {
     if (hasDragged.current) return;
     setSelectedPost(post);
   }, []);
+
+  // Center title position
+  const titleX = grid.centerCol * CELL + CELL / 2;
+  const titleY = grid.centerRow * CELL + CELL / 2;
 
   return (
     <>
@@ -354,7 +384,6 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerUp}
           >
-            {/* World container — transform updated via ref, not state */}
             <div
               ref={worldRef}
               style={{
@@ -364,58 +393,56 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
                 transition: 'filter 0.35s ease',
               }}
             >
-              {/* Center title */}
-              <div style={{
-                position: 'absolute',
-                left: `${WORLD_CENTER.x}px`, top: `${WORLD_CENTER.y}px`,
-                transform: 'translate(-50%, -50%)', textAlign: 'center',
-                pointerEvents: 'none', zIndex: 5,
-              }}>
-                <h1 style={{
-                  color: '#1a1a1a', fontWeight: 300, fontSize: '2.2rem',
-                  letterSpacing: '0.35em', margin: '0 0 0.4rem',
-                  fontFamily: "'Google Sans', system-ui, sans-serif", whiteSpace: 'nowrap',
-                }}>
-                  Axiom Thoughts
-                </h1>
-                <p style={{
-                  color: '#999', fontSize: '0.8rem', letterSpacing: '0.2em', margin: 0,
-                  fontFamily: "'Noto Sans SC', sans-serif", whiteSpace: 'nowrap',
-                }}>
-                  一只狐狸读书时留下的脚印
-                </p>
-              </div>
+              {/* 5×5 tile grid for infinite wrap */}
+              {TILE_OFFSETS.map(({ tx, ty }) => {
+                const isMainTile = tx === 0 && ty === 0;
+                return (
+                  <div
+                    key={`tile-${tx}-${ty}`}
+                    style={{
+                      position: 'absolute', top: 0, left: 0,
+                      transform: `translate(${tx * grid.worldW}px, ${ty * grid.worldH}px)`,
+                    }}
+                  >
+                    {/* Title only in main tile center */}
+                    {isMainTile && (
+                      <div style={{
+                        position: 'absolute',
+                        left: `${titleX}px`, top: `${titleY}px`,
+                        transform: 'translate(-50%, -50%)',
+                        textAlign: 'center', pointerEvents: 'none', zIndex: 5,
+                        width: `${CELL}px`,
+                      }}>
+                        <h1 style={{
+                          color: '#1a1a1a', fontWeight: 300, fontSize: '2rem',
+                          letterSpacing: '0.3em', margin: '0 0 0.3rem',
+                          fontFamily: "'Google Sans', system-ui, sans-serif",
+                          whiteSpace: 'nowrap',
+                        }}>
+                          Axiom Thoughts
+                        </h1>
+                        <p style={{
+                          color: '#999', fontSize: '0.75rem', letterSpacing: '0.18em', margin: 0,
+                          fontFamily: "'Noto Sans SC', sans-serif", whiteSpace: 'nowrap',
+                        }}>
+                          一只狐狸读书时留下的脚印
+                        </p>
+                      </div>
+                    )}
 
-              {/* Subtle center backdrop */}
-              <div style={{
-                position: 'absolute',
-                left: `${WORLD_CENTER.x}px`, top: `${WORLD_CENTER.y}px`,
-                transform: 'translate(-50%, -50%)',
-                width: '360px', height: '260px', borderRadius: '50%',
-                background: 'radial-gradient(ellipse at center, rgba(245,243,239,0.95) 0%, transparent 70%)',
-                pointerEvents: 'none',
-              }} />
-
-              {/* Tiled painting cards — only re-renders when tile set changes */}
-              {tiles.map(({ tx, ty }) => (
-                <div
-                  key={`tile-${tx}-${ty}`}
-                  style={{
-                    position: 'absolute', top: 0, left: 0,
-                    transform: `translate(${tx * worldBounds.w}px, ${ty * worldBounds.h}px)`,
-                  }}
-                >
-                  {filteredPosts.map(post => (
-                    <PaintingCard
-                      key={`${post.id}-${tx}-${ty}`}
-                      post={post}
-                      basePath={basePath}
-                      lang={lang}
-                      onClick={() => handleCardClick(post)}
-                    />
-                  ))}
-                </div>
-              ))}
+                    {/* Cards */}
+                    {filteredPosts.map(post => (
+                      <PaintingCard
+                        key={`${post.id}-${tx}-${ty}`}
+                        post={post}
+                        basePath={basePath}
+                        lang={lang}
+                        onClick={() => handleCardClick(post)}
+                      />
+                    ))}
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
