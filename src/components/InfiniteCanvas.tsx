@@ -2,6 +2,7 @@ import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import PaintingCard from './PaintingCard';
 import SideDrawer from './SideDrawer';
 import FilterBar from './FilterBar';
+import { PAINTING_HEIGHTS } from '../data/paintingHeights';
 
 export interface PostData {
   id: string;
@@ -22,7 +23,7 @@ export interface PostData {
 interface LayoutedPost extends PostData {
   x: number;
   y: number;
-  size: 'small' | 'medium' | 'large';
+  cardWidth: number;
 }
 
 // --- Layout helpers ---
@@ -45,47 +46,55 @@ function seededRng(seed: number) {
   };
 }
 
+// Masonry-like grid layout centered on WORLD_CENTER
+// Cards are placed in columns, each column tracks its running height.
+// Small random jitter keeps it organic (not a rigid grid).
 const WORLD_CENTER = { x: 3000, y: 2400 };
-const SIZES: ('small' | 'medium' | 'large')[] = ['small', 'medium', 'large'];
+const COL_WIDTH = 200;    // column width including gap
+const CARD_WIDTH = 170;   // painting card width
+const GAP_Y = 30;         // vertical gap between cards
+const FRAME_PAD = 5;
+const SRC_WIDTH = 800;
 
 function layoutPosts(posts: PostData[]): LayoutedPost[] {
-  const rings = [
-    { count: 8,  baseRadius: 480,  yScale: 0.65 },
-    { count: 10, baseRadius: 860,  yScale: 0.65 },
-    { count: 13, baseRadius: 1240, yScale: 0.65 },
-  ];
+  const n = posts.length;
+  if (n === 0) return [];
+
+  // Determine column count: roughly ceil(sqrt(n)) capped at 6
+  const cols = Math.min(6, Math.max(3, Math.ceil(Math.sqrt(n))));
+  const gridW = cols * COL_WIDTH;
+
+  // Column tops tracker
+  const colTops = new Array(cols).fill(0);
 
   const result: LayoutedPost[] = [];
-  let idx = 0;
 
-  for (const ring of rings) {
-    for (let i = 0; i < ring.count && idx < posts.length; i++, idx++) {
-      const post = posts[idx];
-      const rng = seededRng(hashStr(post.id));
-      const baseAngle = (i / ring.count) * Math.PI * 2 - Math.PI / 2;
-      const angleJitter = (rng() - 0.5) * (Math.PI * 2 / ring.count) * 0.6;
-      const angle = baseAngle + angleJitter;
-      const radiusJitter = (rng() - 0.5) * 140;
-      const radius = ring.baseRadius + radiusJitter;
-      const x = WORLD_CENTER.x + Math.cos(angle) * radius;
-      const y = WORLD_CENTER.y + Math.sin(angle) * radius * ring.yScale;
-      const size = SIZES[Math.floor(rng() * 3)];
-      result.push({ ...post, x, y, size });
-    }
-  }
-
-  while (idx < posts.length) {
-    const post = posts[idx];
+  for (let i = 0; i < n; i++) {
+    const post = posts[i];
     const rng = seededRng(hashStr(post.id));
-    const i = idx - 31;
-    const total = Math.max(posts.length - 31, 1);
-    const angle = (i / total) * Math.PI * 2 - Math.PI / 2;
-    const radius = 1620 + (rng() - 0.5) * 180;
-    const x = WORLD_CENTER.x + Math.cos(angle) * radius;
-    const y = WORLD_CENTER.y + Math.sin(angle) * radius * 0.62;
-    const size = SIZES[Math.floor(rng() * 3)];
-    result.push({ ...post, x, y, size });
-    idx++;
+
+    // Pick the shortest column
+    let minCol = 0;
+    for (let c = 1; c < cols; c++) {
+      if (colTops[c] < colTops[minCol]) minCol = c;
+    }
+
+    // Card natural height
+    const imgW = CARD_WIDTH - FRAME_PAD * 2;
+    const srcH = PAINTING_HEIGHTS[post.painting_id] || 600;
+    const imgH = Math.round(imgW * (srcH / SRC_WIDTH));
+    const cardH = imgH + FRAME_PAD * 2; // frame height
+
+    // Position: center the grid on WORLD_CENTER
+    const jitterX = (rng() - 0.5) * 16;
+    const jitterY = (rng() - 0.5) * 12;
+
+    const x = WORLD_CENTER.x - gridW / 2 + minCol * COL_WIDTH + COL_WIDTH / 2 + jitterX;
+    const y = WORLD_CENTER.y - 600 + colTops[minCol] + cardH / 2 + jitterY;
+
+    colTops[minCol] += cardH + GAP_Y;
+
+    result.push({ ...post, x, y, cardWidth: CARD_WIDTH });
   }
 
   return result;
@@ -351,6 +360,8 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
               style={{
                 position: 'absolute', top: 0, left: 0, width: 0, height: 0,
                 willChange: 'transform',
+                filter: selectedPost ? 'blur(6px) brightness(0.92)' : 'none',
+                transition: 'filter 0.35s ease',
               }}
             >
               {/* Center title */}
