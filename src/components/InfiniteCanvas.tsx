@@ -49,7 +49,6 @@ const WORLD_CENTER = { x: 3000, y: 2400 };
 const SIZES: ('small' | 'medium' | 'large')[] = ['small', 'medium', 'large'];
 
 function layoutPosts(posts: PostData[]): LayoutedPost[] {
-  // Tighter elliptical rings — closer together like reference site
   const rings = [
     { count: 8,  baseRadius: 480,  yScale: 0.65 },
     { count: 10, baseRadius: 860,  yScale: 0.65 },
@@ -63,23 +62,18 @@ function layoutPosts(posts: PostData[]): LayoutedPost[] {
     for (let i = 0; i < ring.count && idx < posts.length; i++, idx++) {
       const post = posts[idx];
       const rng = seededRng(hashStr(post.id));
-
       const baseAngle = (i / ring.count) * Math.PI * 2 - Math.PI / 2;
       const angleJitter = (rng() - 0.5) * (Math.PI * 2 / ring.count) * 0.6;
       const angle = baseAngle + angleJitter;
-
       const radiusJitter = (rng() - 0.5) * 140;
       const radius = ring.baseRadius + radiusJitter;
-
       const x = WORLD_CENTER.x + Math.cos(angle) * radius;
       const y = WORLD_CENTER.y + Math.sin(angle) * radius * ring.yScale;
-
       const size = SIZES[Math.floor(rng() * 3)];
       result.push({ ...post, x, y, size });
     }
   }
 
-  // Overflow ring for posts beyond 31
   while (idx < posts.length) {
     const post = posts[idx];
     const rng = seededRng(hashStr(post.id));
@@ -109,12 +103,8 @@ function ListView({
   const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
   return (
     <div style={{
-      position: 'fixed',
-      inset: 0,
-      background: '#f5f3ef',
-      overflowY: 'auto',
-      padding: '3rem 1.5rem 6rem',
-      zIndex: 50,
+      position: 'fixed', inset: 0, background: '#f5f3ef',
+      overflowY: 'auto', padding: '3rem 1.5rem 6rem', zIndex: 50,
     }}>
       <div style={{ maxWidth: '640px', margin: '0 auto' }}>
         <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
@@ -125,27 +115,16 @@ function ListView({
             一只狐狸读书时留下的脚印
           </p>
         </div>
-
         {sorted.map(post => {
           const title = lang === 'en' && post.title_en ? post.title_en : post.title;
           const excerpt = lang === 'en' && post.excerpt_en ? post.excerpt_en : post.excerpt;
           return (
-            <div
-              key={post.id}
-              onClick={() => onSelect(post)}
-              style={{
-                display: 'flex',
-                gap: '1rem',
-                padding: '1rem 0',
-                borderBottom: '1px solid rgba(0,0,0,0.06)',
-                cursor: 'pointer',
-              }}
-            >
-              <img
-                src={`${basePath}/paintings/${post.painting_id}.jpg`}
-                alt=""
-                style={{ width: '60px', height: '45px', objectFit: 'cover', flexShrink: 0, opacity: 0.9 }}
-              />
+            <div key={post.id} onClick={() => onSelect(post)} style={{
+              display: 'flex', gap: '1rem', padding: '1rem 0',
+              borderBottom: '1px solid rgba(0,0,0,0.06)', cursor: 'pointer',
+            }}>
+              <img src={`${basePath}/paintings/${post.painting_id}.jpg`} alt=""
+                style={{ width: '60px', height: '45px', objectFit: 'cover', flexShrink: 0, opacity: 0.9 }} />
               <div>
                 <div style={{ color: '#999', fontSize: '0.65rem', letterSpacing: '0.08em', marginBottom: '0.25rem', fontFamily: 'monospace' }}>
                   {post.date}
@@ -165,6 +144,9 @@ function ListView({
   );
 }
 
+// --- Tile key from tile indices ---
+function tileKey(tx: number, ty: number) { return `${tx},${ty}`; }
+
 // --- Main component ---
 interface InfiniteCanvasProps {
   posts: PostData[];
@@ -177,14 +159,21 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
   const lastPos = useRef({ x: 0, y: 0 });
   const dragStart = useRef({ x: 0, y: 0 });
   const viewportRef = useRef<HTMLDivElement>(null);
+  const worldRef = useRef<HTMLDivElement>(null);
 
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  // offset lives in ref for perf — DOM updated directly via rAF
+  const offsetRef = useRef({ x: 0, y: 0 });
+  const rafId = useRef(0);
+
   const [selectedPost, setSelectedPost] = useState<PostData | null>(null);
   const [activeFilter, setActiveFilter] = useState('all');
   const [view, setView] = useState<'canvas' | 'list'>('canvas');
   const [lang, setLang] = useState('zh');
 
-  // Sync lang with localStorage
+  // Tile state — only re-render when visible tile set changes
+  const [tiles, setTiles] = useState<{ tx: number; ty: number }[]>([{ tx: 0, ty: 0 }]);
+  const lastTileKey = useRef('0,0');
+
   useEffect(() => {
     try {
       const saved = localStorage.getItem('axiom-lang');
@@ -204,10 +193,11 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
   useEffect(() => {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    setOffset({ x: vw / 2 - WORLD_CENTER.x, y: vh / 2 - WORLD_CENTER.y });
+    offsetRef.current = { x: vw / 2 - WORLD_CENTER.x, y: vh / 2 - WORLD_CENTER.y };
+    applyTransform();
+    recalcTiles();
   }, []);
 
-  // Mobile: default to list
   useEffect(() => {
     if (window.innerWidth < 768) setView('list');
   }, []);
@@ -223,6 +213,78 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
     if (activeFilter === 'all') return layoutedPosts;
     return layoutedPosts.filter(p => p.series === activeFilter);
   }, [layoutedPosts, activeFilter]);
+
+  // Bounding box of all laid-out posts
+  const worldBounds = useMemo(() => {
+    if (filteredPosts.length === 0) return { minX: 0, maxX: 6000, minY: 0, maxY: 4800, w: 6000, h: 4800 };
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    for (const p of filteredPosts) {
+      if (p.x < minX) minX = p.x;
+      if (p.x > maxX) maxX = p.x;
+      if (p.y < minY) minY = p.y;
+      if (p.y > maxY) maxY = p.y;
+    }
+    const margin = 300;
+    minX -= margin; maxX += margin; minY -= margin; maxY += margin;
+    return { minX, maxX, minY, maxY, w: maxX - minX, h: maxY - minY };
+  }, [filteredPosts]);
+
+  // Store worldBounds in ref so recalcTiles can access without dependency
+  const worldBoundsRef = useRef(worldBounds);
+  worldBoundsRef.current = worldBounds;
+
+  // Apply transform directly to DOM — no React re-render
+  const applyTransform = useCallback(() => {
+    if (worldRef.current) {
+      const { x, y } = offsetRef.current;
+      worldRef.current.style.transform = `translate(${x}px, ${y}px)`;
+    }
+  }, []);
+
+  // Recalc visible tiles — only triggers setState if tile set actually changed
+  const recalcTiles = useCallback(() => {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const bounds = worldBoundsRef.current;
+    const { w, h } = bounds;
+    if (w <= 0 || h <= 0) return;
+
+    const { x: ox, y: oy } = offsetRef.current;
+    const viewMinX = -ox;
+    const viewMaxX = -ox + vw;
+    const viewMinY = -oy;
+    const viewMaxY = -oy + vh;
+
+    const startTileX = Math.floor((viewMinX - bounds.maxX) / w);
+    const endTileX = Math.ceil((viewMaxX - bounds.minX) / w);
+    const startTileY = Math.floor((viewMinY - bounds.maxY) / h);
+    const endTileY = Math.ceil((viewMaxY - bounds.minY) / h);
+
+    const newTiles: { tx: number; ty: number }[] = [];
+    for (let tx = startTileX; tx <= endTileX; tx++) {
+      for (let ty = startTileY; ty <= endTileY; ty++) {
+        newTiles.push({ tx, ty });
+      }
+    }
+
+    const key = newTiles.map(t => tileKey(t.tx, t.ty)).join('|');
+    if (key !== lastTileKey.current) {
+      lastTileKey.current = key;
+      setTiles(newTiles);
+    }
+  }, []);
+
+  // Move offset + schedule a single rAF for DOM update + tile check
+  const moveOffset = useCallback((dx: number, dy: number) => {
+    offsetRef.current.x += dx;
+    offsetRef.current.y += dy;
+
+    if (rafId.current) cancelAnimationFrame(rafId.current);
+    rafId.current = requestAnimationFrame(() => {
+      applyTransform();
+      recalcTiles();
+    });
+  }, [applyTransform, recalcTiles]);
 
   // --- Drag handlers ---
   const handlePointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
@@ -242,8 +304,8 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
     const totalDy = e.clientY - dragStart.current.y;
     if (Math.sqrt(totalDx * totalDx + totalDy * totalDy) > 5) hasDragged.current = true;
     lastPos.current = { x: e.clientX, y: e.clientY };
-    setOffset(prev => ({ x: prev.x + dx, y: prev.y + dy }));
-  }, []);
+    moveOffset(dx, dy);
+  }, [moveOffset]);
 
   const handlePointerUp = useCallback(() => {
     isDragging.current = false;
@@ -252,72 +314,26 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
   // Trackpad 2-finger swipe / mouse wheel panning
   useEffect(() => {
     const el = viewportRef.current;
-    if (!el) return;
+    if (!el || view !== 'canvas') return;
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
-      setOffset(prev => ({ x: prev.x - e.deltaX, y: prev.y - e.deltaY }));
+      moveOffset(-e.deltaX, -e.deltaY);
     };
     el.addEventListener('wheel', onWheel, { passive: false });
     return () => el.removeEventListener('wheel', onWheel);
-  }, [view]);
+  }, [view, moveOffset]);
 
   const handleCardClick = useCallback((post: PostData) => {
     if (hasDragged.current) return;
     setSelectedPost(post);
   }, []);
 
-  // Compute bounding box of laid-out posts for tiling
-  const worldBounds = useMemo(() => {
-    if (filteredPosts.length === 0) return { minX: 0, maxX: 6000, minY: 0, maxY: 4800, w: 6000, h: 4800 };
-    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-    for (const p of filteredPosts) {
-      if (p.x < minX) minX = p.x;
-      if (p.x > maxX) maxX = p.x;
-      if (p.y < minY) minY = p.y;
-      if (p.y > maxY) maxY = p.y;
-    }
-    // Add margins
-    const margin = 300;
-    minX -= margin; maxX += margin; minY -= margin; maxY += margin;
-    return { minX, maxX, minY, maxY, w: maxX - minX, h: maxY - minY };
-  }, [filteredPosts]);
-
-  // Calculate which tile offsets are visible
-  const tileOffsets = useMemo(() => {
-    const vw = typeof window !== 'undefined' ? window.innerWidth : 1920;
-    const vh = typeof window !== 'undefined' ? window.innerHeight : 1080;
-    const { w, h } = worldBounds;
-    if (w <= 0 || h <= 0) return [{ tx: 0, ty: 0 }];
-
-    // Visible world rectangle
-    const viewMinX = -offset.x;
-    const viewMaxX = -offset.x + vw;
-    const viewMinY = -offset.y;
-    const viewMaxY = -offset.y + vh;
-
-    // How many tiles needed in each direction
-    const startTileX = Math.floor((viewMinX - worldBounds.maxX) / w);
-    const endTileX = Math.ceil((viewMaxX - worldBounds.minX) / w);
-    const startTileY = Math.floor((viewMinY - worldBounds.maxY) / h);
-    const endTileY = Math.ceil((viewMaxY - worldBounds.minY) / h);
-
-    const offsets: { tx: number; ty: number }[] = [];
-    for (let tx = startTileX; tx <= endTileX; tx++) {
-      for (let ty = startTileY; ty <= endTileY; ty++) {
-        offsets.push({ tx, ty });
-      }
-    }
-    return offsets;
-  }, [offset, worldBounds]);
-
   return (
     <>
-      {/* Global reset so canvas fills viewport without scrollbars */}
       <style>{`
         html, body { margin: 0; padding: 0; overflow: hidden; background: #f5f3ef; }
       `}</style>
 
-      {/* Canvas root */}
       <div style={{ position: 'fixed', inset: 0, background: '#f5f3ef', overflow: 'hidden' }}>
 
         {view === 'canvas' && (
@@ -329,44 +345,31 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerUp}
           >
-            {/* World — with tiling for infinite canvas */}
-            <div style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: 0,
-              height: 0,
-              transform: `translate(${offset.x}px, ${offset.y}px)`,
-              willChange: 'transform',
-            }}>
-              {/* Center title (only in main tile) */}
+            {/* World container — transform updated via ref, not state */}
+            <div
+              ref={worldRef}
+              style={{
+                position: 'absolute', top: 0, left: 0, width: 0, height: 0,
+                willChange: 'transform',
+              }}
+            >
+              {/* Center title */}
               <div style={{
                 position: 'absolute',
-                left: `${WORLD_CENTER.x}px`,
-                top: `${WORLD_CENTER.y}px`,
-                transform: 'translate(-50%, -50%)',
-                textAlign: 'center',
-                pointerEvents: 'none',
-                zIndex: 5,
+                left: `${WORLD_CENTER.x}px`, top: `${WORLD_CENTER.y}px`,
+                transform: 'translate(-50%, -50%)', textAlign: 'center',
+                pointerEvents: 'none', zIndex: 5,
               }}>
                 <h1 style={{
-                  color: '#1a1a1a',
-                  fontWeight: 300,
-                  fontSize: '2.2rem',
-                  letterSpacing: '0.35em',
-                  margin: '0 0 0.4rem',
-                  fontFamily: "'Google Sans', system-ui, sans-serif",
-                  whiteSpace: 'nowrap',
+                  color: '#1a1a1a', fontWeight: 300, fontSize: '2.2rem',
+                  letterSpacing: '0.35em', margin: '0 0 0.4rem',
+                  fontFamily: "'Google Sans', system-ui, sans-serif", whiteSpace: 'nowrap',
                 }}>
                   Axiom Thoughts
                 </h1>
                 <p style={{
-                  color: '#999',
-                  fontSize: '0.8rem',
-                  letterSpacing: '0.2em',
-                  margin: 0,
-                  fontFamily: "'Noto Sans SC', sans-serif",
-                  whiteSpace: 'nowrap',
+                  color: '#999', fontSize: '0.8rem', letterSpacing: '0.2em', margin: 0,
+                  fontFamily: "'Noto Sans SC', sans-serif", whiteSpace: 'nowrap',
                 }}>
                   一只狐狸读书时留下的脚印
                 </p>
@@ -375,24 +378,19 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
               {/* Subtle center backdrop */}
               <div style={{
                 position: 'absolute',
-                left: `${WORLD_CENTER.x}px`,
-                top: `${WORLD_CENTER.y}px`,
+                left: `${WORLD_CENTER.x}px`, top: `${WORLD_CENTER.y}px`,
                 transform: 'translate(-50%, -50%)',
-                width: '360px',
-                height: '260px',
-                borderRadius: '50%',
+                width: '360px', height: '260px', borderRadius: '50%',
                 background: 'radial-gradient(ellipse at center, rgba(245,243,239,0.95) 0%, transparent 70%)',
                 pointerEvents: 'none',
               }} />
 
-              {/* Tiled painting cards */}
-              {tileOffsets.map(({ tx, ty }) => (
+              {/* Tiled painting cards — only re-renders when tile set changes */}
+              {tiles.map(({ tx, ty }) => (
                 <div
                   key={`tile-${tx}-${ty}`}
                   style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
+                    position: 'absolute', top: 0, left: 0,
                     transform: `translate(${tx * worldBounds.w}px, ${ty * worldBounds.h}px)`,
                   }}
                 >
