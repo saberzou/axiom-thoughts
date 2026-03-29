@@ -55,7 +55,6 @@ function mdToHtml(md: string): string {
 export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle }: SideDrawerProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Reset scroll when post changes
   useEffect(() => {
     if (post && scrollRef.current) {
       scrollRef.current.scrollTop = 0;
@@ -77,7 +76,7 @@ export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle
         style={{
           position: 'fixed',
           inset: 0,
-          background: 'rgba(0,0,0,0.4)',
+          background: 'rgba(0,0,0,0.15)',
           zIndex: 150,
           opacity: isOpen ? 1 : 0,
           pointerEvents: isOpen ? 'auto' : 'none',
@@ -96,13 +95,13 @@ export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle
           width: 'min(420px, 100vw)',
           transform: `translateX(${isOpen ? '0' : '100%'})`,
           transition: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
-          background: '#100f0d',
-          borderLeft: '1px solid rgba(212, 175, 135, 0.12)',
+          background: '#fff',
+          borderLeft: '1px solid rgba(0, 0, 0, 0.08)',
           zIndex: 200,
           overflowY: 'auto',
           overflowX: 'hidden',
           scrollbarWidth: 'thin',
-          scrollbarColor: 'rgba(212,175,135,0.2) transparent',
+          scrollbarColor: 'rgba(0,0,0,0.15) transparent',
         }}
       >
         {/* Header bar */}
@@ -113,9 +112,9 @@ export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '0.75rem 1rem',
-          background: 'rgba(16,15,13,0.95)',
+          background: 'rgba(255,255,255,0.95)',
           backdropFilter: 'blur(8px)',
-          borderBottom: '1px solid rgba(212,175,135,0.08)',
+          borderBottom: '1px solid rgba(0,0,0,0.06)',
           zIndex: 10,
         }}>
           {/* Lang toggle */}
@@ -127,9 +126,9 @@ export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle
                 style={{
                   padding: '0.2rem 0.6rem',
                   borderRadius: '4px',
-                  border: '1px solid rgba(212,175,135,0.2)',
-                  background: lang === l ? 'rgba(212,175,135,0.15)' : 'transparent',
-                  color: lang === l ? '#d4af87' : '#5a4e42',
+                  border: '1px solid rgba(0,0,0,0.1)',
+                  background: lang === l ? 'rgba(0,0,0,0.06)' : 'transparent',
+                  color: lang === l ? '#1a1a1a' : '#999',
                   fontSize: '0.7rem',
                   cursor: 'pointer',
                   letterSpacing: '0.05em',
@@ -147,7 +146,7 @@ export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle
             style={{
               background: 'none',
               border: 'none',
-              color: '#6a5a4a',
+              color: '#bbb',
               fontSize: '1.2rem',
               cursor: 'pointer',
               lineHeight: 1,
@@ -155,8 +154,8 @@ export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle
               borderRadius: '4px',
               transition: 'color 0.2s',
             }}
-            onMouseEnter={e => (e.currentTarget.style.color = '#d4af87')}
-            onMouseLeave={e => (e.currentTarget.style.color = '#6a5a4a')}
+            onMouseEnter={e => (e.currentTarget.style.color = '#333')}
+            onMouseLeave={e => (e.currentTarget.style.color = '#bbb')}
           >
             ×
           </button>
@@ -170,7 +169,7 @@ export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle
               width: '100%',
               paddingBottom: '60%',
               overflow: 'hidden',
-              background: '#0a0908',
+              background: '#f5f3ef',
             }}>
               <img
                 src={imgUrl}
@@ -191,14 +190,14 @@ export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle
                 left: 0,
                 right: 0,
                 height: '50%',
-                background: 'linear-gradient(to bottom, transparent, #100f0d)',
+                background: 'linear-gradient(to bottom, transparent, #fff)',
               }} />
               {/* Painting credit */}
               <div style={{
                 position: 'absolute',
                 bottom: '0.6rem',
                 right: '0.75rem',
-                color: 'rgba(212,175,135,0.5)',
+                color: 'rgba(0,0,0,0.35)',
                 fontSize: '0.6rem',
                 letterSpacing: '0.07em',
                 textAlign: 'right',
@@ -211,7 +210,7 @@ export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle
             {/* Post metadata */}
             <div style={{ padding: '1.25rem 1.25rem 0' }}>
               <div style={{
-                color: '#5a4e42',
+                color: '#999',
                 fontSize: '0.65rem',
                 letterSpacing: '0.1em',
                 marginBottom: '0.5rem',
@@ -219,16 +218,16 @@ export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle
               }}>
                 {post.date}
                 {post.series && (
-                  <span style={{ marginLeft: '0.75rem', color: '#7a6040', borderLeft: '1px solid #3a3028', paddingLeft: '0.75rem' }}>
+                  <span style={{ marginLeft: '0.75rem', color: '#666', borderLeft: '1px solid #ddd', paddingLeft: '0.75rem' }}>
                     {post.series}
                   </span>
                 )}
               </div>
 
               <h2 style={{
-                color: '#e0d4c0',
+                color: '#1a1a1a',
                 fontSize: '1.1rem',
-                fontWeight: 300,
+                fontWeight: 500,
                 lineHeight: 1.4,
                 margin: '0 0 1.25rem',
                 letterSpacing: '0.02em',
@@ -239,10 +238,11 @@ export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle
 
             {/* Article content */}
             <div
+              className="drawer-body"
               dangerouslySetInnerHTML={{ __html: bodyHtml }}
               style={{
                 padding: '0 1.25rem 2rem',
-                color: '#b0a090',
+                color: '#444',
                 fontSize: '0.875rem',
                 lineHeight: 1.85,
                 fontFamily: lang === 'zh' ? "'Noto Sans SC', serif" : "'Georgia', serif",
@@ -252,7 +252,7 @@ export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle
             {/* Footer: read full link */}
             <div style={{
               padding: '1rem 1.25rem 2rem',
-              borderTop: '1px solid rgba(212,175,135,0.08)',
+              borderTop: '1px solid rgba(0,0,0,0.06)',
             }}>
               <a
                 href={`${basePath}/${slug}`}
@@ -260,15 +260,15 @@ export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.4rem',
-                  color: '#d4af87',
+                  color: '#1a1a1a',
                   fontSize: '0.75rem',
                   letterSpacing: '0.07em',
                   textDecoration: 'none',
-                  opacity: 0.7,
+                  opacity: 0.5,
                   transition: 'opacity 0.2s',
                 }}
                 onMouseEnter={e => (e.currentTarget.style.opacity = '1')}
-                onMouseLeave={e => (e.currentTarget.style.opacity = '0.7')}
+                onMouseLeave={e => (e.currentTarget.style.opacity = '0.5')}
               >
                 Read full page →
               </a>
@@ -279,20 +279,20 @@ export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle
 
       <style>{`
         .drawer-body h1, .drawer-body h2, .drawer-body h3 {
-          color: #c8b898;
-          font-weight: 300;
+          color: #1a1a1a;
+          font-weight: 500;
           margin: 1.5em 0 0.5em;
         }
         .drawer-body blockquote {
-          border-left: 2px solid rgba(212,175,135,0.3);
+          border-left: 2px solid rgba(0,0,0,0.12);
           margin: 1em 0;
           padding-left: 1em;
-          color: #8a7a6a;
+          color: #666;
           font-style: italic;
         }
         .drawer-body hr {
           border: none;
-          border-top: 1px solid rgba(212,175,135,0.15);
+          border-top: 1px solid rgba(0,0,0,0.08);
           margin: 1.5em 0;
         }
       `}</style>

@@ -45,15 +45,15 @@ function seededRng(seed: number) {
   };
 }
 
-const WORLD_CENTER = { x: 4000, y: 3000 };
+const WORLD_CENTER = { x: 3000, y: 2400 };
 const SIZES: ('small' | 'medium' | 'large')[] = ['small', 'medium', 'large'];
 
 function layoutPosts(posts: PostData[]): LayoutedPost[] {
-  // Elliptical rings around WORLD_CENTER
+  // Tighter elliptical rings — closer together like reference site
   const rings = [
-    { count: 8,  baseRadius: 740,  yScale: 0.62 },
-    { count: 10, baseRadius: 1360, yScale: 0.62 },
-    { count: 13, baseRadius: 1960, yScale: 0.62 },
+    { count: 8,  baseRadius: 480,  yScale: 0.65 },
+    { count: 10, baseRadius: 860,  yScale: 0.65 },
+    { count: 13, baseRadius: 1240, yScale: 0.65 },
   ];
 
   const result: LayoutedPost[] = [];
@@ -68,7 +68,7 @@ function layoutPosts(posts: PostData[]): LayoutedPost[] {
       const angleJitter = (rng() - 0.5) * (Math.PI * 2 / ring.count) * 0.6;
       const angle = baseAngle + angleJitter;
 
-      const radiusJitter = (rng() - 0.5) * 200;
+      const radiusJitter = (rng() - 0.5) * 140;
       const radius = ring.baseRadius + radiusJitter;
 
       const x = WORLD_CENTER.x + Math.cos(angle) * radius;
@@ -86,7 +86,7 @@ function layoutPosts(posts: PostData[]): LayoutedPost[] {
     const i = idx - 31;
     const total = Math.max(posts.length - 31, 1);
     const angle = (i / total) * Math.PI * 2 - Math.PI / 2;
-    const radius = 2550 + (rng() - 0.5) * 250;
+    const radius = 1620 + (rng() - 0.5) * 180;
     const x = WORLD_CENTER.x + Math.cos(angle) * radius;
     const y = WORLD_CENTER.y + Math.sin(angle) * radius * 0.62;
     const size = SIZES[Math.floor(rng() * 3)];
@@ -111,17 +111,17 @@ function ListView({
     <div style={{
       position: 'fixed',
       inset: 0,
-      background: '#0f0e0c',
+      background: '#f5f3ef',
       overflowY: 'auto',
       padding: '3rem 1.5rem 6rem',
       zIndex: 50,
     }}>
       <div style={{ maxWidth: '640px', margin: '0 auto' }}>
         <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
-          <h1 style={{ color: '#d4af87', fontWeight: 300, letterSpacing: '0.25em', fontSize: '1.5rem', margin: '0 0 0.4rem' }}>
+          <h1 style={{ color: '#1a1a1a', fontWeight: 300, letterSpacing: '0.25em', fontSize: '1.5rem', margin: '0 0 0.4rem' }}>
             Axiom Thoughts
           </h1>
-          <p style={{ color: '#5a4e42', fontSize: '0.8rem', letterSpacing: '0.15em' }}>
+          <p style={{ color: '#999', fontSize: '0.8rem', letterSpacing: '0.15em' }}>
             一只狐狸读书时留下的脚印
           </p>
         </div>
@@ -137,23 +137,23 @@ function ListView({
                 display: 'flex',
                 gap: '1rem',
                 padding: '1rem 0',
-                borderBottom: '1px solid rgba(212,175,135,0.07)',
+                borderBottom: '1px solid rgba(0,0,0,0.06)',
                 cursor: 'pointer',
               }}
             >
               <img
                 src={`${basePath}/paintings/${post.painting_id}.jpg`}
                 alt=""
-                style={{ width: '60px', height: '45px', objectFit: 'cover', flexShrink: 0, opacity: 0.75 }}
+                style={{ width: '60px', height: '45px', objectFit: 'cover', flexShrink: 0, opacity: 0.9 }}
               />
               <div>
-                <div style={{ color: '#4a3e34', fontSize: '0.65rem', letterSpacing: '0.08em', marginBottom: '0.25rem', fontFamily: 'monospace' }}>
+                <div style={{ color: '#999', fontSize: '0.65rem', letterSpacing: '0.08em', marginBottom: '0.25rem', fontFamily: 'monospace' }}>
                   {post.date}
                 </div>
-                <div style={{ color: '#c8b898', fontSize: '0.88rem', fontWeight: 300, lineHeight: 1.4, marginBottom: '0.3rem' }}>
+                <div style={{ color: '#2a2a2a', fontSize: '0.88rem', fontWeight: 400, lineHeight: 1.4, marginBottom: '0.3rem' }}>
                   {title}
                 </div>
-                <div style={{ color: '#5a4e42', fontSize: '0.75rem', lineHeight: 1.4 }}>
+                <div style={{ color: '#888', fontSize: '0.75rem', lineHeight: 1.4 }}>
                   {excerpt}
                 </div>
               </div>
@@ -258,11 +258,11 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
     <>
       {/* Global reset so canvas fills viewport without scrollbars */}
       <style>{`
-        html, body { margin: 0; padding: 0; overflow: hidden; background: #0f0e0c; }
+        html, body { margin: 0; padding: 0; overflow: hidden; background: #f5f3ef; }
       `}</style>
 
       {/* Canvas root */}
-      <div style={{ position: 'fixed', inset: 0, background: '#0f0e0c', overflow: 'hidden' }}>
+      <div style={{ position: 'fixed', inset: 0, background: '#f5f3ef', overflow: 'hidden' }}>
 
         {view === 'canvas' && (
           <div
@@ -294,19 +294,18 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
                 zIndex: 5,
               }}>
                 <h1 style={{
-                  color: '#c8a040',
-                  fontWeight: 200,
+                  color: '#1a1a1a',
+                  fontWeight: 300,
                   fontSize: '2.2rem',
                   letterSpacing: '0.35em',
                   margin: '0 0 0.4rem',
-                  textShadow: '0 0 40px rgba(200,160,64,0.25)',
                   fontFamily: "'Google Sans', system-ui, sans-serif",
                   whiteSpace: 'nowrap',
                 }}>
                   Axiom Thoughts
                 </h1>
                 <p style={{
-                  color: '#4a3e34',
+                  color: '#999',
                   fontSize: '0.8rem',
                   letterSpacing: '0.2em',
                   margin: 0,
@@ -317,16 +316,16 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
                 </p>
               </div>
 
-              {/* Subtle center glow */}
+              {/* Subtle center backdrop */}
               <div style={{
                 position: 'absolute',
                 left: `${WORLD_CENTER.x}px`,
                 top: `${WORLD_CENTER.y}px`,
                 transform: 'translate(-50%, -50%)',
-                width: '400px',
-                height: '300px',
+                width: '360px',
+                height: '260px',
                 borderRadius: '50%',
-                background: 'radial-gradient(ellipse at center, rgba(200,160,64,0.04) 0%, transparent 70%)',
+                background: 'radial-gradient(ellipse at center, rgba(245,243,239,0.95) 0%, transparent 70%)',
                 pointerEvents: 'none',
               }} />
 

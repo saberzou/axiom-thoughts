@@ -35,12 +35,12 @@ export default function FilterBar({ series, activeFilter, onFilterChange, view, 
       alignItems: 'center',
       gap: '0.25rem',
       padding: '0.4rem 0.75rem',
-      background: 'rgba(12, 11, 9, 0.82)',
+      background: 'rgba(255, 255, 255, 0.85)',
       backdropFilter: 'blur(16px)',
       WebkitBackdropFilter: 'blur(16px)',
-      border: '1px solid rgba(212, 175, 135, 0.12)',
+      border: '1px solid rgba(0, 0, 0, 0.08)',
       borderRadius: '100px',
-      boxShadow: '0 4px 24px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.03) inset',
+      boxShadow: '0 4px 24px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)',
       whiteSpace: 'nowrap',
     }}>
       {/* Series filter tabs */}
@@ -50,8 +50,8 @@ export default function FilterBar({ series, activeFilter, onFilterChange, view, 
           onClick={() => onFilterChange(tab)}
           style={{
             ...btnBase,
-            background: activeFilter === tab ? 'rgba(212, 175, 135, 0.2)' : 'transparent',
-            color: activeFilter === tab ? '#d4af87' : '#5a4e42',
+            background: activeFilter === tab ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
+            color: activeFilter === tab ? '#1a1a1a' : '#999',
           }}
         >
           {tab === 'all' ? 'All' : tab}
@@ -59,7 +59,7 @@ export default function FilterBar({ series, activeFilter, onFilterChange, view, 
       ))}
 
       {/* Divider */}
-      <div style={{ width: '1px', height: '14px', background: 'rgba(212, 175, 135, 0.12)', margin: '0 0.25rem', flexShrink: 0 }} />
+      <div style={{ width: '1px', height: '14px', background: 'rgba(0, 0, 0, 0.08)', margin: '0 0.25rem', flexShrink: 0 }} />
 
       {/* View toggle: Canvas */}
       <button
@@ -68,8 +68,8 @@ export default function FilterBar({ series, activeFilter, onFilterChange, view, 
         style={{
           ...btnBase,
           padding: '0.3rem 0.55rem',
-          background: view === 'canvas' ? 'rgba(212, 175, 135, 0.2)' : 'transparent',
-          color: view === 'canvas' ? '#d4af87' : '#5a4e42',
+          background: view === 'canvas' ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
+          color: view === 'canvas' ? '#1a1a1a' : '#999',
           fontSize: '0.8rem',
           borderRadius: '8px',
         }}
@@ -83,8 +83,8 @@ export default function FilterBar({ series, activeFilter, onFilterChange, view, 
         style={{
           ...btnBase,
           padding: '0.3rem 0.55rem',
-          background: view === 'list' ? 'rgba(212, 175, 135, 0.2)' : 'transparent',
-          color: view === 'list' ? '#d4af87' : '#5a4e42',
+          background: view === 'list' ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
+          color: view === 'list' ? '#1a1a1a' : '#999',
           fontSize: '0.95rem',
           borderRadius: '8px',
           lineHeight: 1,
@@ -94,7 +94,7 @@ export default function FilterBar({ series, activeFilter, onFilterChange, view, 
       </button>
 
       {/* Divider */}
-      <div style={{ width: '1px', height: '14px', background: 'rgba(212, 175, 135, 0.12)', margin: '0 0.25rem', flexShrink: 0 }} />
+      <div style={{ width: '1px', height: '14px', background: 'rgba(0, 0, 0, 0.08)', margin: '0 0.25rem', flexShrink: 0 }} />
 
       {/* Language toggle */}
       {(['zh', 'en'] as const).map(l => (
@@ -104,8 +104,8 @@ export default function FilterBar({ series, activeFilter, onFilterChange, view, 
           style={{
             ...btnBase,
             padding: '0.25rem 0.55rem',
-            background: lang === l ? 'rgba(212, 175, 135, 0.2)' : 'transparent',
-            color: lang === l ? '#d4af87' : '#5a4e42',
+            background: lang === l ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
+            color: lang === l ? '#1a1a1a' : '#999',
             borderRadius: '8px',
           }}
         >
