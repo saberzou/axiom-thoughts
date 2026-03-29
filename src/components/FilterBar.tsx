@@ -1,9 +1,6 @@
 import React from 'react';
 
 interface FilterBarProps {
-  series: string[];
-  activeFilter: string;
-  onFilterChange: (filter: string) => void;
   view: 'canvas' | 'list';
   onViewChange: (view: 'canvas' | 'list') => void;
   lang: string;
@@ -11,8 +8,8 @@ interface FilterBarProps {
 }
 
 const btnBase: React.CSSProperties = {
-  padding: '0.3rem 0.75rem',
-  borderRadius: '100px',
+  padding: '0.3rem 0.6rem',
+  borderRadius: '8px',
   border: 'none',
   fontSize: '0.72rem',
   cursor: 'pointer',
@@ -21,9 +18,7 @@ const btnBase: React.CSSProperties = {
   fontFamily: "'Google Sans', system-ui, sans-serif",
 };
 
-export default function FilterBar({ series, activeFilter, onFilterChange, view, onViewChange, lang, onLangToggle }: FilterBarProps) {
-  const tabs = ['all', ...series];
-
+export default function FilterBar({ view, onViewChange, lang, onLangToggle }: FilterBarProps) {
   return (
     <div style={{
       position: 'fixed',
@@ -34,7 +29,7 @@ export default function FilterBar({ series, activeFilter, onFilterChange, view, 
       display: 'flex',
       alignItems: 'center',
       gap: '0.25rem',
-      padding: '0.4rem 0.75rem',
+      padding: '0.4rem 0.6rem',
       background: 'rgba(255, 255, 255, 0.85)',
       backdropFilter: 'blur(16px)',
       WebkitBackdropFilter: 'blur(16px)',
@@ -43,24 +38,6 @@ export default function FilterBar({ series, activeFilter, onFilterChange, view, 
       boxShadow: '0 4px 24px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)',
       whiteSpace: 'nowrap',
     }}>
-      {/* Series filter tabs */}
-      {tabs.map(tab => (
-        <button
-          key={tab}
-          onClick={() => onFilterChange(tab)}
-          style={{
-            ...btnBase,
-            background: activeFilter === tab ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
-            color: activeFilter === tab ? '#1a1a1a' : '#999',
-          }}
-        >
-          {tab === 'all' ? 'All' : tab}
-        </button>
-      ))}
-
-      {/* Divider */}
-      <div style={{ width: '1px', height: '14px', background: 'rgba(0, 0, 0, 0.08)', margin: '0 0.25rem', flexShrink: 0 }} />
-
       {/* View toggle: Canvas */}
       <button
         onClick={() => onViewChange('canvas')}
@@ -71,7 +48,6 @@ export default function FilterBar({ series, activeFilter, onFilterChange, view, 
           background: view === 'canvas' ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
           color: view === 'canvas' ? '#1a1a1a' : '#999',
           fontSize: '0.8rem',
-          borderRadius: '8px',
         }}
       >
         ⊞
@@ -86,7 +62,6 @@ export default function FilterBar({ series, activeFilter, onFilterChange, view, 
           background: view === 'list' ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
           color: view === 'list' ? '#1a1a1a' : '#999',
           fontSize: '0.95rem',
-          borderRadius: '8px',
           lineHeight: 1,
         }}
       >
@@ -94,7 +69,7 @@ export default function FilterBar({ series, activeFilter, onFilterChange, view, 
       </button>
 
       {/* Divider */}
-      <div style={{ width: '1px', height: '14px', background: 'rgba(0, 0, 0, 0.08)', margin: '0 0.25rem', flexShrink: 0 }} />
+      <div style={{ width: '1px', height: '14px', background: 'rgba(0, 0, 0, 0.08)', margin: '0 0.15rem', flexShrink: 0 }} />
 
       {/* Language toggle */}
       {(['zh', 'en'] as const).map(l => (
@@ -103,10 +78,9 @@ export default function FilterBar({ series, activeFilter, onFilterChange, view, 
           onClick={onLangToggle}
           style={{
             ...btnBase,
-            padding: '0.25rem 0.55rem',
+            padding: '0.25rem 0.5rem',
             background: lang === l ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
             color: lang === l ? '#1a1a1a' : '#999',
-            borderRadius: '8px',
           }}
         >
           {l.toUpperCase()}

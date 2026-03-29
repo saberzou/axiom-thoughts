@@ -53,10 +53,11 @@ export default function PaintingCard({ post, basePath, lang, onClick }: Painting
             src={imgUrl}
             alt={`${post.painting_title} — ${post.painting_artist}`}
             loading="lazy"
+            draggable={false}
             style={{
-              width: `${imgW}px`,
+              width: '100%',
               height: `${imgH}px`,
-              objectFit: 'contain',
+              objectFit: 'cover',
               display: 'block',
               opacity: hovered ? 1 : 0.92,
               transition: 'opacity 0.3s ease',

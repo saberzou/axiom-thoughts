@@ -218,7 +218,6 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
   const momentumRaf = useRef(0);
 
   const [selectedPost, setSelectedPost] = useState<PostData | null>(null);
-  const [activeFilter, setActiveFilter] = useState('all');
   const [view, setView] = useState<'canvas' | 'list'>('canvas');
   const [lang, setLang] = useState('zh');
 
@@ -240,15 +239,7 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
   // Layout
   const grid = useMemo(() => layoutGrid(posts), [posts]);
 
-  const series = useMemo(() =>
-    [...new Set(posts.map(p => p.series).filter((s): s is string => !!s))],
-    [posts]
-  );
-
-  const filteredPosts = useMemo(() => {
-    if (activeFilter === 'all') return grid.posts;
-    return grid.posts.filter(p => p.series === activeFilter);
-  }, [grid.posts, activeFilter]);
+  const allPosts = grid.posts;
 
   // Center viewport on world center
   useEffect(() => {
@@ -309,9 +300,9 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
     });
   }, [applyTransform]);
 
-  // --- Drag handlers ---
+  // --- Drag handlers (unified pointer events — works for mouse + touch) ---
   const handlePointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    if ((e.target as HTMLElement).closest('[data-card]')) return;
+    // Don't block drag starting on cards — touch needs it
     stopMomentum();
     isDragging.current = true;
     hasDragged.current = false;
@@ -431,7 +422,7 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
                     )}
 
                     {/* Cards */}
-                    {filteredPosts.map(post => (
+                    {allPosts.map(post => (
                       <PaintingCard
                         key={`${post.id}-${tx}-${ty}`}
                         post={post}
@@ -449,7 +440,7 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
 
         {view === 'list' && (
           <ListView
-            posts={filteredPosts}
+            posts={allPosts}
             basePath={basePath}
             lang={lang}
             onSelect={post => setSelectedPost(post)}
@@ -465,9 +456,6 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
         />
 
         <FilterBar
-          series={series}
-          activeFilter={activeFilter}
-          onFilterChange={setActiveFilter}
           view={view}
           onViewChange={setView}
           lang={lang}
