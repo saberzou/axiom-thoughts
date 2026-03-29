@@ -26,6 +26,7 @@ export default function PaintingCard({ post, basePath, lang, onClick }: Painting
   return (
     <div
       data-card="true"
+      data-post-id={post.id}
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}

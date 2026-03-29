@@ -275,10 +275,21 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
     if (window.innerWidth < 768) setView('list');
   }, []);
 
+  // Stable ref for setSelectedPost so native listeners can access it
+  const selectedPostSetter = useRef(setSelectedPost);
+  selectedPostSetter.current = setSelectedPost;
+
+  // Post lookup map for tap detection
+  const postMap = useMemo(() => {
+    const m = new Map<string, PostData>();
+    for (const p of allPosts) m.set(p.id, p);
+    return m;
+  }, [allPosts]);
+  const postMapRef = useRef(postMap);
+  postMapRef.current = postMap;
+
   // =============================================
   // Native event listeners for touch + mouse
-  // (bypasses React synthetic events entirely —
-  //  fixes iPad Safari setPointerCapture issues)
   // =============================================
   useEffect(() => {
     const el = viewportRef.current;
@@ -337,6 +348,21 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
 
     function handleTouchEnd(e: TouchEvent) {
       e.preventDefault();
+      // Detect tap (not drag) on a card
+      if (!hasDragged.current) {
+        // Find card element at the original touch point
+        const elAt = document.elementFromPoint(dragStart.current.x, dragStart.current.y);
+        const cardEl = elAt?.closest?.('[data-post-id]') as HTMLElement | null;
+        if (cardEl) {
+          const postId = cardEl.getAttribute('data-post-id');
+          if (postId) {
+            const post = postMapRef.current.get(postId);
+            if (post) {
+              selectedPostSetter.current(post);
+            }
+          }
+        }
+      }
       onEnd();
     }
 
