@@ -20,21 +20,13 @@ export interface PostData {
   excerpt_en: string;
 }
 
-// --- Layout: 280×280 cell grid (matching tokyo.floguo.com) ---
-
-const CELL = 280;       // each grid cell is 280×280
-const CARD_W = 170;     // card width within cell
-const CARD_INSET_X = 55; // horizontal inset from cell left edge
+// --- Layout constants ---
+const CELL = 280;
+const CARD_W = 170;
+const CARD_INSET_X = 55;
 const FRAME_PAD = 5;
 const SRC_W = 800;
-
-function hashStr(str: string): number {
-  let h = 0;
-  for (let i = 0; i < str.length; i++) {
-    h = Math.imul(31, h) + str.charCodeAt(i) | 0;
-  }
-  return Math.abs(h);
-}
+const DRAG_THRESHOLD = 8; // px before we consider it a drag (not tap)
 
 function seededRng(seed: number) {
   let s = seed | 1;
@@ -46,7 +38,6 @@ function seededRng(seed: number) {
   };
 }
 
-// Seeded shuffle (Fisher-Yates)
 function shuffle<T>(arr: T[], seed: number): T[] {
   const a = [...arr];
   const rng = seededRng(seed);
@@ -64,7 +55,7 @@ function cardHeight(paintingId: string): number {
 }
 
 interface LayoutedPost extends PostData {
-  x: number;  // absolute world px
+  x: number;
   y: number;
   cardWidth: number;
 }
@@ -81,7 +72,6 @@ interface GridInfo {
 
 function layoutGrid(posts: PostData[]): GridInfo {
   const n = posts.length;
-  // Same formula as reference: cols = ceil(sqrt(4/3 * n)), rows = ceil(n/cols)
   const cols = Math.max(2, Math.ceil(Math.sqrt((4 / 3) * n)));
   const rows = Math.max(2, Math.ceil(n / cols));
   const worldW = CELL * cols;
@@ -89,38 +79,29 @@ function layoutGrid(posts: PostData[]): GridInfo {
   const centerCol = Math.floor(cols / 2);
   const centerRow = Math.floor(rows / 2);
 
-  // Shuffle posts with a fixed seed
   const shuffled = shuffle(posts, 212);
   const totalCells = cols * rows;
-
-  // Build cell assignments (skip center cell)
   const cells: (PostData | null)[] = new Array(totalCells).fill(null);
   let pi = 0;
   for (let i = 0; i < totalCells && pi < shuffled.length; i++) {
     const col = i % cols;
     const row = Math.floor(i / cols);
-    if (col === centerCol && row === centerRow) continue; // center is for title
+    if (col === centerCol && row === centerRow) continue;
     cells[i] = shuffled[pi++];
   }
-
-  // If fewer posts than cells, fill remaining with duplicates
-  if (pi < shuffled.length) {
-    // all assigned
-  } else {
-    const shuffled2 = shuffle(posts, 717);
-    let di = 0;
-    for (let i = 0; i < totalCells; i++) {
-      if (!cells[i]) {
-        const col = i % cols;
-        const row = Math.floor(i / cols);
-        if (col === centerCol && row === centerRow) continue;
-        cells[i] = shuffled2[di % shuffled2.length];
-        di++;
-      }
+  // Fill remaining cells with duplicates
+  const shuffled2 = shuffle(posts, 717);
+  let di = 0;
+  for (let i = 0; i < totalCells; i++) {
+    if (!cells[i]) {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+      if (col === centerCol && row === centerRow) continue;
+      cells[i] = shuffled2[di % shuffled2.length];
+      di++;
     }
   }
 
-  // Position each card within its cell
   const result: LayoutedPost[] = [];
   for (let i = 0; i < totalCells; i++) {
     const post = cells[i];
@@ -128,15 +109,14 @@ function layoutGrid(posts: PostData[]): GridInfo {
     const col = i % cols;
     const row = Math.floor(i / cols);
     const ch = cardHeight(post.painting_id);
-    const x = CELL * col + CARD_INSET_X + CARD_W / 2;  // center of card
-    const y = CELL * row + (CELL - ch) / 2 + ch / 2;    // vertically centered in cell
+    const x = CELL * col + CARD_INSET_X + CARD_W / 2;
+    const y = CELL * row + (CELL - ch) / 2 + ch / 2;
     result.push({ ...post, x, y, cardWidth: CARD_W });
   }
 
   return { cols, rows, worldW, worldH, centerCol, centerRow, posts: result };
 }
 
-// --- 5×5 tile offsets for infinite wrapping ---
 const TILE_OFFSETS = [-2, -1, 0, 1, 2].flatMap(ty =>
   [-2, -1, 0, 1, 2].map(tx => ({ tx, ty }))
 );
@@ -154,7 +134,8 @@ function ListView({
   return (
     <div style={{
       position: 'fixed', inset: 0, background: '#f5f3ef',
-      overflowY: 'auto', padding: '3rem 1.5rem 6rem', zIndex: 50,
+      overflowY: 'auto', WebkitOverflowScrolling: 'touch',
+      padding: '3rem 1.5rem 6rem', zIndex: 50,
     }}>
       <div style={{ maxWidth: '640px', margin: '0 auto' }}>
         <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
@@ -174,6 +155,7 @@ function ListView({
               borderBottom: '1px solid rgba(0,0,0,0.06)', cursor: 'pointer',
             }}>
               <img src={`${basePath}/paintings/${post.painting_id}.jpg`} alt=""
+                draggable={false}
                 style={{ width: '60px', height: '45px', objectFit: 'cover', flexShrink: 0, opacity: 0.9 }} />
               <div>
                 <div style={{ color: '#999', fontSize: '0.65rem', letterSpacing: '0.08em', marginBottom: '0.25rem', fontFamily: 'monospace' }}>
@@ -201,20 +183,17 @@ interface InfiniteCanvasProps {
 }
 
 export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps) {
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const worldRef = useRef<HTMLDivElement>(null);
+
+  // All interaction state lives in refs (no re-renders during drag)
+  const panRef = useRef({ x: 0, y: 0 });
+  const rafId = useRef(0);
   const isDragging = useRef(false);
   const hasDragged = useRef(false);
   const lastPos = useRef({ x: 0, y: 0 });
   const dragStart = useRef({ x: 0, y: 0 });
-  const viewportRef = useRef<HTMLDivElement>(null);
-  const worldRef = useRef<HTMLDivElement>(null);
-
-  // Pan offset as ref (DOM updated directly)
-  const panRef = useRef({ x: 0, y: 0 });
-  const rafId = useRef(0);
-
-  // Momentum
-  const velocityRef = useRef({ vx: 0, vy: 0 });
-  const velHistory = useRef<{ vx: number; vy: number }[]>([]);
+  const velHistory = useRef<{ vx: number; vy: number; t: number }[]>([]);
   const momentumRaf = useRef(0);
 
   const [selectedPost, setSelectedPost] = useState<PostData | null>(null);
@@ -236,37 +215,22 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
     });
   }, []);
 
-  // Layout
   const grid = useMemo(() => layoutGrid(posts), [posts]);
-
   const allPosts = grid.posts;
 
-  // Center viewport on world center
-  useEffect(() => {
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const centerX = grid.centerCol * CELL + CELL / 2;
-    const centerY = grid.centerRow * CELL + CELL / 2;
-    panRef.current = { x: vw / 2 - centerX, y: vh / 2 - centerY };
-    applyTransform();
-  }, [grid]);
+  // --- Transform helpers (stable via grid ref capture) ---
+  const gridRef = useRef(grid);
+  gridRef.current = grid;
 
-  useEffect(() => {
-    if (window.innerWidth < 768) setView('list');
-  }, []);
-
-  // Apply wrapped transform to DOM
   const applyTransform = useCallback(() => {
     if (!worldRef.current) return;
     const { x, y } = panRef.current;
-    const { worldW, worldH } = grid;
-    // Wrap offset so it tiles seamlessly
+    const { worldW, worldH } = gridRef.current;
     const wx = -((-x % worldW + worldW) % worldW);
     const wy = -((-y % worldH + worldH) % worldH);
     worldRef.current.style.transform = `translate(${wx}px, ${wy}px)`;
-  }, [grid]);
+  }, []);
 
-  // Stop momentum
   const stopMomentum = useCallback(() => {
     if (momentumRaf.current) {
       cancelAnimationFrame(momentumRaf.current);
@@ -274,7 +238,6 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
     }
   }, []);
 
-  // Start momentum coast
   const startMomentum = useCallback((vx: number, vy: number) => {
     stopMomentum();
     let cvx = vx, cvy = vy;
@@ -290,71 +253,144 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
     momentumRaf.current = requestAnimationFrame(tick);
   }, [stopMomentum, applyTransform]);
 
-  // Move offset + apply
   const moveOffset = useCallback((dx: number, dy: number) => {
     panRef.current.x += dx;
     panRef.current.y += dy;
     if (rafId.current) cancelAnimationFrame(rafId.current);
-    rafId.current = requestAnimationFrame(() => {
-      applyTransform();
-    });
+    rafId.current = requestAnimationFrame(applyTransform);
   }, [applyTransform]);
 
-  // --- Drag handlers (unified pointer events — works for mouse + touch) ---
-  const handlePointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    // Don't block drag starting on cards — touch needs it
-    stopMomentum();
-    isDragging.current = true;
-    hasDragged.current = false;
-    dragStart.current = { x: e.clientX, y: e.clientY };
-    lastPos.current = { x: e.clientX, y: e.clientY };
-    velHistory.current = [];
-    (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
-  }, [stopMomentum]);
+  // Center viewport on mount
+  useEffect(() => {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const centerX = grid.centerCol * CELL + CELL / 2;
+    const centerY = grid.centerRow * CELL + CELL / 2;
+    panRef.current = { x: vw / 2 - centerX, y: vh / 2 - centerY };
+    applyTransform();
+  }, [grid, applyTransform]);
 
-  const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDragging.current) return;
-    const dx = e.clientX - lastPos.current.x;
-    const dy = e.clientY - lastPos.current.y;
-    const totalDx = e.clientX - dragStart.current.x;
-    const totalDy = e.clientY - dragStart.current.y;
-    if (Math.sqrt(totalDx * totalDx + totalDy * totalDy) > 5) hasDragged.current = true;
-    lastPos.current = { x: e.clientX, y: e.clientY };
-    velHistory.current.push({ vx: dx, vy: dy });
-    if (velHistory.current.length > 4) velHistory.current.shift();
-    moveOffset(dx, dy);
-  }, [moveOffset]);
+  // Default to list on small screens
+  useEffect(() => {
+    if (window.innerWidth < 768) setView('list');
+  }, []);
 
-  const handlePointerUp = useCallback(() => {
-    if (!isDragging.current) return;
-    isDragging.current = false;
-    // Momentum from velocity history
-    const hist = velHistory.current;
-    if (hist.length > 0) {
-      const avg = hist.reduce((a, v) => ({ vx: a.vx + v.vx, vy: a.vy + v.vy }), { vx: 0, vy: 0 });
-      startMomentum(avg.vx / hist.length, avg.vy / hist.length);
-    }
-  }, [startMomentum]);
-
-  // Trackpad / wheel
+  // =============================================
+  // Native event listeners for touch + mouse
+  // (bypasses React synthetic events entirely —
+  //  fixes iPad Safari setPointerCapture issues)
+  // =============================================
   useEffect(() => {
     const el = viewportRef.current;
     if (!el || view !== 'canvas') return;
-    const onWheel = (e: WheelEvent) => {
+
+    // --- Shared start/move/end logic ---
+    function onStart(cx: number, cy: number) {
+      stopMomentum();
+      isDragging.current = true;
+      hasDragged.current = false;
+      dragStart.current = { x: cx, y: cy };
+      lastPos.current = { x: cx, y: cy };
+      velHistory.current = [];
+    }
+
+    function onMove(cx: number, cy: number) {
+      if (!isDragging.current) return;
+      const dx = cx - lastPos.current.x;
+      const dy = cy - lastPos.current.y;
+      const totalDx = cx - dragStart.current.x;
+      const totalDy = cy - dragStart.current.y;
+      if (Math.sqrt(totalDx * totalDx + totalDy * totalDy) > DRAG_THRESHOLD) {
+        hasDragged.current = true;
+      }
+      lastPos.current = { x: cx, y: cy };
+      velHistory.current.push({ vx: dx, vy: dy, t: performance.now() });
+      if (velHistory.current.length > 5) velHistory.current.shift();
+      moveOffset(dx, dy);
+    }
+
+    function onEnd() {
+      if (!isDragging.current) return;
+      isDragging.current = false;
+      // Compute velocity from recent history (last 80ms)
+      const now = performance.now();
+      const recent = velHistory.current.filter(v => now - v.t < 80);
+      if (recent.length > 0) {
+        const avg = recent.reduce((a, v) => ({ vx: a.vx + v.vx, vy: a.vy + v.vy }), { vx: 0, vy: 0 });
+        startMomentum(avg.vx / recent.length, avg.vy / recent.length);
+      }
+    }
+
+    // --- Touch handlers ---
+    function handleTouchStart(e: TouchEvent) {
+      // Prevent Safari bounce/scroll — critical for canvas panning
+      e.preventDefault();
+      const t = e.touches[0];
+      onStart(t.clientX, t.clientY);
+    }
+
+    function handleTouchMove(e: TouchEvent) {
+      e.preventDefault();
+      const t = e.touches[0];
+      onMove(t.clientX, t.clientY);
+    }
+
+    function handleTouchEnd(e: TouchEvent) {
+      e.preventDefault();
+      onEnd();
+    }
+
+    // --- Mouse handlers ---
+    function handleMouseDown(e: MouseEvent) {
+      if (e.button !== 0) return; // left click only
+      onStart(e.clientX, e.clientY);
+      // Track mouse globally so drag continues outside viewport
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    }
+
+    function handleMouseMove(e: MouseEvent) {
+      onMove(e.clientX, e.clientY);
+    }
+
+    function handleMouseUp() {
+      onEnd();
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    }
+
+    // --- Wheel (trackpad) ---
+    function handleWheel(e: WheelEvent) {
       e.preventDefault();
       stopMomentum();
       moveOffset(-e.deltaX, -e.deltaY);
+    }
+
+    // Attach — touch must be { passive: false } to allow preventDefault
+    el.addEventListener('touchstart', handleTouchStart, { passive: false });
+    el.addEventListener('touchmove', handleTouchMove, { passive: false });
+    el.addEventListener('touchend', handleTouchEnd, { passive: false });
+    el.addEventListener('touchcancel', handleTouchEnd, { passive: false });
+    el.addEventListener('mousedown', handleMouseDown);
+    el.addEventListener('wheel', handleWheel, { passive: false });
+
+    return () => {
+      el.removeEventListener('touchstart', handleTouchStart);
+      el.removeEventListener('touchmove', handleTouchMove);
+      el.removeEventListener('touchend', handleTouchEnd);
+      el.removeEventListener('touchcancel', handleTouchEnd);
+      el.removeEventListener('mousedown', handleMouseDown);
+      el.removeEventListener('wheel', handleWheel);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
     };
-    el.addEventListener('wheel', onWheel, { passive: false });
-    return () => el.removeEventListener('wheel', onWheel);
-  }, [view, moveOffset, stopMomentum]);
+  }, [view, moveOffset, stopMomentum, startMomentum]);
 
   const handleCardClick = useCallback((post: PostData) => {
     if (hasDragged.current) return;
     setSelectedPost(post);
   }, []);
 
-  // Center title position
   const titleX = grid.centerCol * CELL + CELL / 2;
   const titleY = grid.centerRow * CELL + CELL / 2;
 
@@ -362,6 +398,9 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
     <>
       <style>{`
         html, body { margin: 0; padding: 0; overflow: hidden; background: #f5f3ef; }
+        /* Prevent iOS pull-to-refresh and rubber-band */
+        html { overscroll-behavior: none; }
+        body { overscroll-behavior: none; position: fixed; width: 100%; height: 100%; }
       `}</style>
 
       <div style={{ position: 'fixed', inset: 0, background: '#f5f3ef', overflow: 'hidden' }}>
@@ -369,11 +408,15 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
         {view === 'canvas' && (
           <div
             ref={viewportRef}
-            style={{ width: '100%', height: '100%', cursor: 'grab', userSelect: 'none', touchAction: 'none', position: 'relative' }}
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            onPointerCancel={handlePointerUp}
+            style={{
+              width: '100%', height: '100%',
+              cursor: 'grab',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              touchAction: 'none',
+              WebkitTouchCallout: 'none',
+              position: 'relative',
+            }}
           >
             <div
               ref={worldRef}
@@ -384,7 +427,6 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
                 transition: 'filter 0.35s ease',
               }}
             >
-              {/* 5×5 tile grid for infinite wrap */}
               {TILE_OFFSETS.map(({ tx, ty }) => {
                 const isMainTile = tx === 0 && ty === 0;
                 return (
@@ -395,7 +437,6 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
                       transform: `translate(${tx * grid.worldW}px, ${ty * grid.worldH}px)`,
                     }}
                   >
-                    {/* Title only in main tile center */}
                     {isMainTile && (
                       <div style={{
                         position: 'absolute',
@@ -421,7 +462,6 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
                       </div>
                     )}
 
-                    {/* Cards */}
                     {allPosts.map(post => (
                       <PaintingCard
                         key={`${post.id}-${tx}-${ty}`}
