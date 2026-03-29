@@ -249,10 +249,66 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
     isDragging.current = false;
   }, []);
 
+  // Trackpad 2-finger swipe / mouse wheel panning
+  useEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      setOffset(prev => ({ x: prev.x - e.deltaX, y: prev.y - e.deltaY }));
+    };
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, [view]);
+
   const handleCardClick = useCallback((post: PostData) => {
     if (hasDragged.current) return;
     setSelectedPost(post);
   }, []);
+
+  // Compute bounding box of laid-out posts for tiling
+  const worldBounds = useMemo(() => {
+    if (filteredPosts.length === 0) return { minX: 0, maxX: 6000, minY: 0, maxY: 4800, w: 6000, h: 4800 };
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    for (const p of filteredPosts) {
+      if (p.x < minX) minX = p.x;
+      if (p.x > maxX) maxX = p.x;
+      if (p.y < minY) minY = p.y;
+      if (p.y > maxY) maxY = p.y;
+    }
+    // Add margins
+    const margin = 300;
+    minX -= margin; maxX += margin; minY -= margin; maxY += margin;
+    return { minX, maxX, minY, maxY, w: maxX - minX, h: maxY - minY };
+  }, [filteredPosts]);
+
+  // Calculate which tile offsets are visible
+  const tileOffsets = useMemo(() => {
+    const vw = typeof window !== 'undefined' ? window.innerWidth : 1920;
+    const vh = typeof window !== 'undefined' ? window.innerHeight : 1080;
+    const { w, h } = worldBounds;
+    if (w <= 0 || h <= 0) return [{ tx: 0, ty: 0 }];
+
+    // Visible world rectangle
+    const viewMinX = -offset.x;
+    const viewMaxX = -offset.x + vw;
+    const viewMinY = -offset.y;
+    const viewMaxY = -offset.y + vh;
+
+    // How many tiles needed in each direction
+    const startTileX = Math.floor((viewMinX - worldBounds.maxX) / w);
+    const endTileX = Math.ceil((viewMaxX - worldBounds.minX) / w);
+    const startTileY = Math.floor((viewMinY - worldBounds.maxY) / h);
+    const endTileY = Math.ceil((viewMaxY - worldBounds.minY) / h);
+
+    const offsets: { tx: number; ty: number }[] = [];
+    for (let tx = startTileX; tx <= endTileX; tx++) {
+      for (let ty = startTileY; ty <= endTileY; ty++) {
+        offsets.push({ tx, ty });
+      }
+    }
+    return offsets;
+  }, [offset, worldBounds]);
 
   return (
     <>
@@ -273,7 +329,7 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerUp}
           >
-            {/* World */}
+            {/* World — with tiling for infinite canvas */}
             <div style={{
               position: 'absolute',
               top: 0,
@@ -283,7 +339,7 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
               transform: `translate(${offset.x}px, ${offset.y}px)`,
               willChange: 'transform',
             }}>
-              {/* Center title */}
+              {/* Center title (only in main tile) */}
               <div style={{
                 position: 'absolute',
                 left: `${WORLD_CENTER.x}px`,
@@ -329,15 +385,27 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
                 pointerEvents: 'none',
               }} />
 
-              {/* Painting cards */}
-              {filteredPosts.map(post => (
-                <PaintingCard
-                  key={post.id}
-                  post={post}
-                  basePath={basePath}
-                  lang={lang}
-                  onClick={() => handleCardClick(post)}
-                />
+              {/* Tiled painting cards */}
+              {tileOffsets.map(({ tx, ty }) => (
+                <div
+                  key={`tile-${tx}-${ty}`}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    transform: `translate(${tx * worldBounds.w}px, ${ty * worldBounds.h}px)`,
+                  }}
+                >
+                  {filteredPosts.map(post => (
+                    <PaintingCard
+                      key={`${post.id}-${tx}-${ty}`}
+                      post={post}
+                      basePath={basePath}
+                      lang={lang}
+                      onClick={() => handleCardClick(post)}
+                    />
+                  ))}
+                </div>
               ))}
             </div>
           </div>

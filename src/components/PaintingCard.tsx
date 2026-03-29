@@ -8,10 +8,11 @@ interface PaintingCardProps {
   onClick: () => void;
 }
 
+// img = frame - 2*padding(5) = frame - 10; imgH = img * 0.75
 const SIZE_MAP = {
-  small:  { frame: 152, img: 140, imgH: 105 },
-  medium: { frame: 182, img: 170, imgH: 128 },
-  large:  { frame: 218, img: 206, imgH: 155 },
+  small:  { frame: 150, img: 140, imgH: 105 },
+  medium: { frame: 180, img: 170, imgH: 128 },
+  large:  { frame: 216, img: 206, imgH: 155 },
 };
 
 export default function PaintingCard({ post, basePath, lang, onClick }: PaintingCardProps) {
@@ -54,11 +55,9 @@ export default function PaintingCard({ post, basePath, lang, onClick }: Painting
           <img
             src={imgUrl}
             alt={`${post.painting_title} — ${post.painting_artist}`}
-            width={img}
-            height={imgH}
             loading="lazy"
             style={{
-              width: `${img}px`,
+              width: '100%',
               height: `${imgH}px`,
               objectFit: 'cover',
               objectPosition: 'center 40%',
