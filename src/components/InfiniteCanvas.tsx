@@ -417,11 +417,26 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
       document.removeEventListener('mouseup', handleMouseUp);
     }
 
-    // Wheel — no artificial momentum on top of trackpad's own inertia
+    // Wheel (trackpad) — with momentum
+    let wheelTimeout: ReturnType<typeof setTimeout> | null = null;
+    const wheelVel = { vx: 0, vy: 0 };
+
     function handleWheel(e: WheelEvent) {
       e.preventDefault();
       stopMomentum();
-      moveOffset(-e.deltaX, -e.deltaY);
+      const dx = -e.deltaX;
+      const dy = -e.deltaY;
+      moveOffset(dx, dy);
+      wheelVel.vx = dx * 0.5;
+      wheelVel.vy = dy * 0.5;
+      if (wheelTimeout) clearTimeout(wheelTimeout);
+      wheelTimeout = setTimeout(() => {
+        if (Math.abs(wheelVel.vx) + Math.abs(wheelVel.vy) > 1) {
+          startMomentum(wheelVel.vx, wheelVel.vy);
+        }
+        wheelVel.vx = 0;
+        wheelVel.vy = 0;
+      }, 50);
     }
 
     el.addEventListener('touchstart', handleTouchStart, { passive: false });
@@ -440,6 +455,7 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
       el.removeEventListener('wheel', handleWheel);
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+      if (wheelTimeout) clearTimeout(wheelTimeout);
     };
   }, [view, moveOffset, stopMomentum, startMomentum]);
 
@@ -526,6 +542,8 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
               style={{
                 position: 'absolute', top: 0, left: 0, width: 0, height: 0,
                 willChange: 'transform',
+                filter: selectedPost ? 'blur(6px) brightness(0.92)' : 'none',
+                transition: 'filter 0.35s ease',
               }}
             >
               {TILE_OFFSETS.map(({ tx, ty }) => (
