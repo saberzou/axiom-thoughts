@@ -240,11 +240,15 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
 
   const startMomentum = useCallback((vx: number, vy: number) => {
     stopMomentum();
-    let cvx = vx, cvy = vy;
+    // Clamp initial velocity for sanity
+    const maxV = 40;
+    let cvx = Math.max(-maxV, Math.min(maxV, vx));
+    let cvy = Math.max(-maxV, Math.min(maxV, vy));
+    const friction = 0.97; // Smooth, long coast
     const tick = () => {
-      cvx *= 0.92;
-      cvy *= 0.92;
-      if (Math.abs(cvx) + Math.abs(cvy) < 0.3) return;
+      cvx *= friction;
+      cvy *= friction;
+      if (Math.abs(cvx) + Math.abs(cvy) < 0.15) return;
       panRef.current.x += cvx;
       panRef.current.y += cvy;
       applyTransform();
@@ -323,10 +327,10 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
     function onEnd() {
       if (!isDragging.current) return;
       isDragging.current = false;
-      // Compute velocity from recent history (last 80ms)
+      // Compute velocity from recent history (last 120ms for smoother average)
       const now = performance.now();
-      const recent = velHistory.current.filter(v => now - v.t < 80);
-      if (recent.length > 0) {
+      const recent = velHistory.current.filter(v => now - v.t < 120);
+      if (recent.length >= 2) {
         const avg = recent.reduce((a, v) => ({ vx: a.vx + v.vx, vy: a.vy + v.vy }), { vx: 0, vy: 0 });
         startMomentum(avg.vx / recent.length, avg.vy / recent.length);
       }
@@ -385,11 +389,27 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
       document.removeEventListener('mouseup', handleMouseUp);
     }
 
-    // --- Wheel (trackpad) ---
+    // --- Wheel (trackpad) — with momentum ---
+    let wheelTimeout: ReturnType<typeof setTimeout> | null = null;
+    const wheelVel = { vx: 0, vy: 0 };
+
     function handleWheel(e: WheelEvent) {
       e.preventDefault();
       stopMomentum();
-      moveOffset(-e.deltaX, -e.deltaY);
+      const dx = -e.deltaX;
+      const dy = -e.deltaY;
+      moveOffset(dx, dy);
+      // Accumulate velocity for trackpad momentum
+      wheelVel.vx = dx * 0.5;
+      wheelVel.vy = dy * 0.5;
+      if (wheelTimeout) clearTimeout(wheelTimeout);
+      wheelTimeout = setTimeout(() => {
+        if (Math.abs(wheelVel.vx) + Math.abs(wheelVel.vy) > 1) {
+          startMomentum(wheelVel.vx, wheelVel.vy);
+        }
+        wheelVel.vx = 0;
+        wheelVel.vy = 0;
+      }, 50);
     }
 
     // Attach — touch must be { passive: false } to allow preventDefault
@@ -409,6 +429,7 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
       el.removeEventListener('wheel', handleWheel);
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+      if (wheelTimeout) clearTimeout(wheelTimeout);
     };
   }, [view, moveOffset, stopMomentum, startMomentum]);
 
@@ -469,21 +490,22 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
                         left: `${titleX}px`, top: `${titleY}px`,
                         transform: 'translate(-50%, -50%)',
                         textAlign: 'center', pointerEvents: 'none', zIndex: 5,
-                        width: `${CELL}px`,
+                        width: `${CELL - 20}px`,
                       }}>
                         <h1 style={{
-                          color: '#1a1a1a', fontWeight: 300, fontSize: '2rem',
-                          letterSpacing: '0.3em', margin: '0 0 0.3rem',
+                          color: '#1a1a1a', fontWeight: 300, fontSize: '1.3rem',
+                          letterSpacing: '0.2em', margin: '0 0 0.3rem',
                           fontFamily: "'Google Sans', system-ui, sans-serif",
-                          whiteSpace: 'nowrap',
+                          lineHeight: 1.3,
                         }}>
-                          Axiom Thoughts
+                          Axiom<br />Thoughts
                         </h1>
                         <p style={{
-                          color: '#999', fontSize: '0.75rem', letterSpacing: '0.18em', margin: 0,
-                          fontFamily: "'Noto Sans SC', sans-serif", whiteSpace: 'nowrap',
+                          color: '#999', fontSize: '0.6rem', letterSpacing: '0.1em', margin: 0,
+                          fontFamily: "'Noto Sans SC', sans-serif",
+                          lineHeight: 1.5,
                         }}>
-                          一只狐狸读书时留下的脚印
+                          一只狐狸读书时<br />留下的脚印
                         </p>
                       </div>
                     )}
