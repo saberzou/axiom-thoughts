@@ -85,19 +85,20 @@ export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle
         }}
       />
 
-      {/* Drawer panel */}
+      {/* Drawer panel — slides from left, ~50% width on desktop */}
       <div
         ref={scrollRef}
+        className="axiom-drawer-panel"
         style={{
           position: 'fixed',
-          right: 0,
+          left: 0,
           top: 0,
           bottom: 0,
-          width: 'min(420px, 100vw)',
-          transform: `translateX(${isOpen ? '0' : '100%'})`,
+          width: 'min(50vw, 100vw)',
+          transform: `translateX(${isOpen ? '0' : '-100%'})`,
           transition: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
           background: '#fff',
-          borderLeft: '1px solid rgba(0, 0, 0, 0.08)',
+          borderRight: '1px solid rgba(0, 0, 0, 0.08)',
           zIndex: 200,
           overflowY: 'auto',
           overflowX: 'hidden',
@@ -295,6 +296,9 @@ export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle
           border: none;
           border-top: 1px solid rgba(0,0,0,0.08);
           margin: 1.5em 0;
+        }
+        @media (max-width: 768px) {
+          .axiom-drawer-panel { width: 100vw !important; }
         }
       `}</style>
     </>
