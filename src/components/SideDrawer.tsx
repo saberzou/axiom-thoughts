@@ -7,6 +7,7 @@ interface SideDrawerProps {
   lang: string;
   onClose: () => void;
   onLangToggle: () => void;
+  onSetLang?: (lang: string) => void;
 }
 
 // Minimal safe markdown → HTML (trusted content, our own markdown files)
@@ -52,7 +53,7 @@ function mdToHtml(md: string): string {
   return out.join('\n');
 }
 
-export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle }: SideDrawerProps) {
+export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle, onSetLang }: SideDrawerProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -117,12 +118,12 @@ export default function SideDrawer({ post, basePath, lang, onClose, onLangToggle
           borderBottom: '1px solid rgba(0,0,0,0.06)',
           zIndex: 10,
         }}>
-          {/* Lang toggle */}
+          {/* Lang buttons — direct set, not toggle */}
           <div style={{ display: 'flex', gap: '0.25rem' }}>
             {(['zh', 'en'] as const).map(l => (
               <button
                 key={l}
-                onClick={onLangToggle}
+                onClick={() => onSetLang ? onSetLang(l) : onLangToggle()}
                 style={{
                   padding: '0.2rem 0.6rem',
                   borderRadius: '4px',

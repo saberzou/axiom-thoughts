@@ -207,6 +207,14 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
     } catch {}
   }, []);
 
+  const setLangDirect = useCallback((newLang: string) => {
+    setLang(prev => {
+      if (prev === newLang) return prev;
+      try { localStorage.setItem('axiom-lang', newLang); } catch {}
+      return newLang;
+    });
+  }, []);
+
   const handleLangToggle = useCallback(() => {
     setLang(prev => {
       const next = prev === 'zh' ? 'en' : 'zh';
@@ -541,6 +549,7 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
           lang={lang}
           onClose={() => setSelectedPost(null)}
           onLangToggle={handleLangToggle}
+          onSetLang={setLangDirect}
         />
 
         <FilterBar
