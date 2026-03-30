@@ -557,6 +557,7 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
           onViewChange={setView}
           lang={lang}
           onLangToggle={handleLangToggle}
+          onSetLang={setLangDirect}
         />
       </div>
     </>

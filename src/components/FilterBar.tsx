@@ -5,6 +5,7 @@ interface FilterBarProps {
   onViewChange: (view: 'canvas' | 'list') => void;
   lang: string;
   onLangToggle: () => void;
+  onSetLang?: (lang: string) => void;
 }
 
 const btnBase: React.CSSProperties = {
@@ -18,7 +19,7 @@ const btnBase: React.CSSProperties = {
   fontFamily: "'Google Sans', system-ui, sans-serif",
 };
 
-export default function FilterBar({ view, onViewChange, lang, onLangToggle }: FilterBarProps) {
+export default function FilterBar({ view, onViewChange, lang, onLangToggle, onSetLang }: FilterBarProps) {
   return (
     <div style={{
       position: 'fixed',
@@ -71,11 +72,11 @@ export default function FilterBar({ view, onViewChange, lang, onLangToggle }: Fi
       {/* Divider */}
       <div style={{ width: '1px', height: '14px', background: 'rgba(0, 0, 0, 0.08)', margin: '0 0.15rem', flexShrink: 0 }} />
 
-      {/* Language toggle */}
+      {/* Language buttons — direct set */}
       {(['zh', 'en'] as const).map(l => (
         <button
           key={l}
-          onClick={onLangToggle}
+          onClick={() => onSetLang ? onSetLang(l) : onLangToggle()}
           style={{
             ...btnBase,
             padding: '0.25rem 0.5rem',
