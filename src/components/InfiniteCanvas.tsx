@@ -25,6 +25,7 @@ const CELL = 280;
 const CARD_W = 170;
 const CARD_INSET_X = 55;
 const FRAME_PAD = 5;
+const MAT_PAD = 12;  // must match PaintingCard
 const SRC_W = 800;
 const DRAG_THRESHOLD = 8; // px before we consider it a drag (not tap)
 
@@ -49,9 +50,9 @@ function shuffle<T>(arr: T[], seed: number): T[] {
 }
 
 function cardHeight(paintingId: string): number {
-  const imgW = CARD_W - FRAME_PAD * 2;
+  const imgW = CARD_W - FRAME_PAD * 2 - MAT_PAD * 2;
   const srcH = PAINTING_HEIGHTS[paintingId] || 600;
-  return Math.round(imgW * (srcH / SRC_W)) + FRAME_PAD * 2;
+  return Math.round(imgW * (srcH / SRC_W)) + FRAME_PAD * 2 + MAT_PAD * 2;
 }
 
 interface LayoutedPost extends PostData {

@@ -10,6 +10,7 @@ interface PaintingCardProps {
 }
 
 const FRAME_PAD = 5; // px padding inside black frame
+const MAT_PAD = 12;  // white mat (passepartout) between frame and image
 const SRC_WIDTH = 800; // all source images are 800px wide
 
 export default function PaintingCard({ post, basePath, lang, onClick }: PaintingCardProps) {
@@ -18,7 +19,7 @@ export default function PaintingCard({ post, basePath, lang, onClick }: Painting
   const title = lang === 'en' && post.title_en ? post.title_en : post.title;
 
   const frameW = post.cardWidth;
-  const imgW = frameW - FRAME_PAD * 2;
+  const imgW = frameW - FRAME_PAD * 2 - MAT_PAD * 2;
   // Natural height from real image dimensions
   const srcH = PAINTING_HEIGHTS[post.painting_id] || 600;
   const imgH = Math.round(imgW * (srcH / SRC_WIDTH));
@@ -40,7 +41,7 @@ export default function PaintingCard({ post, basePath, lang, onClick }: Painting
         zIndex: hovered ? 10 : 1,
       }}
     >
-      {/* Simple modern black frame */}
+      {/* Dark frame */}
       <div style={{
         width: `${frameW}px`,
         padding: `${FRAME_PAD}px`,
@@ -49,21 +50,56 @@ export default function PaintingCard({ post, basePath, lang, onClick }: Painting
           ? '0 8px 24px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.1)'
           : '0 4px 12px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.06)',
       }}>
-        <div style={{ overflow: 'hidden', lineHeight: 0, background: '#f0ede8' }}>
-          <img
-            src={imgUrl}
-            alt={`${post.painting_title} — ${post.painting_artist}`}
-            loading="lazy"
-            draggable={false}
-            style={{
-              width: '100%',
-              height: `${imgH}px`,
-              objectFit: 'cover',
-              display: 'block',
-              opacity: hovered ? 1 : 0.92,
-              transition: 'opacity 0.3s ease',
-            }}
-          />
+        {/* White mat / passepartout */}
+        <div style={{
+          padding: `${MAT_PAD}px`,
+          background: '#faf9f6',
+          boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.04)',
+        }}>
+          {/* Image + glass glare container */}
+          <div style={{
+            position: 'relative',
+            overflow: 'hidden',
+            lineHeight: 0,
+            background: '#f0ede8',
+          }}>
+            <img
+              src={imgUrl}
+              alt={`${post.painting_title} — ${post.painting_artist}`}
+              loading="lazy"
+              draggable={false}
+              style={{
+                width: '100%',
+                height: `${imgH}px`,
+                objectFit: 'cover',
+                display: 'block',
+                opacity: hovered ? 1 : 0.92,
+                transition: 'opacity 0.3s ease',
+              }}
+            />
+            {/* Glass / acrylic glare */}
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              background: `linear-gradient(
+                135deg,
+                rgba(255,255,255,0.18) 0%,
+                rgba(255,255,255,0.06) 25%,
+                transparent 50%,
+                rgba(255,255,255,0.03) 75%,
+                rgba(255,255,255,0.12) 100%
+              )`,
+              pointerEvents: 'none',
+              mixBlendMode: 'screen',
+            }} />
+            {/* Subtle edge reflection */}
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              boxShadow: 'inset 1px 1px 3px rgba(255,255,255,0.15), inset -1px -1px 2px rgba(0,0,0,0.05)',
+              pointerEvents: 'none',
+            }} />
+          </div>
         </div>
       </div>
 
