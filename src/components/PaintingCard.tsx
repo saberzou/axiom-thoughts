@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useRef, useCallback } from 'react';
 import type { PostData } from './InfiniteCanvas';
 import { PAINTING_HEIGHTS } from '../data/paintingHeights';
 
@@ -9,36 +9,33 @@ interface PaintingCardProps {
   onClick: () => void;
 }
 
-const FRAME_PAD = 5; // px padding inside black frame
-const MAT_PAD = 12;  // white mat (passepartout) between frame and image
-const SRC_WIDTH = 800; // all source images are 800px wide
+const FRAME_PAD = 5;
+const MAT_PAD = 12;
+const SRC_WIDTH = 800;
 
-export default function PaintingCard({ post, basePath, lang, onClick }: PaintingCardProps) {
-  const [hovered, setHovered] = useState(false);
+// Pure CSS hover — no React state, no re-renders
+const PaintingCard = memo(function PaintingCard({ post, basePath, lang, onClick }: PaintingCardProps) {
   const imgUrl = `${basePath}/paintings/${post.painting_id}.jpg`;
   const title = lang === 'en' && post.title_en ? post.title_en : post.title;
 
   const frameW = post.cardWidth;
   const imgW = frameW - FRAME_PAD * 2 - MAT_PAD * 2;
-  // Natural height from real image dimensions
   const srcH = PAINTING_HEIGHTS[post.painting_id] || 600;
   const imgH = Math.round(imgW * (srcH / SRC_WIDTH));
 
   return (
     <div
+      className="canvas-card"
       data-card="true"
       data-post-id={post.id}
       onClick={onClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       style={{
         position: 'absolute',
         left: `${post.x}px`,
         top: `${post.y}px`,
-        transform: `translate(-50%, -50%) scale(${hovered ? 1.03 : 1})`,
-        transition: 'transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease',
+        transform: 'translate(-50%, -50%)',
         cursor: 'pointer',
-        zIndex: hovered ? 10 : 1,
+        zIndex: 1,
       }}
     >
       {/* Dark frame */}
@@ -46,17 +43,15 @@ export default function PaintingCard({ post, basePath, lang, onClick }: Painting
         width: `${frameW}px`,
         padding: `${FRAME_PAD}px`,
         background: '#1a1a1a',
-        boxShadow: hovered
-          ? '0 8px 24px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.1)'
-          : '0 4px 12px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.06)',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.06)',
       }}>
-        {/* White mat / passepartout */}
+        {/* White mat */}
         <div style={{
           padding: `${MAT_PAD}px`,
           background: '#faf9f6',
           boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.04)',
         }}>
-          {/* Image + glass glare container */}
+          {/* Image + glass glare */}
           <div style={{
             position: 'relative',
             overflow: 'hidden',
@@ -67,32 +62,24 @@ export default function PaintingCard({ post, basePath, lang, onClick }: Painting
               src={imgUrl}
               alt={`${post.painting_title} — ${post.painting_artist}`}
               loading="lazy"
+              decoding="async"
               draggable={false}
               style={{
                 width: '100%',
                 height: `${imgH}px`,
                 objectFit: 'cover',
                 display: 'block',
-                opacity: hovered ? 1 : 0.92,
-                transition: 'opacity 0.3s ease',
+                opacity: 0.92,
               }}
             />
-            {/* Glass / acrylic glare */}
+            {/* Glass glare — static, no blend mode change */}
             <div style={{
               position: 'absolute',
               inset: 0,
-              background: `linear-gradient(
-                135deg,
-                rgba(255,255,255,0.18) 0%,
-                rgba(255,255,255,0.06) 25%,
-                transparent 50%,
-                rgba(255,255,255,0.03) 75%,
-                rgba(255,255,255,0.12) 100%
-              )`,
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 25%, transparent 50%, rgba(255,255,255,0.03) 75%, rgba(255,255,255,0.12) 100%)',
               pointerEvents: 'none',
               mixBlendMode: 'screen',
             }} />
-            {/* Subtle edge reflection */}
             <div style={{
               position: 'absolute',
               inset: 0,
@@ -103,12 +90,11 @@ export default function PaintingCard({ post, basePath, lang, onClick }: Painting
         </div>
       </div>
 
-      {/* Hover label */}
-      <div style={{
+      {/* Hover label — CSS-driven visibility */}
+      <div className="canvas-card-label" style={{
         paddingTop: '10px',
-        opacity: hovered ? 1 : 0,
-        transform: `translateY(${hovered ? '0' : '4px'})`,
-        transition: 'opacity 0.2s ease, transform 0.2s cubic-bezier(0.25, 1, 0.5, 1)',
+        opacity: 0,
+        transform: 'translateY(4px)',
         pointerEvents: 'none',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
@@ -132,4 +118,6 @@ export default function PaintingCard({ post, basePath, lang, onClick }: Painting
       </div>
     </div>
   );
-}
+});
+
+export default PaintingCard;

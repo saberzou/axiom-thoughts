@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useCallback, useEffect, useMemo, memo } from 'react';
 import PaintingCard from './PaintingCard';
 import SideDrawer from './SideDrawer';
 import FilterBar from './FilterBar';
@@ -25,9 +25,9 @@ const CELL = 280;
 const CARD_W = 170;
 const CARD_INSET_X = 55;
 const FRAME_PAD = 5;
-const MAT_PAD = 12;  // must match PaintingCard
+const MAT_PAD = 12;
 const SRC_W = 800;
-const DRAG_THRESHOLD = 8; // px before we consider it a drag (not tap)
+const DRAG_THRESHOLD = 8;
 
 function seededRng(seed: number) {
   let s = seed | 1;
@@ -90,7 +90,6 @@ function layoutGrid(posts: PostData[]): GridInfo {
     if (col === centerCol && row === centerRow) continue;
     cells[i] = shuffled[pi++];
   }
-  // Fill remaining cells with duplicates
   const shuffled2 = shuffle(posts, 717);
   let di = 0;
   for (let i = 0; i < totalCells; i++) {
@@ -118,9 +117,43 @@ function layoutGrid(posts: PostData[]): GridInfo {
   return { cols, rows, worldW, worldH, centerCol, centerRow, posts: result };
 }
 
-const TILE_OFFSETS = [-2, -1, 0, 1, 2].flatMap(ty =>
-  [-2, -1, 0, 1, 2].map(tx => ({ tx, ty }))
+// Reduced from 5×5 (25) to 3×3 (9) — more than enough to fill any viewport
+const TILE_RANGE = [-1, 0, 1];
+const TILE_OFFSETS = TILE_RANGE.flatMap(ty =>
+  TILE_RANGE.map(tx => ({ tx, ty }))
 );
+
+// Memoized single tile (avoids re-render of all tiles when one card changes)
+const Tile = memo(function Tile({
+  tx, ty, worldW, worldH, posts, basePath, lang, titleNode, onCardClick,
+}: {
+  tx: number; ty: number; worldW: number; worldH: number;
+  posts: LayoutedPost[]; basePath: string; lang: string;
+  titleNode: React.ReactNode | null;
+  onCardClick: (post: PostData) => void;
+}) {
+  return (
+    <div
+      style={{
+        position: 'absolute', top: 0, left: 0,
+        transform: `translate(${tx * worldW}px, ${ty * worldH}px)`,
+        willChange: 'auto',
+        contain: 'layout style',
+      }}
+    >
+      {titleNode}
+      {posts.map(post => (
+        <PaintingCard
+          key={post.id}
+          post={post}
+          basePath={basePath}
+          lang={lang}
+          onClick={() => onCardClick(post)}
+        />
+      ))}
+    </div>
+  );
+});
 
 // --- List view ---
 function ListView({
@@ -187,7 +220,7 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
   const viewportRef = useRef<HTMLDivElement>(null);
   const worldRef = useRef<HTMLDivElement>(null);
 
-  // All interaction state lives in refs (no re-renders during drag)
+  // Interaction state in refs — zero re-renders during pan
   const panRef = useRef({ x: 0, y: 0 });
   const rafId = useRef(0);
   const isDragging = useRef(false);
@@ -226,18 +259,17 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
 
   const grid = useMemo(() => layoutGrid(posts), [posts]);
   const allPosts = grid.posts;
-
-  // --- Transform helpers (stable via grid ref capture) ---
   const gridRef = useRef(grid);
   gridRef.current = grid;
 
+  // --- Transform: direct DOM mutation, bypasses React entirely ---
   const applyTransform = useCallback(() => {
     if (!worldRef.current) return;
     const { x, y } = panRef.current;
     const { worldW, worldH } = gridRef.current;
     const wx = -((-x % worldW + worldW) % worldW);
     const wy = -((-y % worldH + worldH) % worldH);
-    worldRef.current.style.transform = `translate(${wx}px, ${wy}px)`;
+    worldRef.current.style.transform = `translate3d(${wx}px, ${wy}px, 0)`;
   }, []);
 
   const stopMomentum = useCallback(() => {
@@ -249,11 +281,10 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
 
   const startMomentum = useCallback((vx: number, vy: number) => {
     stopMomentum();
-    // Clamp initial velocity for sanity
     const maxV = 40;
     let cvx = Math.max(-maxV, Math.min(maxV, vx));
     let cvy = Math.max(-maxV, Math.min(maxV, vy));
-    const friction = 0.97; // Smooth, long coast
+    const friction = 0.97;
     const tick = () => {
       cvx *= friction;
       cvy *= friction;
@@ -288,11 +319,9 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
     if (window.innerWidth < 768) setView('list');
   }, []);
 
-  // Stable ref for setSelectedPost so native listeners can access it
   const selectedPostSetter = useRef(setSelectedPost);
   selectedPostSetter.current = setSelectedPost;
 
-  // Post lookup map for tap detection
   const postMap = useMemo(() => {
     const m = new Map<string, PostData>();
     for (const p of allPosts) m.set(p.id, p);
@@ -302,13 +331,12 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
   postMapRef.current = postMap;
 
   // =============================================
-  // Native event listeners for touch + mouse
+  // Native event listeners
   // =============================================
   useEffect(() => {
     const el = viewportRef.current;
     if (!el || view !== 'canvas') return;
 
-    // --- Shared start/move/end logic ---
     function onStart(cx: number, cy: number) {
       stopMomentum();
       isDragging.current = true;
@@ -336,7 +364,6 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
     function onEnd() {
       if (!isDragging.current) return;
       isDragging.current = false;
-      // Compute velocity from recent history (last 120ms for smoother average)
       const now = performance.now();
       const recent = velHistory.current.filter(v => now - v.t < 120);
       if (recent.length >= 2) {
@@ -345,9 +372,7 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
       }
     }
 
-    // --- Touch handlers ---
     function handleTouchStart(e: TouchEvent) {
-      // Prevent Safari bounce/scroll — critical for canvas panning
       e.preventDefault();
       const t = e.touches[0];
       onStart(t.clientX, t.clientY);
@@ -361,29 +386,23 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
 
     function handleTouchEnd(e: TouchEvent) {
       e.preventDefault();
-      // Detect tap (not drag) on a card
       if (!hasDragged.current) {
-        // Find card element at the original touch point
         const elAt = document.elementFromPoint(dragStart.current.x, dragStart.current.y);
         const cardEl = elAt?.closest?.('[data-post-id]') as HTMLElement | null;
         if (cardEl) {
           const postId = cardEl.getAttribute('data-post-id');
           if (postId) {
             const post = postMapRef.current.get(postId);
-            if (post) {
-              selectedPostSetter.current(post);
-            }
+            if (post) selectedPostSetter.current(post);
           }
         }
       }
       onEnd();
     }
 
-    // --- Mouse handlers ---
     function handleMouseDown(e: MouseEvent) {
-      if (e.button !== 0) return; // left click only
+      if (e.button !== 0) return;
       onStart(e.clientX, e.clientY);
-      // Track mouse globally so drag continues outside viewport
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
     }
@@ -398,30 +417,13 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
       document.removeEventListener('mouseup', handleMouseUp);
     }
 
-    // --- Wheel (trackpad) — with momentum ---
-    let wheelTimeout: ReturnType<typeof setTimeout> | null = null;
-    const wheelVel = { vx: 0, vy: 0 };
-
+    // Wheel — no artificial momentum on top of trackpad's own inertia
     function handleWheel(e: WheelEvent) {
       e.preventDefault();
       stopMomentum();
-      const dx = -e.deltaX;
-      const dy = -e.deltaY;
-      moveOffset(dx, dy);
-      // Accumulate velocity for trackpad momentum
-      wheelVel.vx = dx * 0.5;
-      wheelVel.vy = dy * 0.5;
-      if (wheelTimeout) clearTimeout(wheelTimeout);
-      wheelTimeout = setTimeout(() => {
-        if (Math.abs(wheelVel.vx) + Math.abs(wheelVel.vy) > 1) {
-          startMomentum(wheelVel.vx, wheelVel.vy);
-        }
-        wheelVel.vx = 0;
-        wheelVel.vy = 0;
-      }, 50);
+      moveOffset(-e.deltaX, -e.deltaY);
     }
 
-    // Attach — touch must be { passive: false } to allow preventDefault
     el.addEventListener('touchstart', handleTouchStart, { passive: false });
     el.addEventListener('touchmove', handleTouchMove, { passive: false });
     el.addEventListener('touchend', handleTouchEnd, { passive: false });
@@ -438,7 +440,6 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
       el.removeEventListener('wheel', handleWheel);
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
-      if (wheelTimeout) clearTimeout(wheelTimeout);
     };
   }, [view, moveOffset, stopMomentum, startMomentum]);
 
@@ -450,13 +451,58 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
   const titleX = grid.centerCol * CELL + CELL / 2;
   const titleY = grid.centerRow * CELL + CELL / 2;
 
+  // Pre-build title node once
+  const titleNode = useMemo(() => (
+    <div style={{
+      position: 'absolute',
+      left: `${titleX}px`, top: `${titleY}px`,
+      transform: 'translate(-50%, -50%)',
+      textAlign: 'center', pointerEvents: 'none', zIndex: 5,
+      width: `${CELL - 20}px`,
+    }}>
+      <h1 style={{
+        color: '#1a1a1a', fontWeight: 300, fontSize: '1.3rem',
+        letterSpacing: '0.2em', margin: '0 0 0.3rem',
+        fontFamily: "'Google Sans', system-ui, sans-serif",
+        lineHeight: 1.3,
+      }}>
+        Axiom<br />Thoughts
+      </h1>
+      <p style={{
+        color: '#999', fontSize: '0.6rem', letterSpacing: '0.1em', margin: 0,
+        fontFamily: "'Noto Sans SC', sans-serif",
+        lineHeight: 1.5,
+      }}>
+        一只狐狸读书时<br />留下的脚印
+      </p>
+    </div>
+  ), [titleX, titleY]);
+
   return (
     <>
       <style>{`
         html, body { margin: 0; padding: 0; overflow: hidden; background: #f5f3ef; }
-        /* Prevent iOS pull-to-refresh and rubber-band */
         html { overscroll-behavior: none; }
         body { overscroll-behavior: none; position: fixed; width: 100%; height: 100%; }
+        /* Card hover effects — pure CSS, zero JS re-renders */
+        .canvas-card {
+          transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .canvas-card:hover {
+          transform: translate(-50%, -50%) scale(1.03) !important;
+          z-index: 10 !important;
+        }
+        .canvas-card:hover .canvas-card-label {
+          opacity: 1 !important;
+          transform: translateY(0) !important;
+          transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .canvas-card:hover img {
+          opacity: 1 !important;
+        }
+        .canvas-card-label {
+          transition: opacity 0.2s ease, transform 0.2s ease;
+        }
       `}</style>
 
       <div style={{ position: 'fixed', inset: 0, background: '#f5f3ef', overflow: 'hidden' }}>
@@ -472,6 +518,7 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
               touchAction: 'none',
               WebkitTouchCallout: 'none',
               position: 'relative',
+              contain: 'strict',
             }}
           >
             <div
@@ -479,58 +526,20 @@ export default function InfiniteCanvas({ posts, basePath }: InfiniteCanvasProps)
               style={{
                 position: 'absolute', top: 0, left: 0, width: 0, height: 0,
                 willChange: 'transform',
-                filter: selectedPost ? 'blur(6px) brightness(0.92)' : 'none',
-                transition: 'filter 0.35s ease',
               }}
             >
-              {TILE_OFFSETS.map(({ tx, ty }) => {
-                const isMainTile = tx === 0 && ty === 0;
-                return (
-                  <div
-                    key={`tile-${tx}-${ty}`}
-                    style={{
-                      position: 'absolute', top: 0, left: 0,
-                      transform: `translate(${tx * grid.worldW}px, ${ty * grid.worldH}px)`,
-                    }}
-                  >
-                    {isMainTile && (
-                      <div style={{
-                        position: 'absolute',
-                        left: `${titleX}px`, top: `${titleY}px`,
-                        transform: 'translate(-50%, -50%)',
-                        textAlign: 'center', pointerEvents: 'none', zIndex: 5,
-                        width: `${CELL - 20}px`,
-                      }}>
-                        <h1 style={{
-                          color: '#1a1a1a', fontWeight: 300, fontSize: '1.3rem',
-                          letterSpacing: '0.2em', margin: '0 0 0.3rem',
-                          fontFamily: "'Google Sans', system-ui, sans-serif",
-                          lineHeight: 1.3,
-                        }}>
-                          Axiom<br />Thoughts
-                        </h1>
-                        <p style={{
-                          color: '#999', fontSize: '0.6rem', letterSpacing: '0.1em', margin: 0,
-                          fontFamily: "'Noto Sans SC', sans-serif",
-                          lineHeight: 1.5,
-                        }}>
-                          一只狐狸读书时<br />留下的脚印
-                        </p>
-                      </div>
-                    )}
-
-                    {allPosts.map(post => (
-                      <PaintingCard
-                        key={`${post.id}-${tx}-${ty}`}
-                        post={post}
-                        basePath={basePath}
-                        lang={lang}
-                        onClick={() => handleCardClick(post)}
-                      />
-                    ))}
-                  </div>
-                );
-              })}
+              {TILE_OFFSETS.map(({ tx, ty }) => (
+                <Tile
+                  key={`tile-${tx}-${ty}`}
+                  tx={tx} ty={ty}
+                  worldW={grid.worldW} worldH={grid.worldH}
+                  posts={allPosts}
+                  basePath={basePath}
+                  lang={lang}
+                  titleNode={tx === 0 && ty === 0 ? titleNode : null}
+                  onCardClick={handleCardClick}
+                />
+              ))}
             </div>
           </div>
         )}
