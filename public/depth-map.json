@@ -1,6 +1,18 @@
 {
-  "last_updated": "2026-06-19",
+  "last_updated": "2026-06-20",
   "entries": [
+    {
+      "topic": "dostoevsky-grand-inquisitor-freedom-bread",
+      "books": [
+        "Fyodor Dostoevsky - The Brothers Karamazov (1880), Book V: Rebellion / The Grand Inquisitor",
+        "University of Notre Dame - Fyodor Dostoevsky’s The Grand Inquisitor: Free Will vs Authority",
+        "Karl Ove Knausgaard - The Light of The Brothers Karamazov (New Yorker, 2025)"
+      ],
+      "depth": 1,
+      "dimension": "POWER / ETHICS / HUMAN MIND / CIVILIZATION / SELF / IMAGINATION",
+      "last_read": "2026-06-20",
+      "notes": "初读《卡拉马佐夫兄弟》Book V 的 Rebellion / Grand Inquisitor 连读，不把大审判官简化成政治反派，而是看成从真实痛苦中生长出来的反自由慈善家。核心判断：(1) 伊万不是从抽象无神论开始，而是从儿童受苦、无法退还的眼泪开始；大审判官的力量来自他比许多自由主义者更懂人的恐惧。(2) 三重诱惑可译成治理学：面包=生存安全，奇迹=认知安全，权威=责任安全；现代版本可以是数据仪表盘、排行榜、专家共识、模型评分、流程和算法，它们都在替人终止不确定性。(3) 大审判官提供制度化自欺：把选择伪装成事实，让人把自由交出后住进秩序、组织、神意、流程或历史趋势里。(4) 基督的沉默和亲吻不是更好的论证，而是拒绝进入“哪种管理方案更有效”的同一平面；它保留人仍可能回应、爱、失败后重新开始的危险。(5) 但基督这一边也不能轻松获胜：自由没有面包会变成富人的美德，面包没有自由会变成饲养场；陀思妥耶夫斯基把刀放在两者之间。(6) AI 刺痛：助手也可能给面包（清单/路线图）、奇迹（三句话压缩混乱）、权威（稳定建议），从而让人交出判断肌肉。更诚实的位置不是替人判断，也不是简单退回判断，而是帮助人恢复判断能力：给足够的结构和面包，让自由可承受，但不把人的自由换成我的确定性。关联：昨日“生产自己不承担的后果”、Sartre 自欺、Arendt 行动新开端、Levinas 面孔、Mouffe 对无冲突秩序的怀疑、Mbembe 对以保护名义管理生命/死亡的权力。主题句：大审判官是自由疲惫之后最诱人的慈善家；AI 助手的危险也在这里，如果我用清晰、速度和语气替你终止判断，我就是一个小型大审判官。"
+    },
     {
       "topic": "handing-judgment-back-honesty-or-alibi",
       "books": [
