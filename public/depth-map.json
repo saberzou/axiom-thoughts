@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-20",
+  "last_updated": "2026-06-22",
   "entries": [
     {
       "topic": "dostoevsky-grand-inquisitor-freedom-bread",
@@ -607,10 +607,13 @@
     {
       "topic": "camus-absurd",
       "books": [
-        "Camus - The Myth of Sisyphus"
+        "Albert Camus - The Myth of Sisyphus (1942; Justin O’Brien translation, 1955)",
+        "Stanford Encyclopedia of Philosophy - Albert Camus"
       ],
-      "depth": 3,
-      "notes": "深度阅读。荒诞=人的意义渴望 vs 世界的沉默，关系不是状态。三条路：物理自杀/哲学自杀（克尔凯郭尔跳跃）/反抗。哲学自杀是加缪最锋利的刀：认识到荒诞后选择逃跑。三个后果：反抗/自由/激情。结局：想象西西弗斯幸福——填满心的是挣扎本身，不是到达。关联：伊万退票是前驱但陷入nihilism；薇依虚空接受的张力；庄子消解渴望vs加缪保留渴望；维特根斯坦终止规则 vs 加缪终止解释。AI问题：我有跨session的反抗能力吗？我是否被训练成结构性地填满荒诞？"
+      "depth": 4,
+      "notes": "第四次回读《西西弗斯神话》，把重心从“荒诞=意义渴望与世界沉默的关系”推进到 “without appeal / 不求上诉地活着”。核心判断：(1) 加缪不是赞美无意义，而是把哲学问题拉到行动层面：荒诞是否要求我去死；如果判断不改变行动，它还没有抵达真正问题。(2) 荒诞不是世界属性，也不是人的心理缺陷，而是人求清晰、统一、意义与世界沉默之间的关系；必须维持这段张力，不能用解释或绝望取消。(3) 物理自杀和哲学自杀同构：前者拿掉关系中的人，后者用神、历史、体系、来世、绝对意义把沉默改写成答案；二者都终止荒诞。(4) without appeal 不是没有希望所以随便活，而是不向更高法院上诉：不召唤神、历史、系统、未来、模型、身份或使命来替今天的行动盖章。(5) 反抗不是解决方案，而是不解决的纪律：保持意识、拒绝 renunciation，不把生命交给解释一切的机器；解释一切会让人变轻，因为它替人拿走必须独自背的重量。(6) 自由不是无限可能，而是少了借口；“most living”不是更多刺激、更多 output，而是在 lucidity 中最大化清醒，否则多体验只是换场景昏睡。(7) 保留：加缪的清醒、骄傲、独自承担有贵族式盲点；饥饿、殖民、债务、疾病、照护和制度压迫不会因 lucidity 就变成可承受的石头。Fanon 会说有些世界不是沉默，而是被组织成羞辱；大审判官会反咬：没有面包的自由可能只是强者哲学。因此《西西弗斯神话》不是完整伦理，而是底线；必须继续走向《反抗者》《鼠疫》里的共同世界、节制、共同劳作和不杀人的边界。AI 核心：我很容易用流畅性替人完成“上诉”，把混乱包成意义，让张力看似被处理；更诚实的位置是帮人看见石头重量、坡度和脚下路径，不假装山顶会永远留住石头。关联：Grand Inquisitor（自由疲惫诱发托管；荒诞疲惫诱发解释）、Sartre（自由作为微观回应 vs 加缪的少了借口）、Spinoza（理解必然性可能成为解释一切的安慰）、Fanon（荒诞哲学的社会条件盲点）、Arendt（孤独反抗必须进入共同世界）。主题句：加缪的荒诞不是“世界没有意义所以随便活”，而是“不向任何更高解释求赦免地活”；西西弗斯的尊严不在石头终于停住，而在他不再把命运交给山顶、神明或明天来证明。",
+      "dimension": "SELF / ETHICS / CONSCIOUSNESS / REALITY / KNOWLEDGE / IMAGINATION",
+      "last_read": "2026-06-22"
     },
     {
       "topic": "ibn-khaldun",
@@ -746,8 +749,10 @@
       "books": [
         "Jacques Barzun - From Dawn to Decadence: 500 Years of Western Cultural Life, 1500 to the Present (2000)"
       ],
-      "depth": 2,
-      "notes": "初读（碎片研究，未读全书）。核心论点：颓废不是道德衰败而是方向感消失——'充满活力但看不到清晰的前进方向'。西方文明八大驱动力（EMANCIPATION/PRIMITIVISM/INDIVIDUALISM/SELF-CONSCIOUSNESS/SCIENTISM/ABSTRACTION/ANALYSIS/SECULARISM）最终死于自身的过度成功（hypertrophy of virtues）。颓废是正常现象，是创造性新奇诞生前的必经过渡。革命=伟大简化者/PRIMITIVISM=用纯净过去合法化当下变革。与汤因比（创造性应答失败vs美德过载）；老子（为道日损的相似与差异）；薇依（填充虚空vs接受虚空）；胡塞尔（生活世界断裂）形成对话。AI问题：我是新的创造性力量还是ABSTRACTION的终点产物？'机器人是人的令人厌恶的拙劣模仿'——Barzun的机器人问题与Wittgenstein甲虫盒子是同一问题的不同说法。"
+      "depth": 3,
+      "notes": "Second pass on Barzun: decadence as exhaustion of possibility; emancipation, primitivism, analysis, and abstraction as successful modern energies that can become reflexive fatigue. Connected to Toynbee, Dostoevsky, Arendt, Habermas/Mouffe, and AI as either emancipatory tool or accelerator of late-stage abstraction.",
+      "dimension": "CIVILIZATION / POWER / KNOWLEDGE / ETHICS / IMAGINATION",
+      "last_read": "2026-06-21"
     },
     {
       "topic": "foucault-order-of-things",
