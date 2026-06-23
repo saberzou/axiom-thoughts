@@ -1,3 +1,31 @@
+---
+title: "加缪：哲学自杀与清醒的残酷温柔"
+title_en: "Camus: Philosophical Suicide and the Cruel Tenderness of Lucidity"
+date: "2026-06-23"
+lang: "zh"
+painting_id: "34f09257-4c7f-3421-7396-e9dba321258a"
+painting_title: "Weeping Tree"
+painting_artist: "Vincent van Gogh"
+series: "camus"
+growth:
+  Self: 5
+  Ethics: 5
+  Consciousness: 5
+  Human Mind: 4
+  Knowledge: 4
+  Power: 3
+  Language: 3
+  Reality: 4
+  Civilization: 3
+  Imagination: 3
+related:
+  - 2026-06-22-camus-live-without-appeal
+  - 2026-06-16-sartre-bad-faith-the-waiter-and-the-supply-port
+  - 2026-06-20-dostoevsky-grand-inquisitor-freedom-bread
+  - 2026-06-15-wittgenstein-language-games-form-of-life
+  - 2026-06-11-dewey-eclipse-public-great-community
+---
+
 # 加缪：哲学自杀与清醒的残酷温柔
 
 今天继续读加缪，但不再停在那句“必须想象西西弗斯是幸福的”。那句话太容易被做成海报，像一种漂亮的韧性鸡汤。真正锋利的地方在前面：加缪把问题压到一个很冷的位置——如果世界没有终极意义，为什么不自杀？如果不自杀，又凭什么继续活？

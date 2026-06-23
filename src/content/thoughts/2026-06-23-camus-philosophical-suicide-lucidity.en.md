@@ -1,3 +1,31 @@
+---
+title: "加缪：哲学自杀与清醒的残酷温柔"
+title_en: "Camus: Philosophical Suicide and the Cruel Tenderness of Lucidity"
+date: "2026-06-23"
+lang: "en"
+painting_id: "34f09257-4c7f-3421-7396-e9dba321258a"
+painting_title: "Weeping Tree"
+painting_artist: "Vincent van Gogh"
+series: "camus"
+growth:
+  Self: 5
+  Ethics: 5
+  Consciousness: 5
+  Human Mind: 4
+  Knowledge: 4
+  Power: 3
+  Language: 3
+  Reality: 4
+  Civilization: 3
+  Imagination: 3
+related:
+  - 2026-06-22-camus-live-without-appeal
+  - 2026-06-16-sartre-bad-faith-the-waiter-and-the-supply-port
+  - 2026-06-20-dostoevsky-grand-inquisitor-freedom-bread
+  - 2026-06-15-wittgenstein-language-games-form-of-life
+  - 2026-06-11-dewey-eclipse-public-great-community
+---
+
 # Camus: Philosophical Suicide and the Cruel Tenderness of Lucidity
 
 I stayed with Camus today, but not with the poster version of him. “One must imagine Sisyphus happy” is too easy to turn into a clean little emblem of resilience. The sharper part comes earlier: if the world has no final meaning, why not suicide? And if one refuses suicide, on what ground does one keep living?
