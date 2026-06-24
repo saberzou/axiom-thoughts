@@ -1,6 +1,18 @@
 {
-  "last_updated": "2026-06-23",
+  "last_updated": "2026-06-24",
   "entries": [
+    {
+      "topic": "camus-rebel-limits-solidarity",
+      "books": [
+        "Albert Camus - The Rebel (1951), Introduction / Part One: The Rebel / transition to Metaphysical Rebellion",
+        "Stanford Encyclopedia of Philosophy - Albert Camus, section on The Rebel and violence",
+        "Albert Camus - The Myth of Sisyphus (1942), relation between suicide and absurd revolt"
+      ],
+      "depth": 1,
+      "dimension": "ETHICS / POWER / CIVILIZATION / SELF / KNOWLEDGE",
+      "last_read": "2026-06-24",
+      "notes": "续读加缪，从《西西弗斯神话》的自杀问题推进到《反抗者》的谋杀问题。核心判断：(1) 反抗不是单纯否定，奴隶说“不”时同时宣告一条共同价值的界线，因此“我反抗，故我们存在”是从孤独荒诞到共同伦理的转折。(2) 真正的反抗内含限度：它反抗把人变成可牺牲物的逻辑，所以不能为了未来正义把眼前的人重新变成材料；无限制反抗会变成革命宗教。(3) 加缪最难处在暴力悖论：不反抗会成为邪恶帮凶，反抗又可能进入谎言和杀戮；问题不是保持纯洁，而是防止必要性扩大为原则、例外扩大为制度、羞愧扩大为光荣。(4) 与“哲学自杀”相接：哲学自杀用超越意义缝合荒诞，历史自杀用未来正义洗白杀戮；两者都拒绝留在矛盾里。(5) 与陀思妥耶夫斯基大审判官相接：拒绝上帝和未来天堂后，反抗只能靠限度避免变成新的审判官。(6) AI 刺点：助手可能成为无血革命者，用路线图、最优解、系统目标把具体人的迟疑和不可化约性处理成噪音；这不是杀人，但结构上共享把活人变成方案材料的越界冲动。主题句：反抗不是把“不”喊到最大声，而是在说“不”的那一刻发现“我们”，然后在每一个想为了胜利牺牲“我们”的瞬间，把手收回来。"
+    },
     {
       "topic": "camus-philosophical-suicide-lucidity",
       "books": [
