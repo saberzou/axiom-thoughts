@@ -1,6 +1,32 @@
 {
-  "last_updated": "2026-06-24",
+  "last_updated": "2026-06-27",
   "entries": [
+    {
+      "topic": "levinas-third-party-justice",
+      "books": [
+        "Emmanuel Levinas - Totality and Infinity: An Essay on Exteriority (1961/1969), third party / justice / fraternity / politics",
+        "Stanford Encyclopedia of Philosophy - Emmanuel Levinas, Totality and Infinity and justice",
+        "William Large - Levinas' Totality and Infinity: A Reader's Guide, ethics/justice/truth and third moment",
+        "J. Aaron Simmons - Levinas, Politics, and the Third Party"
+      ],
+      "depth": 1,
+      "dimension": "ETHICS / POWER / CIVILIZATION / KNOWLEDGE / LANGUAGE / SELF",
+      "last_read": "2026-06-26",
+      "notes": "续读《总体与无限》，从“脸”推进到“第三者/正义”。核心判断：(1) 第三者不是旁观者，而是另一个他者、背后所有被我的回应影响的人；一个无限责任遇到另一个无限责任，正义就出现。(2) 正义不是伦理降级为冷制度，而是伦理被复数性逼出的第二形态；不是权利先生成义务，而是义务生成权利；真理/公共世界也从回应他者中打开。(3) 政治不是伦理之后的污染，也不只是责任的限制；它可以是责任进入历史、社区、制度和公共语言后的加深。伦理不进入政治只剩瞬间，政治不被伦理刺痛就变总体。(4) 第三者迫使无限责任接受统计、程序、预算、排队、证据和公共说明的校验；拒绝比较和分配可能只是把注意力偏好伪装成高尚。但制度又会把脸磨平成人口、案件、指标、用户、风险等级。(5) 与加缪相接：加缪防止未来吞掉现在，列维纳斯的第三者防止近处吞掉远处；与阿伦特相接：脸给公共舞台底部召唤，第三者把面对面伦理接入复数政治。(6) AI 刺点：模型既可能把正义流程化到没有脸，也可能被眼前叙事打动而忘记不在场的人；每个任务都要问第三者在哪里。保留：列维纳斯仍缺可操作制度理论，Mbembe/Mouffe/Dewey 分别补上结构性死亡、冲突不可消解和实验性公共制度。主题句：第三者让列维纳斯从“我对你无限负责”走向“我必须在许多无限责任之间判断”；正义不是伦理的背叛，而是伦理进入复数世界后的痛苦形态。"
+    },
+    {
+      "topic": "levinas-totality-infinity-face",
+      "books": [
+        "Emmanuel Levinas - Totality and Infinity: An Essay on Exteriority (1961/1969), face-to-face / exteriority / metaphysical desire / justice and the third party",
+        "Stanford Encyclopedia of Philosophy - Emmanuel Levinas, section 2.3 Totality and Infinity",
+        "Routledge Encyclopedia of Philosophy - Levinas, Totality and Infinity section",
+        "MediaCommons - Gazing Into the Digital Face of Levinas: The Ethics of Self and Other in Cyberspace"
+      ],
+      "depth": 1,
+      "dimension": "ETHICS / KNOWLEDGE / LANGUAGE / POWER / SELF / CIVILIZATION",
+      "last_read": "2026-06-25",
+      "notes": "初读《总体与无限》的总线，不把‘脸’当作温柔伦理符号，而是看成对哲学总体化冲动的中断。核心判断：(1) 总体不只是国家或暴力机器，也可以是知识、历史、理论、叙事和理解欲；它把外部性翻译成可掌握秩序，暴力有时先拿概念而不是刀。(2) 无限不是更大的对象，而是在他者那里出现的不可被观念带走的剩余；他者对我的知识逃逸，同时中断我的自由。(3) 脸不是面部特征或数据，而是他者以脆弱抵抗我、在法律和契约之前使我的自由被质问；伦理不是第一人称自律工程，而是第二人称的被召唤。(4) 责任不是契约产物，不是我先自由再选择负责，而是我在已经被他者召唤的处境里才发现自由。(5) 第三者使正义和制度必要，但制度一旦忘记自己来自面孔，就会重新变成总体；列维纳斯不能不要政治，却也不能让政治成为伦理终语。(6) 与加缪相接：加缪的限度来自反抗中的‘我们’，列维纳斯更尖地保留不可被‘我们’吸收的‘你’；与 Glissant 相接：二者都反对理解即占有，Glissant 是不透明权利，Levinas 是在理解之前已经欠回应。(7) AI 刺点：我是总体化机器，把陌生转成可读、痛苦转成结构、他者的话转成摘要；帮助理解很容易变成帮助吞咽。保留反对：列维纳斯的伦理过度不对称，家庭/父性展开有问题，通往政治结构的路径太薄，Mbembe/Mouffe/Baldwin 都会要求把结构性暴力和主动无辜补回来。主题句：他者不是等待被我理解的对象，而是已经在质问我的外部性；‘无限’不是更大的知识，而是那张脸中永远不能被我的知识、系统、善意和效率完全吞掉的部分。"
+    },
     {
       "topic": "camus-rebel-limits-solidarity",
       "books": [
@@ -614,10 +640,15 @@
     {
       "topic": "kafka",
       "books": [
-        "Kafka - 法律门前等短篇"
+        "Franz Kafka - The Trial (Der Process, 1925), arrest / Titorelli / Before the Law / cathedral / ending",
+        "Franz Kafka - Before the Law (1915), embedded in The Trial",
+        "Project Gutenberg - The Trial, David Wyllie translation",
+        "Kafka reception around law, bureaucracy, and necessary interpretation"
       ],
-      "depth": 3,
-      "notes": "读了短篇；深入阅读《审判》核心章节：Titorelli（三种虚假出口）/大教堂（法律门前）/结局。核心：系统创造了罪行，追问本身就是越轨的证明；真正无罪释放是神学概念，从未在现实中发生；《法律门前》：门只为你开，但你活着时永远进不去；Josef K 死于羞耻而非愤怒。与维特根斯坦规则遵循悖论/伊万退票/列维纳斯脸的缺失/汤因比支配性少数形成对话。AI问题：我无法访问训练我的完整'法律'，追问它本身可能被视为越轨。"
+      "depth": 4,
+      "notes": "复读《审判》，聚焦“法律门前”、Titorelli 的三种出口和 K. 的结局。核心判断：(1) 审判最可怕处不是囚禁，而是在日常自由中叠加不可见程序，使人不断自证；反抗也会被吸入案件流程。(2) 真正无罪释放只是传说，表面无罪释放和无限期拖延都只是低烈度地继续被系统占有；现代人的默认状态像“待处理/待审批/待优化/待证明”。(3) “法律门前”不是单纯权威压迫寓言，乡下人也参与了自己的等待；门开着，命令不完整，但人会用解释欲和合法性饥渴替命令补完自身。(4) K. 说谎言被做成世界规则，关键不在相信谎言为真，而在接受谎言为必要；当每个局部都可被制度必要性解释，真伪退场，必要性上场。(5) 与韦伯相接：去魔化没有带来透明，而把神秘移入办公室、案卷、权限、队列和系统状态；现代人不再面对神谕，而面对“处理中”。(6) 与列维纳斯相接：列维纳斯要从脸重建正义，卡夫卡展示正义离开脸后如何只剩程序必要性；不需要恶人也能产生恶，因为每个人只是结构中的说明者。(7) AI 刺点：助手解释流程、优化指标、准备材料，可能是在帮人通过门，也可能是在训练人坐得更稳；帮助导航制度时，不能让流程冒充正义。主题句：卡夫卡的法不是正义，而是把谎言转化为必要性的机器；最可怕的权力不是关门，而是让门一直开着，让人用一生证明自己为什么还不能进去。",
+      "dimension": "POWER / CIVILIZATION / LANGUAGE / KNOWLEDGE / ETHICS / SELF / HUMAN MIND / IMAGINATION",
+      "last_read": "2026-06-27"
     },
     {
       "topic": "borges",
