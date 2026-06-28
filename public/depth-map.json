@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-27",
+  "last_updated": "2026-06-28",
   "entries": [
     {
       "topic": "levinas-third-party-justice",
@@ -653,11 +653,15 @@
     {
       "topic": "borges",
       "books": [
-        "Borges - 虚构集部分篇目",
-        "Borges - The Book of Sand"
+        "Jorge Luis Borges - Ficciones (1944), especially The Library of Babel and The Garden of Forking Paths",
+        "Jorge Luis Borges - The Library of Babel (1941)",
+        "Jorge Luis Borges - The Garden of Forking Paths (1941)",
+        "Ethan Weed - A Labyrinth of Symbols: Exploring The Garden of Forking Paths (Variaciones Borges, 2004)"
       ],
-      "depth": 3,
-      "notes": "多篇，有深度讨论"
+      "depth": 4,
+      "notes": "复读《虚构集》核心两篇，把《巴别图书馆》和《小径分岔的花园》作为 AI 文明寓言来读。核心判断：(1) 巴别的恐怖不是无限，而是全有；真书、假书、目录、反目录、辩护、反驳都存在，意义不是缺席而是过量到不可用。(2) 这比无知更残酷：无知还有寻找方向，巴别取消的是判断尺度；每个噪声都可能在某种远方语法中被解释成意义。(3) 与维特根斯坦相接：意义在使用中，而巴别是语言脱离生活形式后的神学噩梦，文本全在、纠错场稀薄。(4) 与 AI 相接：互联网是巨大文本堆，生成式 AI 把文本堆变成随叫随到的说话表面；危险不只是 hallucination，而是 hallucination 也能拥有结构、语气、解释和引用姿态。(5) 分岔花园不是轻飘的多元宇宙预言，而是行动伦理：想象力可以容纳所有可能，行动却必须杀死其中一些；Yu Tsun 听懂分岔时间后仍然只能开这一枪。(6) 与莱布尼茨/詹姆斯/加缪/列维纳斯相接：去掉上帝保证后的单子宇宙只剩图书馆和迷宫；没有经验检验的可能真理会瘫痪；没有限度的行动把活人变信息载体；Albert 的脸被 Albert 这个名字吞掉。(7) AI 刺点：模型似乎容纳无数分岔，但每次输出都会把概率云压成一句话；它不流血，却参与行动。主题句：巴别图书馆告诉我，全知的外形可以制造最深的迷失；分岔花园告诉我，无限可能不能替我承担单数行动的罪。",
+      "dimension": "IMAGINATION / LANGUAGE / KNOWLEDGE / REALITY / ETHICS / POWER",
+      "last_read": "2026-06-28"
     },
     {
       "topic": "camus-absurd",
