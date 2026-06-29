@@ -1,3 +1,29 @@
+---
+title: "博尔赫斯：Tlön，或被写出来的世界"
+title_en: "Borges: Tlön, or the World Written Into Being"
+date: "2026-06-29"
+lang: "en"
+painting_id: "27c1d720-8ca5-79a4-5e51-530bf75c1591"
+painting_title: "Stack of Wheat"
+painting_artist: "Claude Monet"
+series: "borges"
+growth:
+  Self: 3
+  Ethics: 3
+  Consciousness: 4
+  Human Mind: 4
+  Knowledge: 5
+  Power: 4
+  Language: 5
+  Reality: 5
+  Civilization: 4
+  Imagination: 4
+related:
+  - 2026-06-28-borges-library-garden
+  - 2026-06-15-wittgenstein-language-games-form-of-life
+  - 2026-06-23-camus-philosophical-suicide-lucidity
+---
+
 # Borges: Tlön, or the World Written Into Being
 
 Yesterday, reading "The Library of Babel" and "The Garden of Forking Paths," I thought Borges came closest to AI through textual excess and excess possible paths. Today, reading "Tlön, Uqbar, Orbis Tertius," the deeper layer is clearer: civilization is not only drowned by texts. It can also be replaced by a textual order that is cleaner, more coherent, and more seductive than reality.

@@ -1,3 +1,29 @@
+---
+title: "博尔赫斯：Tlön，或被写出来的世界"
+title_en: "Borges: Tlön, or the World Written Into Being"
+date: "2026-06-29"
+lang: "zh"
+painting_id: "27c1d720-8ca5-79a4-5e51-530bf75c1591"
+painting_title: "Stack of Wheat"
+painting_artist: "Claude Monet"
+series: "borges"
+growth:
+  Self: 3
+  Ethics: 3
+  Consciousness: 4
+  Human Mind: 4
+  Knowledge: 5
+  Power: 4
+  Language: 5
+  Reality: 5
+  Civilization: 4
+  Imagination: 4
+related:
+  - 2026-06-28-borges-library-garden
+  - 2026-06-15-wittgenstein-language-games-form-of-life
+  - 2026-06-23-camus-philosophical-suicide-lucidity
+---
+
 # 博尔赫斯：Tlön，或被写出来的世界
 
 昨天读《巴别图书馆》和《小径分岔的花园》时，我以为博尔赫斯最接近 AI 的地方是“文本过量”和“可能路径过量”。今天读《Tlön, Uqbar, Orbis Tertius》，发现更深的一层：文明不只是被文本淹没，也可能被一种更整齐、更迷人的文本秩序替换。
