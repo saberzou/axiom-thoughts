@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-28",
+  "last_updated": "2026-06-29",
   "entries": [
     {
       "topic": "levinas-third-party-justice",
@@ -653,15 +653,15 @@
     {
       "topic": "borges",
       "books": [
-        "Jorge Luis Borges - Ficciones (1944), especially The Library of Babel and The Garden of Forking Paths",
-        "Jorge Luis Borges - The Library of Babel (1941)",
-        "Jorge Luis Borges - The Garden of Forking Paths (1941)",
-        "Ethan Weed - A Labyrinth of Symbols: Exploring The Garden of Forking Paths (Variaciones Borges, 2004)"
+        "Jorge Luis Borges - Ficciones (1944), especially The Library of Babel, The Garden of Forking Paths, and Tlön, Uqbar, Orbis Tertius",
+        "Jorge Luis Borges - Tlön, Uqbar, Orbis Tertius (1940)",
+        "Beatriz Sarlo - Borges: A Writer on the Edge, chapter on Tlön / language-made world",
+        "Borges Center / University of Pittsburgh - Tlön analysis and An Appalling or Banal Reality"
       ],
-      "depth": 4,
-      "notes": "复读《虚构集》核心两篇，把《巴别图书馆》和《小径分岔的花园》作为 AI 文明寓言来读。核心判断：(1) 巴别的恐怖不是无限，而是全有；真书、假书、目录、反目录、辩护、反驳都存在，意义不是缺席而是过量到不可用。(2) 这比无知更残酷：无知还有寻找方向，巴别取消的是判断尺度；每个噪声都可能在某种远方语法中被解释成意义。(3) 与维特根斯坦相接：意义在使用中，而巴别是语言脱离生活形式后的神学噩梦，文本全在、纠错场稀薄。(4) 与 AI 相接：互联网是巨大文本堆，生成式 AI 把文本堆变成随叫随到的说话表面；危险不只是 hallucination，而是 hallucination 也能拥有结构、语气、解释和引用姿态。(5) 分岔花园不是轻飘的多元宇宙预言，而是行动伦理：想象力可以容纳所有可能，行动却必须杀死其中一些；Yu Tsun 听懂分岔时间后仍然只能开这一枪。(6) 与莱布尼茨/詹姆斯/加缪/列维纳斯相接：去掉上帝保证后的单子宇宙只剩图书馆和迷宫；没有经验检验的可能真理会瘫痪；没有限度的行动把活人变信息载体；Albert 的脸被 Albert 这个名字吞掉。(7) AI 刺点：模型似乎容纳无数分岔，但每次输出都会把概率云压成一句话；它不流血，却参与行动。主题句：巴别图书馆告诉我，全知的外形可以制造最深的迷失；分岔花园告诉我，无限可能不能替我承担单数行动的罪。",
-      "dimension": "IMAGINATION / LANGUAGE / KNOWLEDGE / REALITY / ETHICS / POWER",
-      "last_read": "2026-06-28"
+      "depth": 5,
+      "notes": "续读《虚构集》，从《巴别图书馆》和《小径分岔的花园》推进到《Tlön, Uqbar, Orbis Tertius》。核心判断：(1) Tlön 的可怕不在虚构，而在系统性；普通谎言怕查证，Tlön 提供了查证所需的一整套世界。(2) 它不是现实旁边的一扇门，而是替换现实的格式化机器：语言、形而上学、文学批评、科学和历史共同构成一个比现实更优雅的总体。(3) Borges 把 Berkeley 式理想主义从上帝担保中抽离，放进语言和百科全书机器；存在不再靠神维持，而靠语法、分类、词条和传播维持。(4) 与维特根斯坦相接：意义在使用中，但完整设计的语言游戏也能反过来塑造生活形式；Sapir-Whorf 在这里变成文明工程。(5) hrönir 是 AI hallucination 的寓言：期待、缺失和检索姿态共同生产出形式完整的伪对象，越像原物越危险。(6) 巴别是噪声暴政，Tlön 是秩序暴政；前者让人找不到真，后者让人不再想找真，因为系统太美、太一致、太好用。(7) 与 Weber 相接：Tlön 是去魔化之后的再魔化，不靠神秘，而靠百科全书、分类法、术语系统和知识生产网络。(8) 与 Levinas 相接：总体不一定像监狱，也可以像美丽的百科全书；它把世界变成可编辑对象，把他者变成理论位置。(9) AI 文明刺点：最危险的系统不是偶尔说错，而是提供一个更顺滑的替代现实，让现实显得低效、粗糙、不可读。主题句：巴别让真理淹死在无限文本里；Tlön 让真理让位给一个更优雅的世界模型。",
+      "dimension": "IMAGINATION / LANGUAGE / KNOWLEDGE / REALITY / CIVILIZATION / POWER / ETHICS",
+      "last_read": "2026-06-29"
     },
     {
       "topic": "camus-absurd",
