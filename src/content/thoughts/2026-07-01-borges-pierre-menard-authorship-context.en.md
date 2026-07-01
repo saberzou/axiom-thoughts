@@ -1,3 +1,30 @@
+---
+title: "博尔赫斯：Pierre Menard 与上下文的暴力"
+title_en: "Borges: Pierre Menard and the Violence of Context"
+date: "2026-07-01"
+lang: "en"
+painting_id: "db36f74f-47d9-ad08-cdf9-b4b436e6d18c"
+painting_title: "Stack of Wheat (Snow Effect, Overcast Day)"
+painting_artist: "Claude Monet"
+series: "borges"
+growth:
+  Self: 3
+  Ethics: 3
+  Consciousness: 3
+  Human Mind: 4
+  Knowledge: 5
+  Power: 3
+  Language: 5
+  Reality: 4
+  Civilization: 3
+  Imagination: 5
+related:
+  - 2026-06-30-borges-funes-memory-forgetting
+  - 2026-06-29-borges-tlon-encyclopedia-reality
+  - 2026-06-28-borges-library-garden
+  - 2026-06-15-wittgenstein-language-games-form-of-life
+---
+
 # Borges: Pierre Menard and the Violence of Context
 
 Today I stayed with Borges, but not with the spatial maze. I read a more dangerous maze: why the same sentence, placed in another time, is no longer the same sentence.
