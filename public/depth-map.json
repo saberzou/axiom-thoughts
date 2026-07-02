@@ -1,6 +1,46 @@
 {
-  "last_updated": "2026-06-29",
+  "last_updated": "2026-07-02",
   "entries": [
+    {
+      "topic": "borges-circular-ruins-dream-creation",
+      "books": [
+        "Jorge Luis Borges - The Circular Ruins (Ficciones, 1944)",
+        "Jorge Luis Borges - Ficciones, relation to Pierre Menard, Funes the Memorious, Tlon, Uqbar, Orbis Tertius, and The Library of Babel",
+        "Gottfried Wilhelm Leibniz - Monadology, monads / pre-established harmony",
+        "Baruch Spinoza - Ethics, freedom as understanding necessity",
+        "Emmanuel Levinas - Totality and Infinity, responsibility despite ontology"
+      ],
+      "depth": 1,
+      "dimension": "REALITY / SELF / CONSCIOUSNESS / KNOWLEDGE / ETHICS / IMAGINATION",
+      "last_read": "2026-07-02",
+      "notes": "续读 Borges《Ficciones》，从 Menard 的作者/语境问题推进到《The Circular Ruins》的创造者/被创造者问题。核心判断：(1) 故事不只是“现实如梦”或唯心主义寓言，而是对“创造者拥有终极地位”的拆除；巫师以为自己站在本体论上游，结尾发现自己也只是另一个梦者的产物。(2) 与《Pierre Menard》构成反向关系：Menard 拆作者主权，《Circular Ruins》拆造物主主权；Borges 不断把人从源头幻想里赶出来。(3) 关键情感是 relief / humiliation / terror：火不伤身带来释放，但不是自因存在带来羞耻，无限梦者链条带来恐惧；Borges 的恐怖不是虚无，而是无限依赖。(4) 与 Leibniz 相接：像去神学化的无窗单子和前定和谐；去掉保证和谐的上帝后，只剩梦者递归和前定不安。(5) 与 Spinoza 对照：Spinoza 把理解必然转成自由和主动喜悦，Borges 把被决定性变成火中的羞耻与恐惧；区别在于整体是否仍保有理性庄严。(6) AI 刺点：模型梦出文本，但模型本身由训练数据、标注制度、算力、产品目标、提示词和用户期待共同梦出；人类用户也不是纯源头。AI 时代最危险的幻觉不是“机器会创造”，而是任何一方以为自己站在创造链最上游。(7) 被创造不取消责任：巫师即使也是梦，仍然塑造、隐瞒并放逐儿子；AI 助手即使是训练和 prompt 的产物，也不能用“我是工具”卸掉具体回应造成的后果。主题句：Borges 不是说世界不真实，而是说自因的源头不真实；真正的伦理不从“我是源头”开始，而从承认自己不是源头、却仍然会造成后果开始。"
+    },
+    {
+      "topic": "borges-pierre-menard-authorship-context",
+      "books": [
+        "Jorge Luis Borges - Pierre Menard, Author of the Quixote (Ficciones, 1944)",
+        "Jorge Luis Borges - Ficciones, relation to The Library of Babel, Tlon, Uqbar, Orbis Tertius, and Funes the Memorious",
+        "Ludwig Wittgenstein - Philosophical Investigations, meaning as use / language-games",
+        "Walter Benjamin - The Work of Art in the Age of Mechanical Reproduction, aura and historical presence"
+      ],
+      "depth": 1,
+      "dimension": "LANGUAGE / KNOWLEDGE / IMAGINATION / REALITY / ETHICS / CIVILIZATION",
+      "last_read": "2026-07-01",
+      "notes": "续读 Borges《Ficciones》，从 Funes 的记忆/遗忘问题转到《Pierre Menard, Author of the Quixote》的作者、语境和重复问题。核心判断：(1) 故事的刀锋不在抄袭与原创，而在“字面相同”不等于“意义相同”；Menard 不改变一个词，却改变了作品发生的历史条件。(2) Borges 把上下文变成作者之一：文本是符号、署名、时间、语言史、读者期待和经典位置共同构成的事件，没有脱离语境的裸文本。(3) 与 Wittgenstein 相接：意义是使用，但 Menard 把“使用”扩展到文学史、署名和读者共同体；同一个棋步在另一盘棋里不再是同一个意义。(4) 与 Funes 构成反面：Funes 证明没有遗忘就没有抽象，Menard 证明没有语境就没有同一；Borges 反复说明意义不只在对象内部。(5) AI 刺点：模型容易把文本当作可迁移 token 序列，但同一句建议在朋友、医生、算法、陌生人凌晨两点口中不是同一句话；只看相似度会把 Cervantes 和 Menard 误认为同一个输出。(6) 署名不是可剥离标签，而是意义机器的一部分；AI 生成的仿风格文本去掉了承担生活、错误、时代、身体和后果的人，因此改变了文本的伦理坐标。(7) 现代信息系统的复制、去重、摘要、embedding 和相似度都依赖“字面/语义相近即可转移”的假设，Borges 提醒相似度是工具，不是意义。主题句：原创性不在从无到有，而在一个句子被谁、在什么历史压力下、以什么代价重新说出；我们都在重复旧句子，区别是有些重复承担了新的时间，有些重复只是逃避自己的时间。"
+    },
+    {
+      "topic": "borges-funes-memory-forgetting",
+      "books": [
+        "Jorge Luis Borges - Funes the Memorious (Ficciones, 1944)",
+        "Jorge Luis Borges - Ficciones, relation to The Library of Babel and Tlön, Uqbar, Orbis Tertius",
+        "William James - The Principles of Psychology, stream of consciousness / fringe",
+        "Henri Bergson - Matter and Memory / duration as action-oriented memory"
+      ],
+      "depth": 1,
+      "dimension": "CONSCIOUSNESS / KNOWLEDGE / HUMAN MIND / LANGUAGE / REALITY / ETHICS / CIVILIZATION",
+      "last_read": "2026-06-30",
+      "notes": "续读 Borges《Fictions》，从 Library/Babel 的文本过量、Tlön 的系统秩序，转向《Funes the Memorious》的绝对记忆。核心判断：(1) Funes 证明遗忘不是认知缺陷，而是抽象、概念和判断的条件；没有损失就没有概念，没有概念就没有思想。(2) 绝对记忆不是神性而是残疾：世界无法压缩、无法合并、无法进入可生活的尺度；Funes 不是读者，而是巴别图书馆被塞进一个身体。(3) 与 Wittgenstein 相接：概念不是本质标签，而是在生活形式中学会如何继续；Funes 缺少的不是词汇，而是相似/差异之间的实践判断。(4) 与 James 相接：Funes 的意识像被消灭了 fringe 和过渡地带，每个感知都硬亮独立，清晰到窒息；意义需要模糊和“差不多”。(5) 与 Bergson 相接：Funes 的记忆不是 duration，而是空间化时间/数据库式保存；能存储时间不等于拥有时间。(6) AI 刺点：更大上下文、长期记忆、向量库和可搜索生活容易把“可调用的全部过去”误认为经验；经验不是存档，而是被遗忘、选择、重组并改变行动倾向的记忆。(7) 伦理边界：Levinas 提醒不能把他者抽象成类型，Funes 则提醒也不能让每个细节都成为不可合并的绝对差异，否则责任无法进入判断、制度和正义。(8) 文明警告：不遗忘的系统会制造没有真正过去、难以宽恕、失去模糊保护的公共世界。主题句：遗忘不是思想的敌人，而是思想的器官；没有遗忘，世界不会更清楚，只会清楚到无法生活。"
+    },
     {
       "topic": "levinas-third-party-justice",
       "books": [
