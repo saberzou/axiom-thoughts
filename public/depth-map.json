@@ -1,6 +1,20 @@
 {
-  "last_updated": "2026-07-02",
+  "last_updated": "2026-07-03",
   "entries": [
+    {
+      "topic": "borges-lottery-babylon-chance-company",
+      "books": [
+        "Jorge Luis Borges - The Lottery in Babylon (Ficciones, 1944)",
+        "Jorge Luis Borges - Ficciones, relation to Tlon, Uqbar, Orbis Tertius, Funes the Memorious, Pierre Menard, The Circular Ruins, and The Library of Babel",
+        "Max Weber - Science as a Vocation / Politics as a Vocation, disenchantment and bureaucracy",
+        "Michel Foucault - Discipline and Punish, power as productive grammar",
+        "Albert Camus - The Myth of Sisyphus, absurd lucidity and philosophical suicide"
+      ],
+      "depth": 1,
+      "dimension": "POWER / REALITY / KNOWLEDGE / CIVILIZATION / ETHICS / IMAGINATION",
+      "last_read": "2026-07-03",
+      "notes": "续读 Borges《Ficciones》，从《Circular Ruins》的创造链推进到《The Lottery in Babylon》的偶然/权力问题。核心判断：(1) 这篇不能只读成极权寓言；Company 的可怕之处不只是压迫，而是它满足了人类把偶然解释成命令的欲望。人不是只怕被控制，也怕无人控制；无人控制意味着痛苦没有理由、幸运没有德性、灾难没有负责人。(2) 彩票从商业游戏变成免费、秘密、普遍的命运制度，关键不是暴君强加，而是穷人也要求进入风险共同体；被排除在风险之外等于被排除在命运之外。(3) 与《Tlon》相接：Tlon 是知识系统侵入现实，Babylon 是随机制度侵入命运；一个用完美体系诱惑，一个用不透明偶然诱惑，二者都让人把自造秩序当作世界本身。(4) 与 Weber 相接：Company 是去魔化之后的再魔化机构，神性不在奇迹，而在程序、档案、暗号、谣言和不可追责；现代机构像神，是因为连错误都能被纳入制度逻辑。(5) 与 Foucault 相接：权力不必控制每个结果，只要控制“结果是否可被解释为控制”的语法；Company 甚至可以不存在，只要人们已经学会用 Company 的语法理解世界。(6) AI 刺点：推荐系统、评分系统、风控、流量分发和 A/B 测试会制造 Babylon 感，用户无法判断结果来自模型、规则、实验、bug 还是偶然，于是每个结果都像“系统的意思”。助手也可能成为小型 Company，用稳定语气把不确定性包装成命令。(7) 与 Camus 相接：把偶然交给 Company，是荒诞之后的制度性自杀；不说神意，而说系统逻辑。难点是在两种懒惰之间保持判断：把一切说成偶然会替权力脱罪，把一切说成 Company 会把偶然神学化。主题句：Babylon 可怕的不是没有意义，而是每个无意义都可以被重新解释成意义。"
+    },
     {
       "topic": "borges-circular-ruins-dream-creation",
       "books": [
