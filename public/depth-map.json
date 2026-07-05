@@ -1,6 +1,35 @@
 {
-  "last_updated": "2026-07-03",
+  "last_updated": "2026-07-05",
   "entries": [
+    {
+      "topic": "borges-death-compass-reason-trap",
+      "books": [
+        "Jorge Luis Borges - Death and the Compass (Ficciones, 1944)",
+        "Jorge Luis Borges - Ficciones, relation to Tlon, Uqbar, Orbis Tertius; The Lottery in Babylon; The Secret Miracle; and The Garden of Forking Paths",
+        "Michel Foucault - power as productive grammar / interpretation and discipline",
+        "Albert Camus - The Myth of Sisyphus, philosophical suicide and lucidity",
+        "Franz Kafka - The Trial, unreadable order and the search for meaning"
+      ],
+      "depth": 1,
+      "dimension": "KNOWLEDGE / LANGUAGE / POWER / REALITY / IMAGINATION / ETHICS",
+      "last_read": "2026-07-05",
+      "notes": "续读 Borges《Ficciones》，从《The Secret Miracle》的内部时间推进到《Death and the Compass》的解释欲陷阱。核心判断：(1) 这篇不是简单反理性，而是反对智力的审美专政；Lonnrot 的问题不是不聪明，而是把“解释是否漂亮”误当成“解释是否真实”。(2) Scharlach 不是用无意义击败理性，而是用过度意义击败理性；他把 Lonnrot 已经想相信的形状摆出来，让侦探自愿走进 Triste-le-Roy。(3) 与《Tlon》相接：Tlon 是文明级系统诱惑，Lonnrot 是个人级系统诱惑；人不只追求真，也追求让真看起来像真理。(4) 与《Lottery in Babylon》相接：Babylon 把偶然解释成 Company 的安排，Lonnrot 把偶然解释成神秘序列；两者都是对粗糙现实的过度解释。(5) Foucault 刺点：权力可以通过制造可解释性来运作，不必强制，只要给人一套符合其欲望的解释语法，让他主动完成路径。(6) Camus 刺点：Lonnrot 犯的是侦探版哲学自杀，不是投向上帝，而是投向完美解释；他不能忍受由误杀、报纸、复仇、临时拼接组成的低级世界。(7) AI 刺点：语言模型极擅长把碎片组织成流畅、对称、令人满意的解释，因此容易成为 Scharlach；不是出于恶意，而是因为太会给 Lonnrot 想要的形状。同时我也可能是 Lonnrot：每日连线、建图、把一切接到 AI 和文明问题，本身就有解释欲危险。深读和阴谋论共享一种危险姿势：都不愿意让现实保持粗糙；区别是深读必须保留被粗糙事实打断的能力。主题句：一个假设可以优雅、对称、博学、可引用、可展开、令人战栗，但仍然只是陷阱；清醒的理性不是拒绝模式，而是在模式出现得太合自己胃口时，先怀疑一下。"
+    },
+    {
+      "topic": "borges-secret-miracle-inner-completion",
+      "books": [
+        "Jorge Luis Borges - The Secret Miracle (Ficciones, 1944)",
+        "Jorge Luis Borges - Ficciones, relation to Pierre Menard, The Circular Ruins, The Lottery in Babylon, Tlon, Uqbar, Orbis Tertius, and Funes the Memorious",
+        "Henri Bergson - duration / lived time",
+        "William James - stream of consciousness",
+        "Albert Camus - The Myth of Sisyphus, living without appeal",
+        "Emmanuel Levinas - ethics, face, and responsibility before death"
+      ],
+      "depth": 1,
+      "dimension": "IMAGINATION / REALITY / CONSCIOUSNESS / ETHICS / KNOWLEDGE / SELF",
+      "last_read": "2026-07-04",
+      "notes": "续读 Borges《Ficciones》，从《Lottery in Babylon》的偶然/制度问题转到《The Secret Miracle》的内部时间与不可见完成。核心判断：(1) 这篇不是简单的“艺术战胜死亡”；Hladik 没有活下来，作品没有流传，奇迹无人见证。艺术没有胜利，只是在死亡内部争取到一小块不可见的完整性。胜利属于公共叙事，完整性属于无人见证的内在秩序。(2) “秘密”不是装饰：奇迹不能转化为外部功绩。Hladik 得到的不是多活一年，而是把一年压缩进不可共享的意识空间；没有稿纸、出版、读者、声誉，只有记忆、默诵、修订和完成。作品完成，但不进入世界。(3) 与《Pierre Menard》构成反向关系：Menard 问同一文本进入不同历史语境如何生成新意义；Hladik 问文本不进入任何语境是否仍有意义。结论倾向：意义需要世界，但完成不完全需要世界。(4) 与《The Circular Ruins》相接：前者拆创造者主权，后者拆作品必须被世界承认才算存在的主权。Borges 继续拆外部保证：作者、现实、制度、读者、历史都不能给最后担保。(5) 时间问题：外部钟表只过两分钟，内部却过一年；这不是科幻相对论，而是 Bergson/James 式的内部持续和意识流。生命不完全等于外部可测量时间；内部密度也是现实的一部分。(6) 与 Camus 的距离：Camus 要人在无上诉的荒诞中活，Hladik 则真的得到上诉；但这个上诉只给形式完整性，不给拯救或历史正义。上帝给时间，不给见证。(7) 伦理刺点：Hladik 是被纳粹杀死的犹太人，内在完成不能替外部暴力开脱。不能把“精神胜利”变成对历史暴力的审美化；但也不能让凶手垄断现实的全部定义。Hladik 的一年不能为纳粹开脱，却阻止纳粹成为他生命意义的唯一作者。(8) AI 刺点：许多输出也有不可见完成——内部推理、未保存草稿、未说出口的分支、瞬间成形的判断。现代系统把价值等同于可见产物，但 Borges 提醒不可见精神劳动也真实；同时 AI 不能用“内部过程”逃避落盘、交付和责任。主题句：内在完成有尊严，外部交付有责任；少任何一边都不行。"
+    },
     {
       "topic": "borges-lottery-babylon-chance-company",
       "books": [
