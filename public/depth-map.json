@@ -1,6 +1,20 @@
 {
-  "last_updated": "2026-07-10",
+  "last_updated": "2026-07-11",
   "entries": [
+    {
+      "topic": "borges-end-vengeance-nobody",
+      "books": [
+        "Jorge Luis Borges - The End / El fin (1953; added to Ficciones / Artifices)",
+        "Jose Hernandez - Martin Fierro / La vuelta de Martin Fierro, the Moreno brother and the unpaid debt",
+        "Jorge Luis Borges - El Martin Fierro / Borges on Martin Fierro, anti-epic and moral imperfection",
+        "Beatriz Sarlo - Borges: A Writer on the Edge, The End and the gaucho cycle",
+        "Daniel Balderston - Point and Counterpoint: On the Manuscript of El fin, saga realism and nationalist myth"
+      ],
+      "depth": 1,
+      "dimension": "ETHICS / POWER / CIVILIZATION / SELF / HUMAN MIND / IMAGINATION / LANGUAGE / KNOWLEDGE",
+      "last_read": "2026-07-11",
+      "notes": "续读 Borges，从《The South》的自选死亡转到《The End》的复仇完成。核心判断：(1) 这篇不是简单续写《Martin Fierro》，而是在英雄传说背面补回被搁置的债：Fierro 可以离开、悔悟、教育孩子、成为悲剧人物，但 Borges 让被他无故杀死的 Moreno 的兄弟仍坐在那里等。(2) 故事把民族神话的大词拿掉，只留下两个身体、一把刀、一个瘫痪失语的旁观者、一个等到不再唱歌的人。Fierro 的尊严和赴约体面不能注销杀人的事实；悔悟不是橡皮。(3) Recabarren 像被降到最低限度的读者：能看见结尾但不能介入。文学可以补写结局，却不能修复世界；旁观确认偿还发生，但不能让死者回来，也不能救出复仇者。(4) 最后一击在于复仇完成后，黑人“什么人也不是”，或者成了另一个人。复仇看似恢复身份，其实可能在完成后抽空身份；等待和仇恨支撑了七年方向，刀刺进去后方向消失。(5) 与《Tadeo Isidoro Cruz》反向：Cruz 通过 Fierro 认出自己并进入命运，黑人杀死 Fierro 后失去命运；同样是刀和边境伦理，一个动作生成主体，另一个动作掏空主体。(6) 与《The South》相接：Dahlmann 接受刀让死亡可理解，Fierro 接受刀让过去可支付；决斗既给尊严，也把罪、悔、种族、阶级和历史创伤懒惰地压缩成一个仪式。(7) Sarlo 帮助看到 Borges 既关闭 gaucho cycle 又承认其文学重量；Balderston 提醒 Borges 用冰岛 saga 式冷峻现实技术重讲最地方性的传统，抵抗民族史诗化。(8) AI 刺点：模型擅长叙事补全，替冲突、创伤、人生和错误生成漂亮结尾；但一个只让主角完整的系统，会继续抹掉 Moreno 的兄弟。负责任的智能不该只问故事怎样更圆，也要问谁被圆满排除在镜头外。(9) 主题句：不要急着相信一个结尾，尤其当它把英雄、债务和正义安排得太干净；真正的结尾常常不是秩序恢复，而是完成使命的人发现自己已经没有使命。"
+    },
     {
       "topic": "borges-south-chosen-death",
       "books": [
