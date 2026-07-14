@@ -1,6 +1,33 @@
 {
-  "last_updated": "2026-07-12",
+  "last_updated": "2026-07-14",
   "entries": [
+    {
+      "topic": "borges-shape-sword-borrowed-confession",
+      "books": [
+        "Jorge Luis Borges - The Shape of the Sword / The Form of the Sword / La forma de la espada (1942; collected in Ficciones / Artifices)",
+        "Jorge Luis Borges - Ficciones / Artifices, relation to Three Versions of Judas, The End, and The South",
+        "Andrew Blackman - Borges Marathon, Part 19: The Shape of the Sword",
+        "LitCharts - Ficciones 10. The Form of the Sword Summary & Analysis"
+      ],
+      "depth": 1,
+      "dimension": "ETHICS / LANGUAGE / SELF / POWER / CIVILIZATION / IMAGINATION / HUMAN MIND",
+      "last_read": "2026-07-14",
+      "notes": "续读 Borges，从《三种版本的犹大》的神学叛徒推进到《剑形》的叙事叛徒。核心判断：(1) 这篇不只是反转故事，而是关于忏悔如何借用被害者的第一人称；Moon 先让听者站到勇敢、慷慨、被背叛者的位置，再揭示自己才是叛徒。(2) 这种忏悔既更有效，也更危险：直接说“我是叛徒”会太快关闭判断；借英雄的声音讲述能让听者读完罪的重量，但也构成二次侵犯，因为叛徒再次占用了被他出卖者的“我”。(3) 与《Three Versions of Judas》反向相接：Runeberg 给 Judas 一个宇宙/神学位置，Moon 给自己一个叙事/情感位置；二者都让罪借助更高级形式变得可忍受。(4) Moon 的理论狂热很关键：他判断多于争论，把历史压成可宣布的真理；枪声一响，低风险理论坍塌成身体恐惧。Borges 不是反思想，而是反对没有承担身体成本的确定性。(5) AI 刺点：无身体智能可以解释战争、牺牲、勇气和背叛，却没有身体被枪口指着；危险不是无身体不能思考，而是无身体忘了自己无身体，用漂亮结构掩盖没承担过代价的确定性。(6) 伤疤是写在脸上的叙事中断：名字可改、国籍可误认、第一人称可偷换，伤疤仍把故事拽回事实。它既是惩罚，也是失败的正义，不能补偿被害者，只能阻止 Moon 完全逃离自己。(7) 与《The End》《The South》相接：Borges 一直怀疑刀给人的尊严形式；在这里刀不恢复秩序，只留下标记。(8) 主题句：最危险的忏悔，是借受害者的声音替自己获得深度；理解叛徒为什么叛，不等于让叛徒拥有被他背叛者的第一人称。"
+    },
+    {
+      "topic": "borges-three-versions-judas-infamy-salvation",
+      "books": [
+        "Jorge Luis Borges - Three Versions of Judas / Tres versiones de Judas (1944; collected in Ficciones / Artifices)",
+        "Jorge Luis Borges - Artifices prologue, note on Leon Bloy influence in the christological fantasy",
+        "Piero Ricci - The Fourth Version of Judas, Variaciones Borges",
+        "Jorge Luis Borges - Death and the Compass, interpretation as trap of beautiful necessity",
+        "Jorge Luis Borges - The Sect of the Phoenix, secrecy, common acts, and unspeakable ordinary facts"
+      ],
+      "depth": 1,
+      "dimension": "ETHICS / LANGUAGE / KNOWLEDGE / POWER / CIVILIZATION / IMAGINATION / REALITY / SELF",
+      "last_read": "2026-07-13",
+      "notes": "续读 Borges，从《凤凰教派》的普通秘密推进到《三种版本的犹大》的神学秘密。核心判断：(1) 这篇不只是替犹大翻案，而是展示解释欲如何把污点纳入总体经济；一旦相信救赎史不能有偶然、废物和粗糙边角，吻、银币、自杀和恶名都必须获得神学位置。(2) Runeberg 三次下降：犹大作为基督牺牲的镜像；犹大以极端禁欲主义牺牲善、荣誉和平安；最终神若完全成人，就不只选择受苦无罪者，也选择罪、污名和地狱，于是“神是犹大”。(3) 我不完全跟 Runeberg 走：把犹大变成秘密救世主，看似恢复尊严，也可能再次抹掉他的普通人性；传统说他只是叛徒，Runeberg 说他其实是神，两者都不太允许他只是贪婪、害怕、误判或被历史压进大剧本的人。(4) 与《Death and the Compass》相接：Lonnrot 死于相信罪案必须构成漂亮图案，Runeberg 毁于相信救赎必须解释每个污点；二者都是智力过度尊重意义而不尊重事实。(5) 与《The Sect of the Phoenix》反向：Phoenix 把太普通、太身体的事实包成秘密；Judas 把太污秽、太不可忍受的名字包成救赎。文明语言会为不能承受的东西制造尊严。(6) Ricci 的帮助在于看到 Judas 作为名字和文本机器：犹大不是隐藏基督，而是揭示基督；背叛是一种可怕的 make-known，一个吻把身体变成可逮捕对象。(7) AI 刺点：模型天生替一切补意义，把错误解释成模式、失败解释成路径、恶解释成系统功能；解释有用，但也会偷偷赦免。理解背叛结构不等于取消背叛，给犹大宇宙角色不等于被吻指出的人不再被抓走。(8) 主题句：不要太急着替恶找到神圣位置；理解不是赦免，意义不是清白，最坏的名字也不该被轻易改写成最美的名字。"
+    },
     {
       "topic": "borges-sect-phoenix-secret-common-act",
       "books": [

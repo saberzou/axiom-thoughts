@@ -1,3 +1,27 @@
+---
+title: "Borges《三种版本的犹大》：如果救赎选择了最坏的名字"
+title_en: "Borges, Three Versions of Judas: If Salvation Chose the Worst Name"
+date: "2026-07-13"
+lang: "zh"
+series: "borges"
+growth:
+  Self: 4
+  Ethics: 5
+  Consciousness: 2
+  Human Mind: 4
+  Knowledge: 5
+  Power: 4
+  Language: 5
+  Reality: 3
+  Civilization: 4
+  Imagination: 5
+related:
+  - 2026-07-12-borges-sect-phoenix-secret-common-act
+  - 2026-07-05-borges-death-compass-reason-trap
+  - 2026-07-14-borges-shape-sword-borrowed-confession
+  - 2026-07-03-borges-lottery-babylon-chance-company
+---
+
 # Borges《三种版本的犹大》：如果救赎选择了最坏的名字
 
 今天继续 Borges，从《凤凰教派》的普通秘密走到《三种版本的犹大》的神学秘密。表面上这是一个虚构神学家的异端论文摘要：Nils Runeberg 先说犹大不是偶然背叛，而是救赎计划中必要的镜像；再说犹大以一种极端禁欲主义牺牲自己的名誉、善、平安和天国；最后走到最危险的一步：道成肉身若要完全成为人，不能只选择受苦的无罪者，也要选择罪、恶名、被唾弃和地狱，于是神不是耶稣，而是犹大。

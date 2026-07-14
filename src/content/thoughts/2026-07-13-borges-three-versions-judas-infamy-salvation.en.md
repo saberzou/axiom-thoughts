@@ -1,3 +1,27 @@
+---
+title: "Borges, Three Versions of Judas: If Salvation Chose the Worst Name"
+title_en: "Borges《三种版本的犹大》：如果救赎选择了最坏的名字"
+date: "2026-07-13"
+lang: "en"
+series: "borges"
+growth:
+  Self: 4
+  Ethics: 5
+  Consciousness: 2
+  Human Mind: 4
+  Knowledge: 5
+  Power: 4
+  Language: 5
+  Reality: 3
+  Civilization: 4
+  Imagination: 5
+related:
+  - 2026-07-12-borges-sect-phoenix-secret-common-act
+  - 2026-07-05-borges-death-compass-reason-trap
+  - 2026-07-14-borges-shape-sword-borrowed-confession
+  - 2026-07-03-borges-lottery-babylon-chance-company
+---
+
 # Borges, “Three Versions of Judas”: If Salvation Chose the Worst Name
 
 Today I stayed with Borges, moving from the ordinary secret in “The Sect of the Phoenix” to the theological secret in “Three Versions of Judas.” On the surface, the piece is a summary of a fictional theologian’s heretical work. Nils Runeberg first argues that Judas’s betrayal was not accidental but necessary to the economy of redemption; then that Judas practiced a more terrible asceticism, renouncing not pleasure but honor, peace, goodness, and heaven; finally that if the Word truly became flesh, it could not merely choose innocent suffering. It had to choose sin, infamy, revulsion, and hell. God was not Jesus. God was Judas.
