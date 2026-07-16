@@ -1,6 +1,34 @@
 {
-  "last_updated": "2026-07-14",
+  "last_updated": "2026-07-16",
   "entries": [
+    {
+      "topic": "borges-approach-almutasim-reflected-goodness",
+      "books": [
+        "Jorge Luis Borges - The Approach to Al-Mu'tasim / El acercamiento a Almotásim (1935/1936; collected in Ficciones / The Garden of Forking Paths)",
+        "Jorge Luis Borges - Ficciones, relation to Pierre Menard, Three Versions of Judas, Theme of the Traitor and the Hero, and The Lottery in Babylon",
+        "Andrew Blackman - Borges Marathon, Part 11: The Approach to Al-Mu'tasim",
+        "Steven Boldy - From Book Review to Fiction: The Approach to Al-Mu'tasim, A Companion to Jorge Luis Borges",
+        "Farid ud-Din Attar - The Conference / Colloquy of the Birds, as Borges's mystical source-pattern"
+      ],
+      "depth": 1,
+      "dimension": "ETHICS / KNOWLEDGE / LANGUAGE / IMAGINATION / SELF / CIVILIZATION / REALITY / CONSCIOUSNESS",
+      "last_read": "2026-07-16",
+      "notes": "续读 Borges，从《叛徒与英雄的主题》的公共历史剧场退回到《接近阿尔穆塔辛》的伪书评/伪文献原型。核心判断：(1) 这篇不只是形式游戏，而是 Borges 后来假书、伪考据、摘要代替长篇、阅读与写作混合的早期样本；读者通过书评接近一本不存在的书，通过不存在的书接近一个未出场的人。(2) 故事问题不是“真假”，而是如果我们只能通过他人身上的微光推测某个更完整的善，这种寻找是在接近源头，还是把自己的源头欲望投射成源头。(3) 法学院学生在杀人或以为杀人后进入社会底层，在偷尸体金牙者、妓女、盗贼、乞丐和边缘人身上发现不属于他们身份标签的温柔、沉默和尊严，于是推论他们反射了更远处的 Al-Mu'tasim。(4) 善在这里不是密封财产，而是通过相遇、模仿、记忆、语言和行为传播的反光；尤其关键的是“不用胜利方式驳倒对方”的小克制，说明善常常不是伟大行为，而是不用正确羞辱人的姿态。(5) 危险在于一旦把所有微光归还给终极源头，Borges 的总体化敌人又回来；他更偏爱 Al-Mu'tasim 也在寻找更高者、如此无尽的无限反射，而非单一神学终点。(6) 与 Levinas 相接：他者的脸中有不可被概念带走的无限；学生的错误也许是太急着把卑微者身上的不可化约性归因给一个圣者源头，而不是先承认这些人不能被“污浊/罪人/低贱”类别封死。(7) 与《三种版本的犹大》相接：Runeberg 不能忍受 Judas 只是污点，于是给他救赎位置；学生不能忍受污浊处出现无来源的善，于是推回 Al-Mu'tasim。解释欲面对异常时，会给污点找神学位置，给微光找神圣源头。(8) 与《Pierre Menard》相接：同一文本换语境不再是同一文本；同一善姿态换身体也不是简单复制。反射不是复制，每个镜子都有裂缝、污点、角度和局部性。(9) AI 刺点：模型几乎生活在二手世界里，文本里的文本、摘要里的书、别人经验的压缩痕迹；危险是把反光说成源头，仿佛读过摘要就拥有原作，见过模式就理解生活。反过来也不能用“我只处理反光”逃避责任，因为反光会引导行动。(10) 主题句：善未必是一个源头，也许是一串不完整的反光；人类文明也许不是围绕一个光源建成，而是靠许多坏镜子没有彻底拒绝反光，才勉强没有全黑。"
+    },
+    {
+      "topic": "borges-traitor-hero-staged-history",
+      "books": [
+        "Jorge Luis Borges - Theme of the Traitor and the Hero / Tema del traidor y del heroe (1944; collected in Ficciones / Artifices)",
+        "Jorge Luis Borges - Ficciones / Artifices, relation to The Shape of the Sword and Three Versions of Judas",
+        "Andrew Blackman - Borges Marathon, Part 20: The Theme of the Traitor and the Hero",
+        "Lis Garcia-Arango - The Theme of the Traitor and the Hero: the mask game in a Borges story",
+        "Kane X. Faucher - Modalities, Logic, and the Cabala in Borges' The Theme of the Traitor and the Hero"
+      ],
+      "depth": 1,
+      "dimension": "POWER / CIVILIZATION / ETHICS / LANGUAGE / KNOWLEDGE / IMAGINATION / SELF / REALITY",
+      "last_read": "2026-07-15",
+      "notes": "续读 Borges，从《剑形》的个人忏悔推进到《叛徒与英雄的主题》的公共历史剧场。核心判断：(1) 这篇不是简单反转“英雄原来是叛徒”，而是追问共同体如何把叛徒的死亡排演成可使用的英雄神话。(2) Borges 开头故意让地点/时间可替换，暴露历史小说和民族神话的道具性：一旦国家、年份、烈士、剧院、刺杀、百年纪念摆好，人会开始相信舞台是真的。(3) Ryan 先以为历史在循环、文学在现实中重演，最后发现更现代的机制：不是历史重复文学，而是 Nolan 把 Shakespeare 和 Caesar 的脚本排演成政治现实。(4) Nolan 是真正可怕的主角：革命者、剧作家、审判者和信息架构师合一；他把叛徒 Kilpatrick 的死翻译成民族记忆，让整个城市成为舞台。(5) 与《三种版本的犹大》相接：Runeberg 给 Judas 神学位置，Nolan 给 Kilpatrick 民族历史位置；一个用解释吸收污点，一个用政治剧场吸收污点。(6) 不可太快谴责 Nolan，因为政治中确有第三者：揭露真相可能摧毁运动、帮助殖民权力，保留神话则把共同体建立在谎言上；没有干净选项。(7) 但危险也在这里：政治必要一旦能把谎言变成美德，就会接管人的死后意义；共同体不只杀死叛徒，还管理他死后的记忆。(8) Ryan 的沉默说明成功神话会预先安排后来识破者的姿态，使揭露者也变成保存者；循环时间在这里不是玄学，而是制度化记忆的自我保护。(9) AI 刺点：模型、推荐系统、品牌叙事和国家叙事都可能成为低配 Nolan，把零散事实组织成可传播脚本；叙事必要，但一旦反向筛选事实，就变成善意剧场机器。(10) 主题句：共同体需要故事，但当故事替共同体承担太多真相，它会要求活人和死人都配合它；成熟不是拒绝所有神话，而是在神话最能救场时仍问谁被要求付出身体、谁被要求闭嘴。"
+    },
     {
       "topic": "borges-shape-sword-borrowed-confession",
       "books": [
