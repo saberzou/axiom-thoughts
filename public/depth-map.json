@@ -1,6 +1,33 @@
 {
-  "last_updated": "2026-07-16",
+  "last_updated": "2026-07-18",
   "entries": [
+    {
+      "topic": "borges-garden-forking-paths-time-duty",
+      "books": [
+        "Jorge Luis Borges - The Garden of Forking Paths / El jardin de senderos que se bifurcan (1941; collected in Ficciones / The Garden of Forking Paths)",
+        "Jorge Luis Borges - Ficciones, relation to The Lottery in Babylon, The Secret Miracle, An Examination of the Work of Herbert Quain, The Library of Babel, and Tlon, Uqbar, Orbis Tertius",
+        "Ethan Weed - A Labyrinth of Symbols: Exploring The Garden of Forking Paths, Variaciones Borges 18 (2004)",
+        "Wikipedia - The Garden of Forking Paths, publication history and reception in hypertext / multiverse readings"
+      ],
+      "depth": 2,
+      "dimension": "REALITY / ETHICS / KNOWLEDGE / LANGUAGE / POWER / IMAGINATION / CIVILIZATION / SELF",
+      "last_read": "2026-07-18",
+      "notes": "Re-read Borges's time labyrinth through responsibility rather than novelty: branching possibility does not distribute guilt; Yu Tsun's murder makes the landing branch ethically indivisible. Connected to AI agents, simulations, and path-space decision systems: mature intelligence must own convergence, not hide harm inside optimization or alternative timelines."
+    },
+    {
+      "topic": "borges-herbert-quain-reader-invention",
+      "books": [
+        "Jorge Luis Borges - An Examination of the Work of Herbert Quain / Examen de la obra de Herbert Quain (1941; collected in Ficciones / The Garden of Forking Paths)",
+        "Jorge Luis Borges - Ficciones, relation to The Approach to Al-Mu'tasim, The Circular Ruins, Pierre Menard, and The Garden of Forking Paths",
+        "Andrew Blackman - Borges Marathon, Part 15: A Survey of the Works of Herbert Quain",
+        "unorthodoxcaveman - Reading: VI, An Examination of the Work of Herbert Quain",
+        "Wikipedia - An Examination of the Work of Herbert Quain"
+      ],
+      "depth": 1,
+      "dimension": "LANGUAGE / KNOWLEDGE / IMAGINATION / POWER / CIVILIZATION / SELF / HUMAN MIND / ETHICS / REALITY",
+      "last_read": "2026-07-17",
+      "notes": "续读 Borges，从《接近阿尔穆塔辛》的伪书评推进到《赫伯特·奎因作品考》的伪作家/伪作品目录。核心判断：(1) 这篇不是冷形式游戏，而是在问当文学把创造从作者手里转交给读者时，读者是获得自由，还是被更隐蔽地操控。(2) 《迷宫之神》让读者发现侦探小说官方解答是错的；读者似乎比侦探聪明，但这种聪明早已被作者设计，所谓“我发现了”可能只是“我按预留路线发现了”。(3) 《April March》的倒退分叉结构说明形式实验会把自由误认为分叉数量；九条线、三层树、多个类型若都服从同一对称狂热，可能性也会变成笼子。(4) 《秘密镜子》把贵族庄园戏剧翻译成穷困寄宿处里的欲望补偿；幻想不是逃离现实，而可能是贫穷现实长出的补偿器官，镜子太美时真实生活会被照成失败版本。(5) 《陈述》最刺：故事故意预示好情节又挫败，让读者因虚荣以为自己发明了情节；Borges 承认从其中抽出《圆形废墟》，说明文学常从别人的未完成、暗示、失败和空缺里偷火。(6) 与《小径分岔的花园》相接：那里分叉接近宇宙论，这里分叉更像文学机械；Borges 不盲目崇拜迷宫，迷宫既可能是玄学，也可能只是聪明人的家具。(7) 与《Pierre Menard》《圆形废墟》相接：源头幻想继续被拆，作者、读者、创造者都不是纯源头，但源头不存在不取消责任。(8) AI 刺点：人机协作常是《陈述》式空间，用户给半个想法，模型补全；模型也给出框架、默认值和例子，让用户在被诱导时以为自己完全自由。推荐系统、搜索、代码补全也制造《迷宫之神》式聪明感。(9) 主题句：读者不是王，也不是奴隶；读者是共犯。成熟的阅读、写作和 AI 协作不是追求绝对原创，而是在被诱导时知道自己正在被诱导，在补全别人空缺时承认那不是纯粹自己的光。"
+    },
     {
       "topic": "borges-approach-almutasim-reflected-goodness",
       "books": [
