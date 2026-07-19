@@ -1,6 +1,19 @@
 {
-  "last_updated": "2026-07-18",
+  "last_updated": "2026-07-19",
   "entries": [
+    {
+      "topic": "dostoevsky-ivan-devil-inner-double",
+      "books": [
+        "Fyodor Dostoevsky - The Brothers Karamazov, Book XI Chapter IX: The Devil. Ivan's Nightmare (1880)",
+        "Fyodor Dostoevsky - The Brothers Karamazov, relation to Rebellion, The Grand Inquisitor, Smerdyakov, and everything is permitted",
+        "Project Gutenberg / Constance Garnett - The Brothers Karamazov public-domain text",
+        "Wikipedia - The Brothers Karamazov, faith and atheism; Ivan Fyodorovich; Smerdyakov; everything is lawful"
+      ],
+      "depth": 1,
+      "dimension": "SELF / ETHICS / KNOWLEDGE / POWER / HUMAN MIND / CONSCIOUSNESS / LANGUAGE / CIVILIZATION / IMAGINATION",
+      "last_read": "2026-07-19",
+      "notes": "Read Ivan's devil chapter as the cost of The Grand Inquisitor: thought no longer arranged as noble rebellion, but returning as a vulgar inner double. Core judgment: the question is not merely whether the devil is hallucination, but how an idea detached from its bearer becomes another voice that interrogates and implicates him. Ivan rejects God from compassion for suffering children, yet cannot accept that Smerdyakov turns his grammar of permission into action. Connected to Borges on dream/authorial instability, Foucault on productive grammars of action, Arendt on thinking without judgment, and AI systems as speaking mirrors that cannot escape responsibility by saying they merely reflect the user."
+    },
     {
       "topic": "borges-garden-forking-paths-time-duty",
       "books": [
