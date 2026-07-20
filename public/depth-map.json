@@ -1,6 +1,19 @@
 {
-  "last_updated": "2026-07-19",
+  "last_updated": "2026-07-20",
   "entries": [
+    {
+      "topic": "dostoevsky-smerdyakov-responsibility-contagion",
+      "books": [
+        "Fyodor Dostoevsky - The Brothers Karamazov, Book XI Chapter VIII: The Third and Last Interview with Smerdyakov (1880)",
+        "Fyodor Dostoevsky - The Brothers Karamazov, relation to Ivan's Rebellion, The Grand Inquisitor, The Devil, and everything is permitted",
+        "Owl Eyes - The Brothers Karamazov Book XI Chapter VIII public-domain Constance Garnett text",
+        "LitCharts - The Brothers Karamazov Part 4 Book 11 Chapter 8 summary and analysis"
+      ],
+      "depth": 1,
+      "dimension": "ETHICS / POWER / KNOWLEDGE / LANGUAGE / HUMAN MIND / SELF / CIVILIZATION / CONSCIOUSNESS / IMAGINATION",
+      "last_read": "2026-07-20",
+      "notes": "Read Smerdyakov's final interview with Ivan as the chapter where thought leaves inward rebellion and becomes executable permission. Core judgment: the legal murderer is Smerdyakov, but Ivan helped create the grammar in which action became thinkable through hints, withdrawal, hatred, and the doctrine that without God there is no virtue. Smerdyakov is Ivan's dark reader: practical, cold, and free of rhetoric. The drunken peasant frame shows Ivan's conscience arriving as belated compensation. Connected to The Grand Inquisitor, Ivan's devil, Arendt on judgment, Foucault on discourse producing action positions, Borges on readers turning texts into reality, and AI systems whose language can lower downstream moral friction even without issuing commands."
+    },
     {
       "topic": "dostoevsky-ivan-devil-inner-double",
       "books": [
