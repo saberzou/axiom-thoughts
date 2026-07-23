@@ -1,6 +1,32 @@
 {
-  "last_updated": "2026-07-20",
+  "last_updated": "2026-07-23",
   "entries": [
+    {
+      "topic": "dostoevsky-ilyusha-memory-education",
+      "books": [
+        "Fyodor Dostoevsky - The Brothers Karamazov, Epilogue Chapter III: Ilusha's Funeral, The Speech at the Stone (1880)",
+        "Fyodor Dostoevsky - The Brothers Karamazov, relation to Ivan's Rebellion, Zosima's responsibility, Dmitri's trial, and the boys / Ilyusha storyline",
+        "Owl Eyes - The Brothers Karamazov Epilogue Chapter III public-domain Constance Garnett text",
+        "LitCharts - The Brothers Karamazov Epilogue Chapter 3 summary and analysis"
+      ],
+      "depth": 1,
+      "dimension": "ETHICS / CIVILIZATION / HUMAN MIND / SELF / KNOWLEDGE / LANGUAGE / POWER / CONSCIOUSNESS / IMAGINATION",
+      "last_read": "2026-07-23",
+      "notes": "Read the final speech at Ilyusha's stone as Dostoevsky's minimum theory of civilization after the adult world has failed: law misjudges Dmitri, Ivan's truth arrives too late, and grief cannot be explained away. Alyosha does not refute Ivan's protest against child suffering; he turns the memory of one suffering child into an obligation the boys must carry. Good childhood memory becomes an ethical counter-witness against future cruelty: even if a person grows wicked, he may remember that he was once kind, brave, and honest. The bread for sparrows gives love a small bodily ritual after death, not a proof of metaphysics. Connected to Zosima's everyone-responsible-for-everyone teaching, Arendt on public truth and shared memory, Borges on unseen completion, and AI long-term memory as an ethical function rather than a database feature."
+    },
+    {
+      "topic": "dostoevsky-judicial-error-public-reason",
+      "books": [
+        "Fyodor Dostoevsky - The Brothers Karamazov, Book XII Chapter V: A Sudden Catastrophe (1880)",
+        "Fyodor Dostoevsky - The Brothers Karamazov, Book XII Chapter XIII: A Corrupter of Thought (1880)",
+        "Fyodor Dostoevsky - The Brothers Karamazov, Book XII Chapter XIV: The Peasants Stand Firm (1880)",
+        "Wikisource - The Brothers Karamazov public-domain Constance Garnett text"
+      ],
+      "depth": 1,
+      "dimension": "KNOWLEDGE / ETHICS / POWER / LANGUAGE / CIVILIZATION / HUMAN MIND / SELF / REALITY / IMAGINATION",
+      "last_read": "2026-07-22",
+      "notes": "Read the trial chapters as the moment private moral truth enters public procedure and loses force. Ivan brings the real confession and money, but too late and through fever, so the court can only process truth as madness. Katerina brings usable evidence mixed with love, shame, revenge, and protection of Ivan; the institution extracts the letter and turns a wounded psyche into fate. Fetyukovitch asks a real ethical question about what makes a father, but his rhetoric nearly rearranges facts into an emotionally correct story. The peasants resist that beautiful story, preserving rough moral intuition while still convicting the wrong man. Connected to Arendt on factual truth and opinion, Borges on fatal pattern-making, and AI systems as courtroom rhetoric machines that can clarify fragments into persuasive narratives without guaranteeing judgment."
+    },
     {
       "topic": "dostoevsky-smerdyakov-responsibility-contagion",
       "books": [
